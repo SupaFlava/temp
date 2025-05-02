@@ -6,7 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/05/02 16:06:45 by rmhazres         ###   ########.fr        #
+#    Updated: 2025/05/02 16:25:36 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ CYAN='\033[0;36m'
 RESET='\033[0m'
 
 CC = cc
+CFLAGS = -Wall -Wextra -Werror -Iincludes
 CFLAGS = -Wall -Wextra -Werror -Iincludes
 LIBFT_FLAGS = -L./libraries -lft
 

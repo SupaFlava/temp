@@ -6,10 +6,11 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/02 16:16:28 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/02 16:25:49 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "minishell.h"
 
 int main()
