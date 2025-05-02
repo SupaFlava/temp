@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 10:28:14 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/02 10:51:15 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:20:57 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdlib.h>
-
+# include "../libft/libft.h"
 #endif
