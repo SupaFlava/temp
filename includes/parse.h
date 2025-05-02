@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   parse.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/05/02 13:18:35 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/02 15:56:46 by jbaetsen      ########   odam.nl         */
+/*   Created: 2025/05/02 15:50:26 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/05/02 15:56:52 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef PARSE_H
+# define PARSE_H
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-# include "signals.h"
-# include "libft.h"
-# include "parse.h"
-
-
+// function prototypes
+char    *read_input(void);
 
 #endif
