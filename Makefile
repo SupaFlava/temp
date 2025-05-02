@@ -6,7 +6,7 @@
 #    By: jbaetsen <jbaetsen@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/05/01 14:58:38 by jbaetsen      ########   odam.nl          #
+#    Updated: 2025/05/02 14:35:05 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,14 +34,14 @@ NAME = minishell
 LIBFT = ./libraries/libft.a
 
 # Source files and object files
-SRC = $(SRC_DIR)/main.c
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/signals/signals.c
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 # Rules
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS) $(LIBFT_FLAGS)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT_FLAGS) -lreadline
 	@echo $(GREEN)"Creating $(NAME)"$(RESET)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
