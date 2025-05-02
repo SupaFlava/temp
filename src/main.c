@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/02 15:09:21 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/02 15:31:05 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main()
 	
     while (line != NULL)
 	{
-		printf("Got: %s\n", line);
+		ft_printf("Got: %s\n", line);
 		add_history(line);
 		free(line);
 	}
