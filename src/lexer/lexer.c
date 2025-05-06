@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:47:24 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/06 15:51:27 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/06 16:25:38 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,7 @@ void    flush_token(char **token, t_token **tokens)
     
 }
 
-int handle_state(int *state, char c, char **token)
-{
-    if (*state = STATE_ESCAPE)
-    {
-        *token = add_char_to_token(*token, c)
-        *state = STATE_DEFAULT;
-        return (1);
-    }
-    if (c == '\'' && *state == STATE_DEFAULT)
-    {
-        *state = STATE_IN_SINGLE_QUOTE;
-        return (1);
-    }
-    if (c == '\'' && *state == STATE_IN_SINGLE_QUOTE)
-    {
-        *state = STATE_DEFAULT;
-        return (1);
-    }
-    if (c == '\"' && state == STATE_DEFAULT)
-    {
-        *state = STATE_IN_DOUBLE_QUOTE
-        return (1);
-    }
-    if (c == '\"' && state == STATE_IN_DOUBLE_QUOTE)
-    {
-        *state = STATE_DEFAULT;
-        return (1);
-    }
-    return (0);   
-}
+
 
 t_token  *lex_input(const char *input)
 {
