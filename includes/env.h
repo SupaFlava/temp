@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 13:18:35 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/06 11:24:16 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/05/03 14:39:22 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/05 12:35:56 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ENV_H
+# define ENV_H
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+int     init_env(t_mshell *shell,char **envp);
+void    env_add_back(t_env **shell, t_env *new_node);
 
-# include "signals.h"
-# include "libft.h"
-# include "parse.h"
-# include "typedefs.h"
-# include "env.h"
-# include "utils.h"
 #endif

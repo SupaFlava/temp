@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 13:18:35 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/06 11:24:16 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/05/06 11:22:37 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/06 11:23:55 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 
-# include "signals.h"
-# include "libft.h"
-# include "parse.h"
-# include "typedefs.h"
-# include "env.h"
-# include "utils.h"
-#endif
+int	shell_init(t_mshell *shell);
+
+# endif

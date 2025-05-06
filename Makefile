@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: jbaetsen <jbaetsen@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/05/02 15:58:35 by jbaetsen      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
+#    Updated: 2025/05/06 11:29:49 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ NAME = minishell
 LIBFT = ./libraries/libft.a
 
 # Source files and object files
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/signals/signals.c $(SRC_DIR)/parser/parser_utils.c
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/signals/signals.c $(SRC_DIR)/parser/parser_utils.c $(SRC_DIR)/env/env_list.c \
+	  $(SRC_DIR)/env/env_utils.c $(SRC_DIR)/utils/shell_init.c
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 # Rules

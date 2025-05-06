@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   typedefs.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 13:18:35 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/06 11:24:16 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/06 11:19:40 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef TYPEDEFS_H
+# define TYPEDEFS_H
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+typedef struct s_env
+{
+    char    *key;
+    char    *value;
+    struct s_env *next;
+} t_env;
 
-# include "signals.h"
-# include "libft.h"
-# include "parse.h"
-# include "typedefs.h"
-# include "env.h"
-# include "utils.h"
-#endif
+typedef struct s_mihell
+{
+    t_env *env_list;
+	char  *line;
+	int		exit_status;
+} t_mshell;
+# endif
