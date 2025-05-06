@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   tokenize_utils.c                                   :+:    :+:            */
+/*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/06 16:04:24 by jbaetsen      ########   odam.nl         */
+/*   Created: 2025/05/06 12:42:53 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/05/06 13:34:26 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+// includes
+# include "libft.h"
+# include "typedefs.h"
 
-int is_escape(char c)
-{
-    return (c == '\\');
-}
+// function prototypes
+int is_operator(char c);
 
-int is_quote(char c)
-{
-    return (c == '\'' || c == '\"');
-}
-
-int is_operator(char c)
-{
-    return (c == '|' || c == '>' || c == '<' || c == '&');
-}
-
-int is_space(char c)
-{
-    return (c == ' ' || c == '\t' || c == '\n'
-        || c == '\v' || c == '\f' || c == '\r');
-}
