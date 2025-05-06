@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 13:18:35 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/06 15:53:58 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/05/06 14:10:03 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/06 15:08:06 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-# include "signals.h"
-# include "libft.h"
-# include "parse.h"
-# include "typedefs.h"
-# include "env.h"
-# include "utils.h"
-# include "builtins.h"
-
-int run_builtin(t_command *cmd, t_mshell *shell);
-
-#endif
+void	*ft_malloc_s(t_mshell shell,size_t size)
+{
+	t_list *new_node;
+	void	 *ptr;
+	
+	ptr = malloc(sizeof(size));
+	if (!ptr)
+		return NULL;
+	
+	new_node  = malloc(sizeof(t_list));
+	if (!new_node)
+	{
+		free(ptr);	
+		return NULL;
+	}
+	new_node->ptr = ptr;
+	new_node->next = shell.mem_list;
+	shell.mem_list = new_node;
+	return (ptr);
+}

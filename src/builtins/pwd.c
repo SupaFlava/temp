@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 13:18:35 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/06 15:53:58 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/05/06 13:44:34 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/06 15:54:57 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-# include "signals.h"
-# include "libft.h"
-# include "parse.h"
-# include "typedefs.h"
-# include "env.h"
-# include "utils.h"
-# include "builtins.h"
-
-int run_builtin(t_command *cmd, t_mshell *shell);
-
-#endif
+int	builtin_pwd()
+{
+	char *buffer;
+	char *result;
+	
+	buffer = malloc(512);
+	result = getcwd(buffer, 512);
+	ft_printf("%s\n",result);
+	return (0);
+}
