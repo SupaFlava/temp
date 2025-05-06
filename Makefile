@@ -6,7 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/05/05 12:38:28 by rmhazres         ###   ########.fr        #
+#    Updated: 2025/05/06 11:29:49 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ LIBFT = ./libraries/libft.a
 
 # Source files and object files
 SRC = $(SRC_DIR)/main.c $(SRC_DIR)/signals/signals.c $(SRC_DIR)/parser/parser_utils.c $(SRC_DIR)/env/env_list.c \
-	  $(SRC_DIR)/env/env_utils.c 
+	  $(SRC_DIR)/env/env_utils.c $(SRC_DIR)/utils/shell_init.c
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 # Rules

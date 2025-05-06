@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/05 12:32:55 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:19:40 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ typedef struct s_env
 typedef struct s_mihell
 {
     t_env *env_list;
+	char  *line;
+	int		exit_status;
 } t_mshell;
 # endif

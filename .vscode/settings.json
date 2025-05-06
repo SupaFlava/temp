@@ -1,6 +1,8 @@
 {
     "files.associations": {
-        "history.h": "c",
-        "readline.h": "c"
-    }
+		"history.h": "c",
+		"readline.h": "c",
+		"env.h": "c",
+		"cstdlib": "c"
+	}
 }

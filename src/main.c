@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/03 16:20:28 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:36:11 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,24 @@ int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	char *line;
 	t_mshell shell;
 
-	ft_bzero(&shell, sizeof(t_mshell));
+	if (shell_init(&shell) == EXIT_FAILURE)
+		return(EXIT_FAILURE);
     setup_signals();
 	init_env(&shell ,envp);
-	
     while (1)
 	{
-        line = read_input();
-        if (line && *line)
-		    add_history(line);
+		
+        shell.line = read_input();
+        if (shell.line && *shell.line)
+		    add_history(shell.line);
         
-		ft_printf("Got: %s\n", line);
-		free(line);
+		ft_printf("Got: %s\n", shell.line);
+		free(shell.line);
+		shell.line = NULL;
 	}
-	//rl_clear_history();
-	clear_history(); // this is for mac
+	rl_clear_history();
+	//clear_history(); // this for mac
     return (0);
 }
