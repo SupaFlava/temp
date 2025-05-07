@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/14 20:54:54 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/06 12:57:25 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/07 18:38:33 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
 # endif
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
 
 typedef struct s_vars
 {
