@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/08 16:34:15 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:19:11 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ int main(int argc, char **argv, char **envp)
         if (shell.line && *shell.line)
 		    add_history(shell.line);
 		run_builtin(&cmd, &shell); // this is a tester
+		shell.tokens = lexer(shell.line);
+		print_tokens(shell.tokens);
+		free_tokens(shell.tokens);
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);
