@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   tester.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 15:47:17 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/08 16:03:29 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/05/06 15:42:35 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/08 16:00:39 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "minishell.h"
 
-char    *read_input(void)
+
+int run_builtin(t_command *cmd, t_mshell *shell)
 {
-    char    *line;
-    
-    line = readline("> ");
-    if (!line)
-    {
-        ft_printf("exiting minishell\n");
-        exit(0);
-    }
-    return (line);
+    if (ft_strncmp(cmd->args[0], "cd", ft_strlen(cmd->args[0])) == 0)
+        return builtin_cd(cmd, shell);
+    else if (ft_strncmp(cmd->args[0], "pwd", ft_strlen(cmd->args[0])) == 0)
+        return builtin_pwd(shell);
+	else if (ft_strncmp(cmd->args[0], "echo",ft_strlen(cmd->args[0])) == 0)
+		return(builtin_echo(shell, cmd->args));
+	else
+		return (0);
 }

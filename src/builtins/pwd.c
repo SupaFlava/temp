@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 15:47:17 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/08 16:03:29 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/05/06 13:44:34 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/08 15:41:51 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char    *read_input(void)
+int	builtin_pwd(t_mshell *shell)
 {
-    char    *line;
-    
-    line = readline("> ");
-    if (!line)
-    {
-        ft_printf("exiting minishell\n");
-        exit(0);
-    }
-    return (line);
+	char *buffer;
+	char *result;
+	
+	buffer = ft_malloc_s(shell ,512, MEM_TEMP);
+	result = getcwd(buffer, 512);
+	ft_printf("%s\n",result);
+	return (0);
 }

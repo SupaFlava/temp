@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 15:47:17 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/08 16:03:29 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/05/06 15:34:16 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/08 16:00:15 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef BUILTINS_H
+# define BUILTINS_H
+
 #include "minishell.h"
 
-char    *read_input(void)
-{
-    char    *line;
-    
-    line = readline("> ");
-    if (!line)
-    {
-        ft_printf("exiting minishell\n");
-        exit(0);
-    }
-    return (line);
-}
+int	builtin_pwd(t_mshell *shell);
+int	builtin_cd();
+int	builtin_echo(t_mshell *shell ,char **args);
+
+
+# endif

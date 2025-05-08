@@ -1,5 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
+<<<<<<< HEAD
+/*                                                        :::      ::::::::   */
+/*   typedefs.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/08 14:27:13 by rmhazres         ###   ########.fr       */
+=======
 /*                                                        ::::::::            */
 /*   typedefs.h                                         :+:    :+:            */
 /*                                                     +:+                    */
@@ -7,6 +16,7 @@
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
 /*   Updated: 2025/05/08 15:52:41 by jbaetsen      ########   odam.nl         */
+>>>>>>> 98c9e99b789698c80b7911da8ff1b62d06c8fe28
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +39,7 @@ typedef enum e_token_type {
 	TOK_WORD,
 	TOK_QUOTED,
 	TOK_PIPE,
-	TOK_REDIR_IN,     // <
+	TOK_REDIR_IN,     //< 
 	TOK_REDIR_OUT,    // >
 	TOK_HEREDOC,      // <<
 	TOK_APPEND,       // >>
@@ -37,7 +47,18 @@ typedef enum e_token_type {
 	TOK_EXIT_STATUS   // $?
 }	t_token_type;
 
+typedef enum e_mem_t {
+	MEM_TEMP,
+	MEM_LONG
+	
+} t_mem_t;
+
 // structs
+typedef struct s_alloc {
+	void *ptr;
+	struct s_alloc *next;	
+} t_alloc;
+
 typedef struct s_env
 {
     char    *key;
@@ -45,6 +66,28 @@ typedef struct s_env
     struct s_env *next;
 } t_env;
 
+<<<<<<< HEAD
+typedef struct s_command
+{
+	char	**args;
+	char	*infile;
+	char	*outfile;
+	int 	append;
+	struct s_command *next;
+} t_command;
+
+typedef struct s_mshell
+{
+    t_env *env_list;
+	t_list *temp_allocs;
+	t_list *long_allocs;
+	char  *line;
+	int		exit_status;
+	t_command cmds;
+} t_mshell;
+
+=======
+>>>>>>> 98c9e99b789698c80b7911da8ff1b62d06c8fe28
 typedef struct s_token
 {
 	void			*content;
