@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/08 12:07:15 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:27:13 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ typedef enum e_token_type {
 	TOK_EXIT_STATUS   // $?
 }	t_token_type;
 
-typedef enum e_alloc_type {
+typedef enum e_mem_t {
 	MEM_TEMP,
 	MEM_LONG
 	
-} t_alloc_type;
+} t_mem_t;
 
 // structs
 typedef struct s_alloc {
@@ -68,8 +68,8 @@ typedef struct s_command
 typedef struct s_mshell
 {
     t_env *env_list;
-	t_alloc *temp_allocs;
-	t_alloc *long_allocs;
+	t_list *temp_allocs;
+	t_list *long_allocs;
 	char  *line;
 	int		exit_status;
 	t_command cmds;

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/06 15:56:40 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:34:15 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int argc, char **argv, char **envp)
     setup_signals();
 	init_env(&shell ,envp);
 	t_command cmd = {
-		.args = (char *[]){"cd", NULL}
+		.args = (char *[]){"echo" ,"-ns" ,"hello" ,"world", NULL}
 	};
 
     while (1)
@@ -31,12 +31,13 @@ int main(int argc, char **argv, char **envp)
         shell.line = read_input();
         if (shell.line && *shell.line)
 		    add_history(shell.line);
-		//ft_printf("Got: %s\n", shell.line);
 		run_builtin(&cmd, &shell); // this is a tester
 		free(shell.line);
 		shell.line = NULL;
+		ft_free(&shell, MEM_TEMP);
 	}
 	rl_clear_history();
+	ft_free(&shell, MEM_LONG);
 	//clear_history(); // this for mac
     return (0);
 }
