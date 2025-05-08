@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/07 18:39:11 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/08 15:52:41 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,20 @@ typedef struct s_env
     struct s_env *next;
 } t_env;
 
-typedef struct s_mihell
-{
-    t_env *env_list;
-	char  *line;
-	int		exit_status;
-} t_mshell;
-
 typedef struct s_token
 {
 	void			*content;
-    t_token_type    type;
+	t_token_type    type;
 	struct s_token	*next;
 }	t_token;
+typedef struct s_mihell
+{
+    t_env		*env_list;
+	char		*line;
+	t_token 	*tokens;
+	int			exit_status;
+} t_mshell;
+
 
 
 # endif

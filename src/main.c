@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/06 11:36:11 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/05/08 16:58:27 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ int main(int argc, char **argv, char **envp)
 		    add_history(shell.line);
         
 		ft_printf("Got: %s\n", shell.line);
+		shell.tokens = lexer(shell.line);
+		print_tokens(shell.tokens);
+		free_tokens(shell.tokens);
 		free(shell.line);
 		shell.line = NULL;
 	}
