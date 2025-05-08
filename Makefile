@@ -1,22 +1,19 @@
 # **************************************************************************** #
 #                                                                              #
-<<<<<<< HEAD
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/05/08 15:43:26 by rmhazres         ###   ########.fr        #
-=======
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
+#    Updated: 2025/05/08 17:41:29 by rmhazres         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 #    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
 #    Updated: 2025/05/08 15:09:44 by jbaetsen      ########   odam.nl          #
->>>>>>> 98c9e99b789698c80b7911da8ff1b62d06c8fe28
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +43,8 @@ LIBFT = ./libraries/libft.a
 # Source files and object files
 SRC = $(SRC_DIR)/main.c $(SRC_DIR)/tester.c $(SRC_DIR)/signals/signals.c $(SRC_DIR)/parser/parser_utils.c $(SRC_DIR)/env/env_list.c \
 	  $(SRC_DIR)/env/env_utils.c $(SRC_DIR)/utils/shell_init.c $(SRC_DIR)/builtins/pwd.c $(SRC_DIR)/builtins/cd.c $(SRC_DIR)/utils/memory.c \
-	  $(SRC_DIR)/builtins/echo.c
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/signals/signals.c $(SRC_DIR)/parser/parser_utils.c $(SRC_DIR)/env/env_list.c \
-	  $(SRC_DIR)/env/env_utils.c $(SRC_DIR)/utils/shell_init.c $(SRC_DIR)/lexer/lexer.c $(SRC_DIR)/lexer/tokenize_utils.c \
-	  $(SRC_DIR)/utils/list_utils.c $(SRC_DIR)/utils/str_utils.c
+	  $(SRC_DIR)/builtins/echo.c $(SRC_DIR)/lexer/tokenize_utils.c $(SRC_DIR)/lexer/lexer.c  $(SRC_DIR)/utils/list_utils.c $(SRC_DIR)/utils/str_utils.c
+
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 # Rules

@@ -6,14 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/08 17:30:19 by rmhazres         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/08 15:52:41 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/08 17:37:20 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,30 +65,23 @@ typedef struct s_command
 	struct s_command *next;
 } t_command;
 
-typedef struct s_mshell
-{
-    t_env *env_list;
-	t_list *temp_allocs;
-	t_list *long_allocs;
-	char  *line;
-	int		exit_status;
-	t_command cmds;
-} t_mshell;
-
 typedef struct s_token
 {
 	void			*content;
 	t_token_type    type;
 	struct s_token	*next;
 }	t_token;
-typedef struct s_mihell
-{
-    t_env		*env_list;
-	char		*line;
-	t_token 	*tokens;
-	int			exit_status;
-} t_mshell;
 
+typedef struct s_mshell
+{
+    t_env *env_list;
+	t_list *temp_allocs;
+	t_list *long_allocs;
+	t_token 	*tokens;
+	char  *line;
+	int		exit_status;
+	t_command cmds;
+} t_mshell;	
 
 
 # endif
