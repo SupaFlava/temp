@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/08 10:47:09 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:07:15 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef enum e_token_type {
 	TOK_WORD,
 	TOK_QUOTED,
 	TOK_PIPE,
-	TOK_REDIR_IN,     // <
+	TOK_REDIR_IN,     //< 
 	TOK_REDIR_OUT,    // >
 	TOK_HEREDOC,      // <<
 	TOK_APPEND,       // >>
@@ -37,7 +37,18 @@ typedef enum e_token_type {
 	TOK_EXIT_STATUS   // $?
 }	t_token_type;
 
+typedef enum e_alloc_type {
+	MEM_TEMP,
+	MEM_LONG
+	
+} t_alloc_type;
+
 // structs
+typedef struct s_alloc {
+	void *ptr;
+	struct s_alloc *next;	
+} t_alloc;
+
 typedef struct s_env
 {
     char    *key;
@@ -54,11 +65,11 @@ typedef struct s_command
 	struct s_command *next;
 } t_command;
 
-
 typedef struct s_mshell
 {
-	t_list *mem_list;
     t_env *env_list;
+	t_alloc *temp_allocs;
+	t_alloc *long_allocs;
 	char  *line;
 	int		exit_status;
 	t_command cmds;

@@ -6,29 +6,31 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:10:03 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/06 15:08:06 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:54:14 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*ft_malloc_s(t_mshell shell,size_t size)
+void	*ft_malloc_s(t_mshell *shell,size_t size , t_alloc_type type)
 {
-	t_list *new_node;
 	void	 *ptr;
+	t_alloc	 *node;
 	
-	ptr = malloc(sizeof(size));
+	ptr = malloc(size);
 	if (!ptr)
-		return NULL;
-	
-	new_node  = malloc(sizeof(t_list));
-	if (!new_node)
+		return (NULL);
+	node = malloc (sizeof(t_alloc));
+	if (!node)
 	{
-		free(ptr);	
-		return NULL;
+		free(ptr);
+		return (NULL);
 	}
-	new_node->ptr = ptr;
-	new_node->next = shell.mem_list;
-	shell.mem_list = new_node;
+	node->ptr = ptr;
+	node->next = (NULL);
+	if (type == MEM_TEMP)
+		ft_lstadd_back(shell->temp_allocs, ptr);
+	else if (type == MEM_LONG)
+		ft_lstadd_back(shell->long_allocs, ptr);
 	return (ptr);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   lexer.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 12:47:24 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/07 18:31:35 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 12:47:24 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/05/08 12:01:43 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	handle_char(t_state *state, char c, char **buffer, t_token tokens)
 	else if (*state == STATE_IN_DOUBLE_QUOTE)
 		handle_double_quote_state(state, c, buffer, tokens);
 	else if (*state == STATE_IN_ENV)
-		handle_env_state(state, c, buffer, tokens)
-	else if
+		handle_env_state(state, c, buffer, tokens);
+
 }
 
 t_token *lexer(const char *input)
@@ -40,7 +40,7 @@ t_token *lexer(const char *input)
 	{
 		c = input[i];
 		// Call a helper to handle transitions and token building
-		handle_char(&state, c, &buffer, &head);
+		handle_char(&state, c, &buffer, *head);
 		i++;
 	}
 
