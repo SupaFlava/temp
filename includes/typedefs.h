@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-<<<<<<< HEAD
 /*                                                        :::      ::::::::   */
 /*   typedefs.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/08 14:27:13 by rmhazres         ###   ########.fr       */
-=======
-/*                                                        ::::::::            */
-/*   typedefs.h                                         :+:    :+:            */
-/*                                                     +:+                    */
+/*   Updated: 2025/05/08 17:30:19 by rmhazres         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
 /*   Updated: 2025/05/08 15:52:41 by jbaetsen      ########   odam.nl         */
->>>>>>> 98c9e99b789698c80b7911da8ff1b62d06c8fe28
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +63,6 @@ typedef struct s_env
     struct s_env *next;
 } t_env;
 
-<<<<<<< HEAD
 typedef struct s_command
 {
 	char	**args;
@@ -86,8 +82,6 @@ typedef struct s_mshell
 	t_command cmds;
 } t_mshell;
 
-=======
->>>>>>> 98c9e99b789698c80b7911da8ff1b62d06c8fe28
 typedef struct s_token
 {
 	void			*content;

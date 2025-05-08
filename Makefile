@@ -44,15 +44,12 @@ NAME = minishell
 LIBFT = ./libraries/libft.a
 
 # Source files and object files
-<<<<<<< HEAD
 SRC = $(SRC_DIR)/main.c $(SRC_DIR)/tester.c $(SRC_DIR)/signals/signals.c $(SRC_DIR)/parser/parser_utils.c $(SRC_DIR)/env/env_list.c \
 	  $(SRC_DIR)/env/env_utils.c $(SRC_DIR)/utils/shell_init.c $(SRC_DIR)/builtins/pwd.c $(SRC_DIR)/builtins/cd.c $(SRC_DIR)/utils/memory.c \
 	  $(SRC_DIR)/builtins/echo.c
-=======
 SRC = $(SRC_DIR)/main.c $(SRC_DIR)/signals/signals.c $(SRC_DIR)/parser/parser_utils.c $(SRC_DIR)/env/env_list.c \
 	  $(SRC_DIR)/env/env_utils.c $(SRC_DIR)/utils/shell_init.c $(SRC_DIR)/lexer/lexer.c $(SRC_DIR)/lexer/tokenize_utils.c \
 	  $(SRC_DIR)/utils/list_utils.c $(SRC_DIR)/utils/str_utils.c
->>>>>>> 98c9e99b789698c80b7911da8ff1b62d06c8fe28
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 # Rules
