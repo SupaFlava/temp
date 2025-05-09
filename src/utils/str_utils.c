@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   str_utils.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 12:12:21 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/08 17:17:29 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   str_utils.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/08 12:12:21 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/05/09 20:08:56 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ char	*ft_strndup(const char *str, size_t n)
 	return (dup);
 }
 
-char *ft_strcpy(char *dst, const char *src)
+char	*ft_strcpy(char *dst, const char *src)
 {
-	size_t i;
-	
+	size_t	i;
+
 	i = 0;
 	while (src[i])
 	{
@@ -49,7 +49,7 @@ char *ft_strcpy(char *dst, const char *src)
 
 int	ft_strcmp(const char *str1, const char *str2)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (str1[i] && str2[i] && str1[i] == str2[i])

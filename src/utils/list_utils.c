@@ -6,24 +6,33 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 14:49:32 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/09 17:18:45 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/09 20:06:36 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-const char *token_type_to_string(t_token_type type)
+const char	*token_type_to_string(t_token_type type)
 {
-	if (type == TOK_WORD) return "WORD";
-	if (type == TOK_QUOTED) return "QUOTED";
-	if (type == TOK_PIPE) return "PIPE";
-	if (type == TOK_REDIR_IN) return "REDIR_IN";
-	if (type == TOK_REDIR_OUT) return "REDIR_OUT";
-	if (type == TOK_HEREDOC) return "HEREDOC";
-	if (type == TOK_APPEND) return "APPEND";
-	if (type == TOK_ENV_VAR) return "ENV_VAR";
-	if (type == TOK_EXIT_STATUS) return "EXIT_STATUS";
-	return "UNKNOWN";
+	if (type == TOK_WORD)
+		return ("WORD");
+	if (type == TOK_QUOTED)
+		return ("QUOTED");
+	if (type == TOK_PIPE)
+		return ("PIPE");
+	if (type == TOK_REDIR_IN)
+		return ("REDIR_IN");
+	if (type == TOK_REDIR_OUT)
+		return ("REDIR_OUT");
+	if (type == TOK_HEREDOC)
+		return ("HEREDOC");
+	if (type == TOK_APPEND)
+		return ("APPEND");
+	if (type == TOK_ENV_VAR)
+		return ("ENV_VAR");
+	if (type == TOK_EXIT_STATUS)
+		return ("EXIT_STATUS");
+	return ("UNKNOWN");
 }
 
 void	print_tokens(t_token *tokens)
@@ -37,7 +46,7 @@ void	print_tokens(t_token *tokens)
 
 void	free_tokens(t_token *tokens)
 {
-	t_token *temp;
+	t_token	*temp;
 
 	while (tokens)
 	{
