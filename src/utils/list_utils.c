@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 14:49:32 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/08 15:54:19 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/09 17:18:45 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	print_tokens(t_token *tokens)
 void	free_tokens(t_token *tokens)
 {
 	t_token *temp;
-	
+
 	while (tokens)
 	{
 		temp = tokens->next;
