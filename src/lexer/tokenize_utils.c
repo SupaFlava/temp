@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/08 16:37:13 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/09 18:14:02 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ void	handle_default_state(t_state *state, char c, char **buffer, t_token **token
 	else if (c == '<')
 	{
 		*state = STATE_IN_REDIR_IN;
+		*buffer = ft_strndup(&c, 1);
+	}
+	else if (c == '>')
+	{
+		*state = STATE_IN_REDIR_OUT;
 		*buffer = ft_strndup(&c, 1);
 	}
 	else if (c == '$')
@@ -66,7 +71,7 @@ void	handle_double_quote(t_state *state, char c, char **buffer, t_token **tokens
 void	handle_env_state(t_state *state, char c, char **buffer, t_token **tokens)
 {
 	t_token_type	type;
-	
+
 	if (!ft_isalnum(c) && c != '_')
 	{
 		if (ft_strncmp(*buffer, "?", ft_strlen(*buffer)))
@@ -82,15 +87,15 @@ void	handle_env_state(t_state *state, char c, char **buffer, t_token **tokens)
 	else
 		append_char_to_buffer(buffer, c);
 }
-	
+
 void	handle_redir_state(t_state *state, char c, char **buffer, t_token **tokens)
 {
 	t_token_type type;
-	
+
 	if ((*state == STATE_IN_REDIR_IN && c == '<') ||
 		(*state == STATE_IN_REDIR_OUT && c == '>'))
 			append_char_to_buffer(buffer, c);
-	
+
 	if (ft_strcmp(*buffer, "<<") == 0)
 		type = TOK_HEREDOC;
 	else if (ft_strcmp(*buffer, ">>") == 0)
@@ -102,5 +107,6 @@ void	handle_redir_state(t_state *state, char c, char **buffer, t_token **tokens)
 	add_token(tokens, *buffer, type);
 	*buffer = NULL;
 	*state = STATE_DEFAULT;
-	handle_char(state, c, buffer, tokens);
+	if ((type == TOK_REDIR_IN && c != '<') || (type == TOK_REDIR_OUT && c != '>'))
+		handle_char(state, c, buffer, tokens);
 }
