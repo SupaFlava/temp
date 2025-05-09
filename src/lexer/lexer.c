@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:47:24 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/09 17:20:35 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/09 19:49:14 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 void	add_token(t_token **tokens, char *buffer, t_token_type type)
 {
-	t_token *new;
-	t_token *temp;
+	t_token	*new;
+	t_token	*temp;
+
 	if (!buffer || !*buffer)
 		return ;
 	new = malloc(sizeof(t_token));
 	if (!new)
-		return;
-
+		return ;
 	new->content = ft_strdup(buffer);
 	new->type = type;
 	new->next = NULL;
-
 	if (*tokens == NULL)
 		*tokens = new;
 	else
@@ -59,23 +58,20 @@ t_token_type	find_token_type(const char *buffer, t_state state)
 		return (TOK_QUOTED);
 	else
 		return (TOK_WORD);
-
-
 }
 
 void	append_char_to_buffer(char **buffer, char c)
 {
-	size_t 	len;
+	size_t	len;
 	char	*new_buffer;
 
 	if (buffer != NULL)
 		len = ft_strlen(*buffer);
 	else
 		len = 0;
-	new_buffer = malloc(len + 2); // +1 for the next char, +1 for the null terminator
+	new_buffer = malloc(len + 2);
 	if (!new_buffer)
 		return ;
-
 	if (*buffer != NULL)
 	{
 		ft_strcpy(new_buffer, *buffer);
@@ -91,24 +87,25 @@ void	append_char_to_buffer(char **buffer, char c)
 void	handle_char(t_state *state, char c, char **buffer, t_token **tokens)
 {
 	if (*state == STATE_DEFAULT)
-		handle_default_state(state, c, buffer, tokens);
+		default_state(state, c, buffer, tokens);
 	else if (*state == STATE_IN_SINGLE_QUOTE)
-		handle_single_quote(state, c, buffer, tokens);
+		s_quote_state(state, c, buffer, tokens);
 	else if (*state == STATE_IN_DOUBLE_QUOTE)
-		handle_double_quote(state, c, buffer, tokens);
+		d_quote_state(state, c, buffer, tokens);
 	else if (*state == STATE_IN_ENV)
-		handle_env_state(state, c, buffer, tokens);
+		env_state(state, c, buffer, tokens);
 	else if (*state == STATE_IN_REDIR_IN || *state == STATE_IN_REDIR_OUT)
-		handle_redir_state(state, c, buffer, tokens);
+		redir_state(state, c, buffer, tokens);
 }
 
-t_token *lexer(const char *input)
+t_token	*lexer(const char *input)
 {
 	t_token		*tokens;
 	t_state		state;
 	size_t		i;
-	char		*buffer; // Will hold the current token string.
+	char		*buffer;
 	char		c;
+
 	if (!input || *input == '\0')
 		return (NULL);
 	tokens = NULL;
@@ -118,15 +115,11 @@ t_token *lexer(const char *input)
 	while (input[i])
 	{
 		c = input[i];
-		// Call a helper to handle transitions and token building
 		handle_char(&state, c, &buffer, &tokens);
 		i++;
 	}
-
-	// Flush the final token if needed
 	if (buffer && *buffer)
 		add_token(&tokens, buffer, find_token_type(buffer, state));
-
 	ft_printf("registered tokens:\n");
 	return (tokens);
 }
