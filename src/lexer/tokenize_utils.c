@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/09 19:46:59 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/12 22:25:38 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	default_state(t_state *state, char c, char **buffer, t_token **tokens)
 	if (c == ' ')
 	{
 		if (*buffer && **buffer)
+		{
 			add_token(tokens, *buffer, TOK_WORD);
+			*buffer = NULL;
+		}
 	}
 	else if (c == '\'')
 		*state = STATE_IN_SINGLE_QUOTE;
