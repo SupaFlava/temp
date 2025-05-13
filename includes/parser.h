@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parse.h                                            :+:    :+:            */
+/*   parser.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:50:26 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/08 13:12:58 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/13 15:58:35 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_H
-# define PARSE_H
+#ifndef PARSER_H
+# define PARSER_H
+
+// includes
+# include "typedefs.h"
 
 // function prototypes
-char	*read_input(void);
+// parser.c
+int			parse_tokens_to_cmds();
+
+// parser_utils.c
+char		*read_input(void);
+t_command	*create_command(void);
 
 #endif

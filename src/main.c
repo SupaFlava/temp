@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/08 17:19:11 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/05/13 17:21:54 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ int main(int argc, char **argv, char **envp)
 
 	if (shell_init(&shell) == EXIT_FAILURE)
 		return(EXIT_FAILURE);
-    setup_signals();
+	setup_signals();
 	init_env(&shell ,envp);
 	t_command cmd = {
 		.args = (char *[]){"echo" ,"-ns" ,"hello" ,"world", NULL}
 	};
 
-    while (1)
+	while (1)
 	{
-        shell.line = read_input();
-        if (shell.line && *shell.line)
+		shell.line = read_input();
+		if (shell.line && *shell.line)
 		    add_history(shell.line);
 		run_builtin(&cmd, &shell); // this is a tester
 		shell.tokens = lexer(shell.line);
@@ -42,5 +42,5 @@ int main(int argc, char **argv, char **envp)
 	rl_clear_history();
 	ft_free(&shell, MEM_LONG);
 	//clear_history(); // this for mac
-    return (0);
+	return (0);
 }

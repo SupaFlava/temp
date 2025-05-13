@@ -1,22 +1,14 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/05/08 17:41:29 by rmhazres         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
 #    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/05/08 15:09:44 by jbaetsen      ########   odam.nl          #
+#    Updated: 2025/05/13 17:11:09 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
-
 
 # Colors #
 RED='\033[0;31m'
@@ -28,7 +20,7 @@ CYAN='\033[0;36m'
 RESET='\033[0m'
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes 
+CFLAGS = -Wall -Wextra -Werror -Iincludes -g -O0 -fsanitize=address
 LIBFT_FLAGS = -L./libraries -lft
 
 # Directories
@@ -41,7 +33,7 @@ NAME = minishell
 LIBFT = ./libraries/libft.a
 
 # Source files and object files
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/tester.c $(SRC_DIR)/signals/signals.c $(SRC_DIR)/parser/parser_utils.c $(SRC_DIR)/env/env_list.c \
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/tester.c $(SRC_DIR)/signals/signals.c $(SRC_DIR)/parser/parser.c $(SRC_DIR)/parser/parser_utils.c $(SRC_DIR)/env/env_list.c \
 	  $(SRC_DIR)/env/env_utils.c $(SRC_DIR)/utils/shell_init.c $(SRC_DIR)/builtins/pwd.c $(SRC_DIR)/builtins/cd.c $(SRC_DIR)/utils/memory.c \
 	  $(SRC_DIR)/builtins/echo.c $(SRC_DIR)/lexer/tokenize_utils.c $(SRC_DIR)/lexer/lexer.c  $(SRC_DIR)/utils/list_utils.c $(SRC_DIR)/utils/str_utils.c
 

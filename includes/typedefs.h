@@ -6,13 +6,14 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/09 19:35:51 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/13 17:08:52 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPEDEFS_H
 # define TYPEDEFS_H
 
+# include "libft.h"
 // enums
 typedef enum e_state
 {
@@ -21,7 +22,7 @@ typedef enum e_state
 	STATE_IN_SINGLE_QUOTE,	//single quoted strings
 	STATE_IN_DOUBLE_QUOTE,	// double quoted strings
 	STATE_IN_ENV,			//env variable like : $PATH
-	STATE_IN_REDIR_IN,		// < , <<
+	STATE_IN_REDIR_IN,		// <, <<
 	STATE_IN_REDIR_OUT,		// >, >>
 	STATE_ESCAPE
 }	t_state;
@@ -31,7 +32,7 @@ typedef enum e_token_type
 	TOK_WORD,
 	TOK_QUOTED,
 	TOK_PIPE,
-	TOK_REDIR_IN,		//<
+	TOK_REDIR_IN,		// <
 	TOK_REDIR_OUT,		// >
 	TOK_HEREDOC,		// <<
 	TOK_APPEND,			// >>
@@ -81,9 +82,9 @@ typedef struct s_mshell
 	t_list		*temp_allocs;
 	t_list		*long_allocs;
 	t_token		*tokens;
+	t_command	cmds;
 	char		*line;
 	int			exit_status;
-	t_command	cmds;
 }	t_mshell;
 
 #endif
