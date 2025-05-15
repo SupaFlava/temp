@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/15 11:01:00 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/05/15 16:49:30 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ int main(int argc, char **argv, char **envp)
         if (shell.line && *shell.line)
 		    add_history(shell.line);
 		run_builtin(&cmd, &shell); // this is a tester
-		shell.tokens = lexer(shell.line);
+		shell.tokens = lexer(&shell); // now returns NULL if something fails
 		print_tokens(shell.tokens);
-		free_tokens(shell.tokens);
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);

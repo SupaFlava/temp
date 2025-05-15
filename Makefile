@@ -1,22 +1,14 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/05/15 11:00:00 by rmhazres         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
 #    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/05/08 15:09:44 by jbaetsen      ########   odam.nl          #
+#    Updated: 2025/05/15 16:58:11 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
-
 
 # Colors #
 RED='\033[0;31m'
@@ -28,8 +20,7 @@ CYAN='\033[0;36m'
 RESET='\033[0m'
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes
-CFLAGS = -Wall -Wextra -Werror -Iincludes
+CFLAGS = -Wall -Wextra -Werror -Iincludes -fsanitize=address -g
 LIBFT_FLAGS = -L./libraries -lft
 
 # Directories
