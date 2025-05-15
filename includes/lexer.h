@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:42:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/09 19:43:11 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/15 16:28:00 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@
 
 // function prototypes
 // tokenize_utils.c
-void	default_state(t_state *state, char c, char **buffer, t_token **tokens);
-void	s_quote_state(t_state *state, char c, char **buffer, t_token **tokens);
-void	d_quote_state(t_state *state, char c, char **buffer, t_token **tokens);
-void	env_state(t_state *state, char c, char **buffer, t_token **tokens);
-void	redir_state(t_state *state, char c, char **buffer, t_token **tokens);
+int		default_state(t_mshell *shell, t_state *state, char c, char **buffer);
+int		s_quote_state(t_mshell *shell, t_state *state, char c, char **buffer);
+int		d_quote_state(t_mshell *shell, t_state *state, char c, char **buffer);
+int		env_state(t_mshell *shell, t_state *state, char c, char **buffer);
+int		redir_state(t_mshell *shell, t_state *state, char c, char **buffer);
 
 // lexer.c
-void	handle_char(t_state *state, char c, char **buffer, t_token **tokens);
-void	append_char_to_buffer(char **buffer, char c);
-t_token	*lexer(const char *input);
-void	add_token(t_token **tokens, char *buffer, t_token_type type);
+int		handle_char(t_mshell *shell, t_state *state, char c, char **buffer);
+int		append_char_to_buffer(t_mshell *shell, char **buffer, char c);
+t_token	*lexer(t_mshell *shell);
+int		add_token(t_mshell *shell, char *buffer, t_token_type type);
 
 #endif /*LEXER_H*/

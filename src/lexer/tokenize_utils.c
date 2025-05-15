@@ -6,19 +6,25 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/12 22:25:38 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/15 17:01:24 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	default_state(t_state *state, char c, char **buffer, t_token **tokens)
+int	default_state(t_mshell *shell, t_state *state, char c, char **buffer)
 {
+	char temp[2];	//temp is required for ft_strndup, if you pass &c to ft_strndup you get a stack_overflow, cause char c doesnt have '\0'
+
+	temp[0] = c;
+	temp[1] = '\0';
+	
 	if (c == ' ')
 	{
 		if (*buffer && **buffer)
 		{
-			add_token(tokens, *buffer, TOK_WORD);
+			if (add_token(shell, *buffer, TOK_WORD))
+				return (1);
 			*buffer = NULL;
 		}
 	}
@@ -27,48 +33,60 @@ void	default_state(t_state *state, char c, char **buffer, t_token **tokens)
 	else if (c == '\"')
 		*state = STATE_IN_DOUBLE_QUOTE;
 	else if (c == '|')
-		add_token(tokens, ft_strdup("|"), TOK_PIPE);
+		{
+			if (add_token(shell, ft_strndup(shell, "|", 1), TOK_PIPE)) //if add_token fails(returns1), this func also returns 1
+				return (1);
+		}
 	else if (c == '<')
 	{
 		*state = STATE_IN_REDIR_IN;
-		*buffer = ft_strndup(&c, 1);
+		*buffer = ft_strndup(shell, temp, 1);
+		if (!*buffer)
+			return (1);
 	}
 	else if (c == '>')
 	{
 		*state = STATE_IN_REDIR_OUT;
-		*buffer = ft_strndup(&c, 1);
+		*buffer = ft_strndup(shell, temp, 1);
+		if (!*buffer)
+			return (1);
 	}
 	else if (c == '$')
 		*state = STATE_IN_ENV;
 	else
-		append_char_to_buffer(buffer, c);
+		return (append_char_to_buffer(shell, buffer, c)); // returns  the return value of append_char 1 on fail, 0 on succes.
+	return (0);
 }
 
-void	s_quote_state(t_state *state, char c, char **buffer, t_token **tokens)
+int	s_quote_state(t_mshell *shell, t_state *state, char c, char **buffer)
 {
 	if (c == '\'')
 	{
 		*state = STATE_DEFAULT;
-		add_token (tokens, *buffer, TOK_QUOTED);
+		if (add_token (shell, *buffer, TOK_QUOTED))
+			return (1);
 		*buffer = NULL;
 	}
 	else
-		append_char_to_buffer(buffer, c);
+		return (append_char_to_buffer(shell, buffer, c));
+	return (0);
 }
 
-void	d_quote_state(t_state *state, char c, char **buffer, t_token **tokens)
+int	d_quote_state(t_mshell *shell, t_state *state, char c, char **buffer)
 {
 	if (c == '"')
 	{
 		*state = STATE_DEFAULT;
-		add_token(tokens, *buffer, TOK_QUOTED);
+		if (add_token(shell, *buffer, TOK_QUOTED))
+			return (1);
 		*buffer = NULL;
 	}
 	else
-		append_char_to_buffer(buffer, c);
+		return (append_char_to_buffer(shell, buffer, c));
+	return (0);
 }
 
-void	env_state(t_state *state, char c, char **buffer, t_token **tokens)
+int	env_state(t_mshell *shell, t_state *state, char c, char **buffer)
 {
 	t_token_type	type;
 
@@ -78,22 +96,28 @@ void	env_state(t_state *state, char c, char **buffer, t_token **tokens)
 			type = TOK_EXIT_STATUS;
 		else
 			type = TOK_ENV_VAR;
-		add_token(tokens, *buffer, type);
+		if (add_token(shell, *buffer, type))
+			return (1);
 		*buffer = NULL;
 		*state = STATE_DEFAULT;
-		handle_char(state, c, buffer, tokens);
+		if (handle_char(shell, state, c, buffer))
+			return (1);
 	}
-	else
-		append_char_to_buffer(buffer, c);
+	else if (append_char_to_buffer(shell, buffer, c))
+		return (1);
+	return (0);
 }
 
-void	redir_state(t_state *state, char c, char **buffer, t_token **tokens)
+int	redir_state(t_mshell *shell, t_state *state, char c, char **buffer)
 {
 	t_token_type	type;
 
 	if ((*state == STATE_IN_REDIR_IN && c == '<')
 		|| (*state == STATE_IN_REDIR_OUT && c == '>'))
-		append_char_to_buffer(buffer, c);
+	{
+		if (append_char_to_buffer(shell, buffer, c))
+			return (1);
+	}
 	if (ft_strcmp(*buffer, "<<") == 0)
 		type = TOK_HEREDOC;
 	else if (ft_strcmp(*buffer, ">>") == 0)
@@ -102,10 +126,15 @@ void	redir_state(t_state *state, char c, char **buffer, t_token **tokens)
 		type = TOK_REDIR_IN;
 	else
 		type = TOK_REDIR_OUT;
-	add_token(tokens, *buffer, type);
+	if (add_token(shell, *buffer, type))
+		return (1);
 	*buffer = NULL;
 	*state = STATE_DEFAULT;
 	if ((type == TOK_REDIR_IN && c != '<')
 		|| (type == TOK_REDIR_OUT && c != '>'))
-		handle_char(state, c, buffer, tokens);
+	{
+		if (handle_char(shell, state, c, buffer))
+		return (1);
+	}
+	return (0);
 }
