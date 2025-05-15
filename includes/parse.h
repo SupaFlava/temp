@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:50:26 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/02 15:56:52 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/08 13:12:58 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 # define PARSE_H
 
 // function prototypes
-char    *read_input(void);
+char	*read_input(void);
 
 #endif

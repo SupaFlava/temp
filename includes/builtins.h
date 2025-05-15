@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   signals.h                                          :+:    :+:            */
+/*   builtins.h                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/05/08 12:52:59 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/08 12:53:32 by jbaetsen      ########   odam.nl         */
+/*   Created: 2025/05/06 15:34:16 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/05/09 19:37:00 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNALS_H
-# define SIGNALS_H
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
-// includes
-# include <signal.h>
+# include "minishell.h"
 
-//function prototypes
-void	setup_signals(void);
+int	builtin_pwd(t_mshell *shell);
+int	builtin_cd();
+int	builtin_echo(t_mshell *shell, char **args);
 
 #endif

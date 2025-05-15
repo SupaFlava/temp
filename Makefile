@@ -6,7 +6,14 @@
 #    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/05/02 16:32:52 by rmhazres         ###   ########.fr        #
+#    Updated: 2025/05/15 11:00:00 by rmhazres         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+#    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
+#    Updated: 2025/05/08 15:09:44 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +42,10 @@ NAME = minishell
 LIBFT = ./libraries/libft.a
 
 # Source files and object files
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/signals/signals.c $(SRC_DIR)/parser/parser_utils.c
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/tester.c $(SRC_DIR)/signals/signals.c $(SRC_DIR)/parser/parser_utils.c $(SRC_DIR)/env/env_list.c \
+	  $(SRC_DIR)/env/env_utils.c $(SRC_DIR)/utils/shell_init.c $(SRC_DIR)/builtins/pwd.c $(SRC_DIR)/builtins/cd.c $(SRC_DIR)/utils/memory.c \
+	  $(SRC_DIR)/builtins/echo.c $(SRC_DIR)/lexer/tokenize_utils.c $(SRC_DIR)/lexer/lexer.c  $(SRC_DIR)/utils/list_utils.c $(SRC_DIR)/utils/str_utils.c
+
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 # Rules
