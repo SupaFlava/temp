@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 12:47:24 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/08 17:29:12 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/15 12:09:43 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	add_token(t_token **tokens, char *buffer, t_token_type type)
 {
 	t_token *new;
 	t_token *temp;
-	ft_printf("starting add_token\n");
 	if (!buffer || !*buffer)
 		return ;
 	new = malloc(sizeof(t_token));
@@ -38,8 +37,6 @@ void	add_token(t_token **tokens, char *buffer, t_token_type type)
 	}	
 	free (buffer);
 	buffer = NULL;
-	ft_printf("Lexer: adding token '%s'\n", new->content);
-
 }
 
 t_token_type	find_token_type(const char *buffer, t_state state)
@@ -130,6 +127,5 @@ t_token *lexer(const char *input)
 	if (buffer && *buffer)
 		add_token(&tokens, buffer, find_token_type(buffer, state));
 
-	ft_printf("returning tokens\n");
 	return (tokens);
 }

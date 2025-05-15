@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/08 17:37:20 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/15 11:49:03 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_mshell
 	char  *line;
 	int		exit_status;
 	t_command cmds;
+
 } t_mshell;	
 
 

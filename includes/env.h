@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:39:22 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/05 12:35:56 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/15 12:28:23 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 
 int     init_env(t_mshell *shell,char **envp);
 void    env_add_back(t_env **shell, t_env *new_node);
+void	env_print(t_mshell *shell);
 
 #endif
