@@ -6,10 +6,11 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/15 15:16:47 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/16 10:50:11 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "minishell.h"
 
 int main(int argc, char **argv, char **envp)
@@ -32,8 +33,8 @@ int main(int argc, char **argv, char **envp)
         if (shell.line && *shell.line)
 		    add_history(shell.line);
 		run_builtin(&cmd, &shell); // this is a tester
-		shell.tokens = lexer(shell.line);
-		free_tokens(shell.tokens);
+		shell.tokens = lexer(&shell); // now returns NULL if something fails
+		print_tokens(shell.tokens);
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);

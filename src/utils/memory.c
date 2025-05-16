@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   memory.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 14:10:03 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/08 14:50:34 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   memory.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/06 14:10:03 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/05/09 20:08:08 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_free(t_mshell *shell, t_mem_t type)
 {
-
 	if (type == MEM_TEMP)
 	{
 		ft_lstclear(&shell->temp_allocs, free);
@@ -27,11 +26,11 @@ void	ft_free(t_mshell *shell, t_mem_t type)
 	}
 }
 
-void	*ft_malloc_s(t_mshell *shell,size_t size ,t_mem_t type)
+void	*ft_malloc_s(t_mshell *shell, size_t size, t_mem_t type)
 {
-	void	 *ptr;
-	t_list	 *node;
-	
+	void	*ptr;
+	t_list	*node;
+
 	ptr = malloc(size);
 	if (!ptr)
 		return (NULL);

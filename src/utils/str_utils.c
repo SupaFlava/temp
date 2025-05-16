@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   str_utils.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 12:12:21 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/08 17:17:29 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   str_utils.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/08 12:12:21 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/05/15 15:22:38 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-char	*ft_strndup(const char *str, size_t n)
+char	*ft_strndup(t_mshell *shell, const char *str, size_t n)
 {
-	size_t	i;
+	size_t	len;
 	char	*dup;
 
-	i = 0;
-	while (str[i] && i < n)
-		i++;
-	dup = (char *)malloc(i + 1);
+	len = 0;
+	while (str[len] && len < n)
+		len++;
+	dup = (char *)ft_malloc_s(shell,(len + 1), MEM_TEMP);
 	if (!dup)
 		return (NULL);
-	i = 0;
-	while (str[i] && i < n)
+	len = 0;
+	while (str[len] && len < n)
 	{
-		dup[i] = str[i];
-		i++;
+		dup[len] = str[len];
+		len++;
 	}
-	dup[i] = '\0';
+	dup[len] = '\0';
 	return (dup);
 }
 
-char *ft_strcpy(char *dst, const char *src)
+char	*ft_strcpy(char *dst, const char *src)
 {
-	size_t i;
-	
+	size_t	i;
+
 	i = 0;
 	while (src[i])
 	{
@@ -49,7 +49,7 @@ char *ft_strcpy(char *dst, const char *src)
 
 int	ft_strcmp(const char *str1, const char *str2)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (str1[i] && str2[i] && str1[i] == str2[i])
