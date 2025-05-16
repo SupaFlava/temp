@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   args_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 14:39:22 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/16 13:08:58 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/05/16 11:06:31 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/16 11:46:11 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include "minishell.h"
 
-int     init_env(t_mshell *shell,char **envp);
-void    env_add_back(t_env **shell, t_env *new_node);
-void	env_print(t_mshell *shell);
-char 	*get_env(t_env *env , char *key);
-int		set_env(t_env *env, char *key, char *value);
+int	count_args(char **args)
+{
+	int i;
 
-#endif
+	i = 0;
+	while(args[i])
+	{
+		i++;
+	}
+	return (i);
+}

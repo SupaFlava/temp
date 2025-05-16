@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/16 10:50:11 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:20:52 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv, char **envp)
     setup_signals();
 	init_env(&shell ,envp);
 	t_command cmd = {
-		.args = (char *[]){"cd" , "dsada", "ho", NULL}
+		.args = (char *[]){"cd",NULL}
 	};
 
     while (1)

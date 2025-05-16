@@ -6,28 +6,58 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:45:29 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/15 15:24:45 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:52:44 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int count_args(char **args)
+int change_dir(t_mshell *shell, char *path)
 {
-	int i;
+	char *old_path;
+	char *buffer;
+
 	
-	i = 0;
-	while (args[i])
-		i++;
-	return i;
+	buffer = ft_malloc_s(shell ,512, MEM_TEMP);
+	old_path = getcwd(buffer, 512);
+	if (chdir(path) == 0)
+	{
+		set_env(shell->env_list ,"OLDPWD",old_path);
+	//	free(old_path);
+		return (EXIT_SUCCESS);
+	}
+	else
+	{
+		return (EXIT_FAILURE);
+	}
 }
 
-int	builtin_cd(t_mshell shell,char **args)
+int	builtin_cd(t_mshell *shell, char **args)
 {
 	(void)shell;
 	int argc;
+	char *path;
 
 	argc = count_args(args);
-	ft_printf("cound is %s\n",argc);
+	env_print(shell);
+	if (argc > 2)
+	{
+		ft_printf("cd: too many arguments");
+		return (EXIT_FAILURE);
+	}
+	if (argc == 1)
+	{
+
+		path = get_env(shell->env_list,"HOME");
+		if (path == NULL)
+		{
+			ft_printf("cant find home env\n");
+			return (EXIT_FAILURE);
+		}
+		change_dir(shell, path);
+		ft_printf("after cd after cd ------------------\n");
+		env_print(shell);
+	}
+	//else if(argc)
 	return (0);
 }
