@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   utils.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 11:22:37 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/15 13:41:00 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   utils.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 11:22:37 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/16 11:09:01 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,8 @@ int			ft_strcmp(const char *str1, const char *str2);
 void		print_tokens(t_token *tokens);
 void		free_tokens(t_token *tokens);
 const char	*token_type_to_string(t_token_type type);
+
+// args_utils.c
+int	count_args(char **args);
 
 #endif

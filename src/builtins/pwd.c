@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:44:34 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/08 15:41:51 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:50:57 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,14 @@ int	builtin_pwd(t_mshell *shell)
 	char *result;
 	
 	buffer = ft_malloc_s(shell ,512, MEM_TEMP);
+	if (!buffer)
+		return (EXIT_FAILURE);
 	result = getcwd(buffer, 512);
+	if (!result)
+		{
+			ft_printf("getcwd failed\n");
+			return (EXIT_FAILURE);
+		}
 	ft_printf("%s\n",result);
-	return (0);
+	return (EXIT_SUCCESS);
 }
