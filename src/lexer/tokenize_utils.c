@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/15 17:01:24 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/16 12:12:58 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 int	default_state(t_mshell *shell, t_state *state, char c, char **buffer)
 {
-	char temp[2];	//temp is required for ft_strndup, if you pass &c to ft_strndup you get a stack_overflow, cause char c doesnt have '\0'
+	char	temp[2];//temp is required for ft_strndup, if you pass &c to ft_strndup you get a stack_overflow, cause char c doesnt have '\0'
 
 	temp[0] = c;
 	temp[1] = '\0';
-	
 	if (c == ' ')
 	{
 		if (*buffer && **buffer)
@@ -33,10 +32,10 @@ int	default_state(t_mshell *shell, t_state *state, char c, char **buffer)
 	else if (c == '\"')
 		*state = STATE_IN_DOUBLE_QUOTE;
 	else if (c == '|')
-		{
-			if (add_token(shell, ft_strndup(shell, "|", 1), TOK_PIPE)) //if add_token fails(returns1), this func also returns 1
-				return (1);
-		}
+	{
+		if (add_token(shell, ft_strndup(shell, "|", 1), TOK_PIPE)) //if add_token fails(returns1), this func also returns 1
+			return (1);
+	}
 	else if (c == '<')
 	{
 		*state = STATE_IN_REDIR_IN;
@@ -134,7 +133,7 @@ int	redir_state(t_mshell *shell, t_state *state, char c, char **buffer)
 		|| (type == TOK_REDIR_OUT && c != '>'))
 	{
 		if (handle_char(shell, state, c, buffer))
-		return (1);
+			return (1);
 	}
 	return (0);
 }

@@ -6,18 +6,17 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/16 12:20:52 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:19:36 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
+	t_mshell shell;
 	(void)argc;
 	(void)argv;
-	t_mshell shell;
 
 	if (shell_init(&shell) == EXIT_FAILURE)
 		return(EXIT_FAILURE);
@@ -32,7 +31,7 @@ int main(int argc, char **argv, char **envp)
         shell.line = read_input();
         if (shell.line && *shell.line)
 		    add_history(shell.line);
-		run_builtin(&cmd, &shell); // this is a tester
+	//	run_builtin(&cmd, &shell); // this is a tester
 		shell.tokens = lexer(&shell); // now returns NULL if something fails
 		print_tokens(shell.tokens);
 		free(shell.line);
@@ -40,7 +39,7 @@ int main(int argc, char **argv, char **envp)
 		ft_free(&shell, MEM_TEMP);
 	}
 	rl_clear_history();
-	ft_free(&shell, MEM_LONG);
 	//clear_history(); // this for mac
     return (0);
 }
+
