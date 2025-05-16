@@ -6,19 +6,19 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 12:12:21 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/16 12:25:59 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/16 13:57:49 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-char	*ft_strdup_s(t_mshell *shell, const char *src) //mallocs into the struct.
+char	*ft_strdup_s(t_mshell *shell, const char *src, t_mem_t type) //mallocs into the struct.
 {
 	size_t	len;
 	char	*dest;
 
 	len = ft_strlen(src);
-	dest = (char *)ft_malloc_s(shell, len + 1, MEM_TEMP);
+	dest = (char *)ft_malloc_s(shell, len + 1, type);
 	if (src == NULL || dest == NULL)
 	{
 		return (NULL);
