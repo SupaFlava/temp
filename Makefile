@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/05/16 13:38:05 by rmhazres         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
+#    Updated: 2025/05/16 14:54:30 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-# Colors #
+# ===================== #
+#    	 Colors	        #
+# ===================== #
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
@@ -26,28 +28,67 @@ MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
 RESET='\033[0m'
 
+# ===================== #
+#     Configuration     #
+# ===================== #
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes -fsanitize=address -g
 LIBFT_FLAGS = -L./libraries -lft
 
-# Directories
+# ===================== #
+#      Directories      #
+# ===================== #
 SRC_DIR = src
 OBJ_DIR = obj
 INCLUDE_DIR = includes
 
-# Files
+# ===================== #
+#    	  Files	        #
+# ===================== #
 NAME = minishell
 LIBFT = ./libraries/libft.a
 
-# Source files and object files
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/tester.c $(SRC_DIR)/signals/signals.c $(SRC_DIR)/parser/parser_utils.c $(SRC_DIR)/env/env_list.c \
-	  $(SRC_DIR)/env/env_utils.c $(SRC_DIR)/utils/shell_init.c $(SRC_DIR)/builtins/pwd.c $(SRC_DIR)/builtins/cd.c $(SRC_DIR)/utils/memory.c \
-	  $(SRC_DIR)/builtins/echo.c $(SRC_DIR)/lexer/tokenize_utils.c $(SRC_DIR)/lexer/lexer.c  $(SRC_DIR)/utils/list_utils.c $(SRC_DIR)/utils/str_utils.c $(SRC_DIR)/builtins/env.c \
-	  $(SRC_DIR)/utils/args_utils.c
+# ===================== #
+#        Sources        #
+# ===================== #
+SRC_MAIN = 		$(SRC_DIR)/main.c \
+          		$(SRC_DIR)/tester.c 
+
+SRC_SIGNALS =	$(SRC_DIR)/signals/signals.c \
+				$(SRC_DIR)/signals/heredoc_signals.c
+
+SRC_ENV =		$(SRC_DIR)/env/env_list.c \
+          		$(SRC_DIR)/env/env_utils.c
+
+SRC_BUILTINS = 	$(SRC_DIR)/builtins/pwd.c \
+               	$(SRC_DIR)/builtins/cd.c \
+               	$(SRC_DIR)/builtins/echo.c \
+				$(SRC_DIR)/builtins/env.c \
+				$(SRC_DIR)/builtins/export.c \
+				$(SRC_DIR)/builtins/unset.c \
+				#$(SRC_DIR)/builtins/exit.c 
+
+SRC_UTILS = 	$(SRC_DIR)/utils/shell_init.c \
+            	$(SRC_DIR)/utils/list_utils.c \
+            	$(SRC_DIR)/utils/str_utils.c \
+				$(SRC_DIR)/utils/args_utils.c \
+            	$(SRC_DIR)/utils/memory.c \
+				$(SRC_DIR)/utils/free.c 
+
+SRC_LEXER = 	$(SRC_DIR)/lexer/tokenize_utils.c \
+            	$(SRC_DIR)/lexer/lexer.c 
+
+SRC_PARSER = 	$(SRC_DIR)/parser/parser.c \
+				$(SRC_DIR)/parser/parser_utils.c
+
+SRC = $(SRC_MAIN) $(SRC_SIGNALS) $(SRC_ENV) $(SRC_BUILTINS) \
+      $(SRC_UTILS) $(SRC_LEXER) $(SRC_PARSER)
 
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
-# Rules
+# ===================== #
+#        Rules	        #
+# ===================== #
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
