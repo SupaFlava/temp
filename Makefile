@@ -6,14 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/05/16 14:54:30 by jbaetsen      ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
-
-#    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/05/16 12:48:27 by jbaetsen      ########   odam.nl          #
+#    Updated: 2025/05/16 15:26:38 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +25,25 @@ RESET='\033[0m'
 #     Configuration     #
 # ===================== #
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -Iincludes
 LIBFT_FLAGS = -L./libraries -lft
+
+# =============================== #
+#     Platform specific flags     #
+# =============================== #
+
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+    CFLAGS += -fsanitize=address
+endif
+
+ifeq ($(UNAME), Darwin)  # macOS
+    # Homebrew path for GNU readline on macOS
+    CFLAGS  += -I/opt/homebrew/opt/readline/include
+    LDFLAGS += -L/opt/homebrew/opt/readline/lib
+endif
+
 
 # ===================== #
 #      Directories      #
