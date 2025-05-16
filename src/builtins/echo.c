@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 16:07:34 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/08 16:56:17 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   echo.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/06 16:07:34 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/05/16 14:36:59 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // builtin_echo(shell, (char *[]){"echo", "-n", "hello", "world", NULL});
 
-int	builtin_echo(t_mshell *shell ,char ** args)
+int	builtin_echo(t_mshell *shell ,char **args)
 {
 	(void)shell;
 	int i;
@@ -34,7 +34,7 @@ int	builtin_echo(t_mshell *shell ,char ** args)
 		else if (args[i] == NULL && flag == 0)
 			break;
 		else if (args[i] != NULL)
-			ft_printf(" ");	
+			ft_printf(" ");
 	}
 	return (0);
 }
