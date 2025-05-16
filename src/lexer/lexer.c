@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:47:24 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/15 16:48:22 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/16 13:49:49 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_token	*lexer(t_mshell *shell)
 
 	if (!shell->line || *(shell->line) == '\0')
 		return (NULL);
-	shell->tokens = NULL; // critical line, if not set to null: get invalid read/segfault
+	shell->tokens = NULL;//critical line, if not set to null: get invalid read/segfault
 	state = STATE_DEFAULT;
 	buffer = NULL;
 	i = 0;
@@ -114,14 +114,20 @@ t_token	*lexer(t_mshell *shell)
 	{
 		c = shell->line[i];
 		if (handle_char(shell, &state, c, &buffer))
-			return (NULL);  //error occured - break lexer process here
+			return (NULL);//error occured - break lexer process here
 		i++;
 	}
 	if (buffer && *buffer)
 	{
 		if (add_token(shell, buffer, find_token_type(buffer, state)))
-			return (NULL); 	// error on last token
+			return (NULL);//error on last token
+	}
+	if (state == STATE_IN_DOUBLE_QUOTE || state == STATE_IN_SINGLE_QUOTE)
+	{
+		ft_printf("SYNTAX ERROR, no closing quote found.\n");
+		return (NULL);
 	}
 	ft_printf("registered tokens:\n");
-	return (shell->tokens);	// succes
+	else
+		return (shell->tokens);//succes
 }
