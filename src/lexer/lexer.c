@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:47:24 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/16 13:49:49 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/16 14:02:14 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,9 @@ t_token	*lexer(t_mshell *shell)
 	}
 	if (state == STATE_IN_DOUBLE_QUOTE || state == STATE_IN_SINGLE_QUOTE)
 	{
-		ft_printf("SYNTAX ERROR, no closing quote found.\n");
+		ft_printf("SYNTAX ERROR, no closing quote found.\n");//return because unclosed quotes
 		return (NULL);
 	}
 	ft_printf("registered tokens:\n");
-	else
-		return (shell->tokens);//succes
+	return (shell->tokens);//succes
 }
