@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/05/16 15:26:38 by jbaetsen      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
+#    Updated: 2025/05/16 16:15:21 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,7 @@ OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT_FLAGS) -lreadline
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT_FLAGS) $(LDFLAGS) -lreadline
 	@echo $(GREEN)"Creating $(NAME)"$(RESET)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

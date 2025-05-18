@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/16 14:26:58 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/05/16 23:42:52 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
     setup_signals();
 	init_env(&shell ,envp);
 	t_command cmd = {
-		.args = (char *[]){"cd",NULL}
+		.args = (char *[]){"cd","/Users/supaflava/Music", "sda",NULL}
 	};
 
     while (1)

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 12:47:24 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/16 14:18:58 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/16 19:22:00 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	add_token(t_mshell *shell, char *buffer, t_token_type type)
 	new = ft_malloc_s(shell, sizeof(t_token), MEM_TEMP);
 	if (!new)
 		return (1);
-	new->content = ft_strndup(shell, buffer, ft_strlen(buffer));
+	new->content = ft_strndup(shell, buffer, ft_strlen(buffer), MEM_TEMP);
 	new->type = type;
 	new->next = NULL;
 	if (!shell->tokens)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   tokenize_utils.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/16 12:12:58 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   tokenize_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 12:59:46 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/05/16 19:25:21 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,20 @@ int	default_state(t_mshell *shell, t_state *state, char c, char **buffer)
 		*state = STATE_IN_DOUBLE_QUOTE;
 	else if (c == '|')
 	{
-		if (add_token(shell, ft_strndup(shell, "|", 1), TOK_PIPE)) //if add_token fails(returns1), this func also returns 1
+		if (add_token(shell, ft_strndup(shell, "|", 1, MEM_TEMP), TOK_PIPE)) //if add_token fails(returns1), this func also returns 1
 			return (1);
 	}
 	else if (c == '<')
 	{
 		*state = STATE_IN_REDIR_IN;
-		*buffer = ft_strndup(shell, temp, 1);
+		*buffer = ft_strndup(shell, temp, 1, MEM_TEMP);
 		if (!*buffer)
 			return (1);
 	}
 	else if (c == '>')
 	{
 		*state = STATE_IN_REDIR_OUT;
-		*buffer = ft_strndup(shell, temp, 1);
+		*buffer = ft_strndup(shell, temp, 1, MEM_TEMP);
 		if (!*buffer)
 			return (1);
 	}

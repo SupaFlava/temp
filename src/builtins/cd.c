@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cd.c                                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 15:45:29 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/16 14:37:01 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 15:45:29 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/16 21:45:34 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,10 @@ int change_dir(t_mshell *shell, char *path)
 	if (chdir(path) == 0)
 	{
 		set_env(shell->env_list ,"OLDPWD",old_path);
-	//	free(old_path);
 		return (EXIT_SUCCESS);
 	}
 	else
-	{
 		return (EXIT_FAILURE);
-	}
 }
 
 int	builtin_cd(t_mshell *shell, char **args)
@@ -39,7 +36,6 @@ int	builtin_cd(t_mshell *shell, char **args)
 	char *path;
 
 	argc = count_args(args);
-	env_print(shell);
 	if (argc > 2)
 	{
 		ft_printf("cd: too many arguments");
@@ -55,9 +51,11 @@ int	builtin_cd(t_mshell *shell, char **args)
 			return (EXIT_FAILURE);
 		}
 		change_dir(shell, path);
-		ft_printf("after cd after cd ------------------\n");
-		env_print(shell);
 	}
-	//else if(argc)
+	else
+	{
+		change_dir(shell,args[1]);	
+		builtin_pwd(shell);
+	}
 	return (0);
 }
