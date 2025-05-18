@@ -6,7 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/05/16 16:15:21 by rmhazres         ###   ########.fr        #
+#    Updated: 2025/05/18 12:28:53 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ SRC_BUILTINS = 	$(SRC_DIR)/builtins/pwd.c \
 				$(SRC_DIR)/builtins/env.c \
 				$(SRC_DIR)/builtins/export.c \
 				$(SRC_DIR)/builtins/unset.c \
-				#$(SRC_DIR)/builtins/exit.c 
+				$(SRC_DIR)/builtins/exit.c \
 
 SRC_UTILS = 	$(SRC_DIR)/utils/shell_init.c \
             	$(SRC_DIR)/utils/list_utils.c \

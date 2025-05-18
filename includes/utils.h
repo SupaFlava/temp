@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:22:37 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/16 19:47:41 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/18 13:20:43 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ const char	*token_type_to_string(t_token_type type);
 
 // args_utils.c
 int	count_args(char **args);
+int is_numeric(char *arg);
+
 
 #endif
