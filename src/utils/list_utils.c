@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 14:49:32 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/09 20:06:36 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/19 17:06:31 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ const char	*token_type_to_string(t_token_type type)
 
 void	print_tokens(t_token *tokens)
 {
+	ft_printf("registered tokens:\n");
 	while (tokens)
 	{
 		ft_printf("Token: %s | type %s\n", (char *)tokens->content, token_type_to_string(tokens->type));

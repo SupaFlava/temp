@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   typedefs.h                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/16 10:48:41 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   typedefs.h                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/05/19 16:16:28 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,23 @@ typedef enum e_state
 	STATE_IN_SINGLE_QUOTE,	//single quoted strings
 	STATE_IN_DOUBLE_QUOTE,	// double quoted strings
 	STATE_IN_ENV,			//env variable like : $PATH
+	STATE_IN_QUOTED_ENV,	// when $ENV varbiable is found in double quoted string
 	STATE_IN_REDIR_IN,		// < , <<
 	STATE_IN_REDIR_OUT,		// >, >>
-	STATE_ESCAPE
+	STATE_ESCAPE			// "\"
 }	t_state;
 
 typedef enum e_token_type
 {
 	TOK_WORD,
-	TOK_QUOTED,
-	TOK_PIPE,
+	TOK_QUOTED,			//""
+	TOK_PIPE,			//|
 	TOK_REDIR_IN,		//<
 	TOK_REDIR_OUT,		// >
 	TOK_HEREDOC,		// <<
 	TOK_APPEND,			// >>
 	TOK_ENV_VAR,		// $PATH
-	TOK_EXIT_STATUS,		// $?
+	TOK_EXIT_STATUS,	// $?
 }	t_token_type;
 
 typedef enum e_mem_t

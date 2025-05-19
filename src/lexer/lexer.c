@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 12:47:24 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/16 14:18:58 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lexer.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/19 19:08:53 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/05/19 20:53:56 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	handle_char(t_mshell *shell, t_state *state, char c, char **buffer)
 		return (s_quote_state(shell, state, c, buffer));
 	else if (*state == STATE_IN_DOUBLE_QUOTE)
 		return (d_quote_state(shell, state, c, buffer));
-	else if (*state == STATE_IN_ENV)
+	else if (*state == STATE_IN_ENV || *state == STATE_IN_QUOTED_ENV)
 		return (env_state(shell, state, c, buffer));
 	else if (*state == STATE_IN_REDIR_IN || *state == STATE_IN_REDIR_OUT)
 		return (redir_state(shell, state, c, buffer));
@@ -124,9 +124,8 @@ t_token	*lexer(t_mshell *shell)
 	}
 	if (state == STATE_IN_DOUBLE_QUOTE || state == STATE_IN_SINGLE_QUOTE)
 	{
-		ft_printf("SYNTAX ERROR, no closing quote found.\n");//return because unclosed quotes
+		ft_printf("no closing quote found, SYNTAX");//return because unclosed quotes
 		return (NULL);
 	}
-	ft_printf("registered tokens:\n");
 	return (shell->tokens);//succes
 }

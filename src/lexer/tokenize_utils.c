@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/19 14:34:27 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/19 21:29:20 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,25 @@ int	default_state(t_mshell *shell, t_state *state, char c, char **buffer)
 		}
 	}
 	else if (c == '\'')
+	{
+		if (*buffer && **buffer)
+		{
+			if (add_token(shell, *buffer, TOK_WORD))
+				return (1);
+			*buffer = NULL;
+		}
 		*state = STATE_IN_SINGLE_QUOTE;
+	}
 	else if (c == '\"')
+	{
+		if (*buffer && **buffer)
+		{
+			if (add_token(shell, *buffer, TOK_WORD))
+				return (1);
+			*buffer = NULL;
+		}
 		*state = STATE_IN_DOUBLE_QUOTE;
+	}
 	else if (c == '|')
 	{
 		if (*buffer != NULL)
@@ -94,9 +110,22 @@ int	d_quote_state(t_mshell *shell, t_state *state, char c, char **buffer)
 	if (c == '"')
 	{
 		*state = STATE_DEFAULT;
-		if (add_token(shell, *buffer, TOK_QUOTED))
-			return (1);
-		*buffer = NULL;
+		if (*buffer != NULL)
+		{
+			if (add_token(shell, *buffer, TOK_QUOTED))
+				return (1);
+			*buffer = NULL;
+		}
+	}
+	else if (c == '$')
+	{
+		if (*buffer != NULL)
+		{
+			if (add_token(shell, *buffer, TOK_QUOTED))
+				return (1);
+			*buffer = NULL;
+		}
+		*state = STATE_IN_QUOTED_ENV;
 	}
 	else
 		return (append_char_to_buffer(shell, buffer, c));
@@ -107,16 +136,42 @@ int	env_state(t_mshell *shell, t_state *state, char c, char **buffer)
 {
 	t_token_type	type;
 
-	if (!ft_isalnum(c) && c != '_')
-	{
-		if (ft_strncmp(*buffer, "?", ft_strlen(*buffer)))
+	if (c == '?' && !*buffer) //check for exit_state, only if buffer is empty
+		{
 			type = TOK_EXIT_STATUS;
-		else
-			type = TOK_ENV_VAR;
+			free(*buffer);
+			if (add_token(shell, "$?", type))
+				return (1);
+			*buffer = NULL;
+			if (*state == STATE_IN_QUOTED_ENV)
+				*state = STATE_IN_DOUBLE_QUOTE;
+			else
+				*state = STATE_DEFAULT;
+			return (0);
+		}
+	else if (!ft_isalnum(c) && c != '_')
+	{
+		if (*buffer == NULL)
+		{
+			if (*state == STATE_IN_QUOTED_ENV)
+				*state = STATE_IN_DOUBLE_QUOTE;
+			else
+				*state = STATE_DEFAULT;
+			if (append_char_to_buffer(shell, buffer, '$'))
+				return (1);
+			if (append_char_to_buffer(shell, buffer, c))
+				return (1);
+			return (0);
+		}
+
+		type = TOK_ENV_VAR;
 		if (add_token(shell, *buffer, type))
 			return (1);
 		*buffer = NULL;
-		*state = STATE_DEFAULT;
+		if (*state == STATE_IN_QUOTED_ENV)
+			*state = STATE_IN_DOUBLE_QUOTE;
+		else
+			*state = STATE_DEFAULT;
 		if (handle_char(shell, state, c, buffer))
 			return (1);
 	}
