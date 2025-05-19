@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/16 12:12:58 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/19 14:34:27 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,23 @@ int	default_state(t_mshell *shell, t_state *state, char c, char **buffer)
 		*state = STATE_IN_DOUBLE_QUOTE;
 	else if (c == '|')
 	{
+		if (*buffer != NULL)
+		{
+			if (add_token(shell, *buffer, TOK_WORD))
+				return (1);
+			*buffer = NULL;
+		}
 		if (add_token(shell, ft_strndup(shell, "|", 1), TOK_PIPE)) //if add_token fails(returns1), this func also returns 1
 			return (1);
 	}
 	else if (c == '<')
 	{
+		if (*buffer != NULL)
+		{
+			if (add_token(shell, *buffer, TOK_WORD))
+				return (1);
+			*buffer = NULL;
+		}
 		*state = STATE_IN_REDIR_IN;
 		*buffer = ft_strndup(shell, temp, 1);
 		if (!*buffer)
@@ -45,6 +57,12 @@ int	default_state(t_mshell *shell, t_state *state, char c, char **buffer)
 	}
 	else if (c == '>')
 	{
+		if (*buffer != NULL)
+		{
+			if (add_token(shell, *buffer, TOK_WORD))
+				return (1);
+			*buffer = NULL;
+		}
 		*state = STATE_IN_REDIR_OUT;
 		*buffer = ft_strndup(shell, temp, 1);
 		if (!*buffer)

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/16 14:26:58 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/19 14:38:17 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,19 @@ int	main(int argc, char **argv, char **envp)
 		return(EXIT_FAILURE);
     setup_signals();
 	init_env(&shell ,envp);
-	t_command cmd = {
-		.args = (char *[]){"cd",NULL}
-	};
+	// t_command cmd = {
+	// 	.args = (char *[]){"cd",NULL}
+	// };
 
-    while (1)
+	while (1)
 	{
-        shell.line = read_input();
-        if (shell.line && *shell.line)
-		    add_history(shell.line);
-		run_builtin(&cmd, &shell); // this is a tester
+		shell.line = read_input();
+		if (shell.line && *shell.line)
+			add_history(shell.line);
+		// run_builtin(&cmd, &shell); // this is a tester
 		shell.tokens = lexer(&shell); // now returns NULL if something fails
+		if (!shell.tokens)
+			return (EXIT_FAILURE);
 		print_tokens(shell.tokens);
 		free(shell.line);
 		shell.line = NULL;
@@ -40,6 +42,5 @@ int	main(int argc, char **argv, char **envp)
 	}
 	rl_clear_history();
 	//clear_history(); // this for mac
-    return (0);
+	return (0);
 }
-
