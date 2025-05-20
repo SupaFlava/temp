@@ -1,0 +1,18 @@
+echo "Hello $PATH World!" | grep 'Hello $PATH World!' > >> << < test.txt $? $%^&*
+
+expected registered tokens:
+Token: echo | type WORD
+Token: Hello  | type QUOTED
+Token: PATH | type ENV_VAR
+Token:  World! | type QUOTED
+Token: | | type PIPE
+Token: grep | type WORD
+Token: Hello $PATH World! | type QUOTED
+Token: > | type REDIR_OUT
+Token: >> | type APPEND
+Token: << | type HEREDOC
+Token: < | type REDIR_IN
+Token: test.txt | type WORD
+Token: $? | type EXIT_STATUS
+Token: $%^&* | type WORD
+

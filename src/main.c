@@ -6,13 +6,13 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/19 14:38:17 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/19 20:55:25 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv/*, char **envp*/)
 {
 	t_mshell shell;
 	(void)argc;
@@ -20,8 +20,8 @@ int	main(int argc, char **argv, char **envp)
 
 	if (shell_init(&shell) == EXIT_FAILURE)
 		return(EXIT_FAILURE);
-    setup_signals();
-	init_env(&shell ,envp);
+	setup_signals();
+	//init_env(&shell ,envp);
 	// t_command cmd = {
 	// 	.args = (char *[]){"cd",NULL}
 	// };
@@ -30,12 +30,15 @@ int	main(int argc, char **argv, char **envp)
 	{
 		shell.line = read_input();
 		if (shell.line && *shell.line)
+		{
 			add_history(shell.line);
+			shell.tokens = lexer(&shell);
+			if (!shell.tokens)
+				ft_printf("ERROR\n");
+			else
+				print_tokens(shell.tokens);
+		}
 		// run_builtin(&cmd, &shell); // this is a tester
-		shell.tokens = lexer(&shell); // now returns NULL if something fails
-		if (!shell.tokens)
-			return (EXIT_FAILURE);
-		print_tokens(shell.tokens);
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);
