@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/19 16:16:28 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/20 16:54:29 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef enum e_state
 	STATE_IN_SINGLE_QUOTE,	//single quoted strings
 	STATE_IN_DOUBLE_QUOTE,	// double quoted strings
 	STATE_IN_ENV,			//env variable like : $PATH
-	STATE_IN_QUOTED_ENV,	// when $ENV varbiable is found in double quoted string
+	STATE_IN_QUOTED_ENV,	// when $ENV varbiable found in double quoted str
 	STATE_IN_REDIR_IN,		// < , <<
 	STATE_IN_REDIR_OUT,		// >, >>
 	STATE_ESCAPE			// "\"
@@ -38,7 +38,7 @@ typedef enum e_token_type
 	TOK_APPEND,			// >>
 	TOK_ENV_VAR,		// $PATH
 	TOK_EXIT_STATUS,	// $?
-}	t_token_type;
+}	t_toktype;
 
 typedef enum e_mem_t
 {
@@ -72,7 +72,7 @@ typedef struct s_command
 typedef struct s_token
 {
 	void			*content;
-	t_token_type	type;
+	t_toktype	type;
 	struct s_token	*next;
 }	t_token;
 

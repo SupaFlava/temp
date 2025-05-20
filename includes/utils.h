@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 11:22:37 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/19 17:02:46 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/20 16:51:18 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ char		*ft_strcpy(char *dst, const char *src);
 int			ft_strcmp(const char *str1, const char *str2);
 
 // list_utils.c
-void		print_tokens(t_token *tokens);
-void		free_tokens(t_token *tokens);
-const char	*token_type_to_string(t_token_type type);
+
 
 // args_utils.c
 int	count_args(char **args);
