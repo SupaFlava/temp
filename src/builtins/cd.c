@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:45:29 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/18 12:05:32 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:00:14 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int change_dir(t_mshell *shell, char *path)
 	char *old_path;
 	char *buffer;
 
-	
+	printf("path is in chdir %s",path);
 	buffer = ft_malloc_s(shell ,512, MEM_TEMP);
 	old_path = getcwd(buffer, 512);
 	if (chdir(path) == 0)
@@ -35,9 +35,10 @@ int change_dir(t_mshell *shell, char *path)
 int	builtin_cd(t_mshell *shell, char **args)
 {
 	int argc;
-	char *path;
+	t_env *path;
 
 	argc = count_args(args);
+	printf("argc is %i\n", argc);
 	if (argc > 2)
 	{
 		ft_printf("cd: too many arguments");
@@ -45,19 +46,15 @@ int	builtin_cd(t_mshell *shell, char **args)
 	}
 	if (argc == 1)
 	{
-
 		path = get_env(shell->env_list,"HOME");
 		if (path == NULL)
 		{
 			ft_printf("minishell: cd: HOME not set\n");
 			return (EXIT_FAILURE);
 		}
-		change_dir(shell, path);
+		change_dir(shell, path->value);
 	}
 	else
-	{
 		change_dir(shell,args[1]);
-	}
-	
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   token_utils.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/20 16:36:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/20 16:54:29 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/20 16:36:46 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/05/21 12:35:25 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	add_token(t_mshell *shell, char **buffer, t_toktype type)
 	new = ft_malloc_s(shell, sizeof(t_token), MEM_TEMP);
 	if (!new)
 		return (1);
-	new->content = ft_strndup(shell, *buffer, ft_strlen(*buffer));
+	new->content = ft_strndup_s(shell, *buffer, ft_strlen(*buffer), MEM_TEMP);
 	if (!new->content)
 		return (1);
 	new->type = type;

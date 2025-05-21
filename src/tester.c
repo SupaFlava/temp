@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:42:35 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/18 12:35:00 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:37:41 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int run_builtin(t_command *cmd, t_mshell *shell)
 		return(builtin_env(shell, cmd->args));
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
 		return(builtin_exit(shell, cmd->args));
+	else if (ft_strcmp(cmd->args[0], "unset") == 0)
+		return(builtin_unset(shell, cmd->args));
 	else
 		return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/21 11:45:23 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:07:27 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv/*, char **envp*/)
+int	main(int argc, char **argv, char **envp)
 {
 	t_mshell shell;
 	(void)argc;
@@ -23,7 +23,7 @@ int	main(int argc, char **argv/*, char **envp*/)
     setup_signals();
 	init_env(&shell ,envp);
 	t_command cmd = {
-		.args = (char *[]){"exit","5", NULL}
+		.args = (char *[]){"unset","HOME",NULL}
 	};
 
 	while (1)
@@ -38,7 +38,7 @@ int	main(int argc, char **argv/*, char **envp*/)
 			else
 				print_tokens(shell.tokens);
 		}
-		// run_builtin(&cmd, &shell); // this is a tester
+		 run_builtin(&cmd, &shell); // this is a tester
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);

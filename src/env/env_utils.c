@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:39:02 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/16 13:08:03 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:47:22 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void env_print(t_mshell *shell)
 		temp = temp->next;
 	}
 }
-char *get_env(t_env *env , char *key)
+t_env *get_env(t_env *env , char *key)
 {
-	char *path;
+	t_env *result;
 	t_env *temp_env;
 
 	temp_env = env;
@@ -55,8 +55,8 @@ char *get_env(t_env *env , char *key)
 	{
 		if (ft_strcmp(temp_env->key, key) == 0)
 		{
-			path = temp_env->value;
-			return (path);
+			result = temp_env;
+			return (result);
 		}
 		temp_env = temp_env->next;
 	}
@@ -77,4 +77,24 @@ int	set_env(t_env *env, char *key, char *value)
 		temp = temp->next;
 		}
 		return (EXIT_FAILURE);
-	}
+}
+	
+// int dl_env(t_env *list,char *key)
+// {
+// 	t_env *temp;
+
+// 	temp = list;
+// 	while (temo && temp->next)
+// 	{
+// 		if (ft_strcmp(temp->next->key, key) == 0)
+// 		{
+// 				temp->next = temp->next->next;
+// 				free(list->next->value);
+// 				free(list->next->key);
+// 				free(list->next);				
+// 				return (0);
+// 		}
+// 		temp = temp->next;
+// 	}
+// 	return (0);
+// }

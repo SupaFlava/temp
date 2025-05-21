@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 12:12:21 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/21 11:47:26 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:31:08 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strdup_s(t_mshell *shell, const char *src, t_mem_t type) //mallocs into
 	return (dest);
 }
 
-char	*ft_strndup(t_mshell *shell, const char *str, size_t n, t_mem_t type)
+char	*ft_strndup_s(t_mshell *shell, const char *str, size_t n, t_mem_t type)
 {
 	size_t	len;
 	char	*dup;
@@ -71,6 +71,7 @@ int	ft_strcmp(const char *str1, const char *str2)
 		i++;
 	return ((unsigned char)str1[i] - (unsigned char) str2[i]);
 }
+
 char *ft_substr_s(t_mshell *shell ,char const *s,unsigned b,size_t len)
 {
 		char *new;

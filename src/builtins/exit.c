@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 16:38:28 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/18 13:43:04 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:16:04 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 long builtin_exit(t_mshell *shell, char **args)
 {
-	(void)shell;
 	long status;
 
 	status = 0;
@@ -28,16 +27,14 @@ long builtin_exit(t_mshell *shell, char **args)
 		if (!is_numeric(args[1]))
 		{
 			ft_printf("exit\n");
-			ft_printf("exit: %s: numeric argument required", args[1]);
+			ft_printf("exit: %s: numeric argument required\n", args[1]);
 			status = 255;
 		}
 		else
 			status = ft_atoi(args[1]);	
-		
-		
 	}
+	printf("exit\n");
 	ft_free(shell,MEM_TEMP);
 	ft_free(shell,MEM_LONG);
 	exit (status);
-	
 }
