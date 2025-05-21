@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:22:37 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/18 13:20:43 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/21 11:46:28 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,15 @@ void		ft_free(t_mshell *shell, t_mem_t type);
 int			shell_init(t_mshell *shell);
 
 // str_utils.c
-char		*ft_strndup(t_mshell *shell, const char *str, size_t n, t_mem_t type);
+char		*ft_strdup_s(t_mshell *shell, const char *src, t_mem_t type);
+char		*ft_strndup(t_mshell *shell, const char *str, size_t n);
 char		*ft_strcpy(char *dst, const char *src);
 int			ft_strcmp(const char *str1, const char *str2);
 char	    *ft_strdup_s(t_mshell *shell, const char *src, t_mem_t type);
 char        *ft_substr_s(t_mshell *shell ,char const *s,unsigned b,size_t len);
 
 // list_utils.c
-void		print_tokens(t_token *tokens);
-void		free_tokens(t_token *tokens);
-const char	*token_type_to_string(t_token_type type);
+
 
 // args_utils.c
 int	count_args(char **args);
