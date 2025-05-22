@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:39:02 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/21 15:47:22 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:02:07 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void env_print(t_mshell *shell)
 	t_env *temp;
 	
 	temp = shell->env_list;
-
-
 	while (temp != NULL)
 	{
 		if (temp->key != NULL)
@@ -79,22 +77,30 @@ int	set_env(t_env *env, char *key, char *value)
 		return (EXIT_FAILURE);
 }
 	
-// int dl_env(t_env *list,char *key)
-// {
-// 	t_env *temp;
+int delete_env(t_env **list, t_env *node)
+{
+	t_env *prev;
+	t_env *current;
 
-// 	temp = list;
-// 	while (temo && temp->next)
-// 	{
-// 		if (ft_strcmp(temp->next->key, key) == 0)
-// 		{
-// 				temp->next = temp->next->next;
-// 				free(list->next->value);
-// 				free(list->next->key);
-// 				free(list->next);				
-// 				return (0);
-// 		}
-// 		temp = temp->next;
-// 	}
-// 	return (0);
-// }
+	if(*list == node)
+	{
+		*list = node->next;
+		return (1);
+	} 
+	else
+	{
+		prev = *list;
+		current = (*list)->next;
+	}
+ 	while (current)
+	{
+		if (current == node)
+		{
+			prev->next = current->next;
+			return (1);
+		}
+		prev = current;
+		current = current->next;
+	}
+	return (0);
+}

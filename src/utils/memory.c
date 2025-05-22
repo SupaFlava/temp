@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:10:03 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/18 13:38:55 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:58:25 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,11 @@ void	*ft_malloc_s(t_mshell *shell, size_t size, t_mem_t type)
 	else if (type == MEM_LONG)
 		ft_lstadd_back(&shell->long_allocs, node);
 	return (ptr);
+}
+
+void free_env(t_env *node)
+{
+	ft_printf("deleting %s \n", node->key);
+
+	(void)node;
 }
