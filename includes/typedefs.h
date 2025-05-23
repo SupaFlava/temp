@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/16 16:05:57 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/21 14:25:53 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_command
 	char				*infile;
 	char				*outfile;
 	int					append;
+	int					is_builtin;
 	struct s_command	*next;
 }	t_command;
 

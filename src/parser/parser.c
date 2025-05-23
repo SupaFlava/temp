@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/16 16:07:54 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/21 15:47:58 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,15 @@ void	append_to_args(t_command *command, char *content)
 
 int	parse_tokens_to_cmds(t_mshell *shell)
 {
-	t_token		*tok;
+	t_token		*token;
 	t_command *command;
 
-	tok = shell->tokens;
+	token = shell->tokens;
 	command = create_command();
-	while (tok)
+	while (token && token->type != TOK_PIPE)
 	{
-		if (tok->type == TOK_WORD || tok->type == TOK_QUOTED
-			|| tok->type == TOK_ENV_VAR || tok->type == TOK_EXIT_STATUS)
-			append_to_args(command, tok->content);
+		if (token->type == TOK_WORD || token->type == TOK_ENV_VAR || token->type == TOK_EXIT_STATUS)
+			append_to_args(command, token->content);
 	}
 
 
