@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/22 13:06:50 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/24 12:02:43 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ int	main(int argc, char **argv, char **envp)
     setup_signals();
 	init_env(&shell ,envp);
 	t_command cmd = {
-		.args = (char *[]){"unset","HOME",NULL}
+		.args = (char *[]){"unset","HOME",NULL},
+		.infile = NULL,
+		.outfile = NULL,
+		.append = 0,
+		.next = NULL
 	};
 
 	while (1)
@@ -38,7 +42,7 @@ int	main(int argc, char **argv, char **envp)
 			else
 				print_tokens(shell.tokens);
 		}
-		 run_builtin(&cmd, &shell); // this is a tester
+	//	run_builtin(&cmd, &shell); // this is a tester
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);

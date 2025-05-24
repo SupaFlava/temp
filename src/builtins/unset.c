@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:10:36 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/22 13:02:28 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/24 11:45:27 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ int	builtin_unset(t_mshell *shell, char **args)
 	if (!node)
 		return (0);
 	delete_env(&shell->env_list, node);
-	env_print(shell);
 	return (0);
 }
