@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/24 14:48:35 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/24 15:06:26 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,20 @@ int excute_cmd(t_mshell *shell)
 		pid = fork();
 		if (pid == 0) // this is a child;
 		{
+			if(prev_fd != -1)
+			{
+				dup2(prev_fd, STDOUT_FILENO);
+			}
+			else
+			{
+				dup2(fds[1], STDOUT_FILENO);
+			}
+			if (cmd->infile)
+			{
+				open(cmd->infile);
+				
+			}
 			
 		}	
-	}
+	}	
 }
