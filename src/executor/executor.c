@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/26 13:33:34 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:01:47 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,15 @@ int execute_cmd(t_mshell *shell)
 			if(prev_fd != -1)
 			{
 				dup2(prev_fd, STDIN_FILENO);
-				printf("hello there, inside a child\n");
-				printf("and also not the first cmd\n");
 				close(prev_fd);
 			}
 			if (cmd->next)
 			{
-				printf("hello there, inside a child\n");
-				printf("also not last \n");
 				dup2(fds[1], STDOUT_FILENO);
 				close(fds[1]);
 				close(fds[0]);
 			}
+			handle_redir(cmd);
 			// handle infile outfile redirection
 			// exec or builtin
 			child_pids[i++] = pid;
