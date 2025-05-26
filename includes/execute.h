@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 15:47:17 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/26 12:35:51 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/05/26 12:22:05 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/26 12:39:43 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef EXECUTE_H
+# define EXECUTE_H
 
-char	*read_input(void)
-{
-	char	*line;
+# include "minishell.h"
 
-	line = readline("> ");
-	if (!line)
-	{
-		ft_printf("exiting minishell\n");
-		exit(0);
-	}
-	return (line);
-}
+int execute_cmd(t_mshell *shell);
 
+#endif

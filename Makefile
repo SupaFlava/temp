@@ -6,7 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/05/22 12:27:05 by rmhazres         ###   ########.fr        #
+#    Updated: 2025/05/26 12:33:46 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,8 @@ SRC_SIGNALS =	$(SRC_DIR)/signals/signals.c \
 SRC_ENV =		$(SRC_DIR)/env/env_list.c \
 				$(SRC_DIR)/env/env_utils.c
 
+SRC_EXECUTOR =  $(SRC_DIR)/executor/executor.c
+
 SRC_BUILTINS = 	$(SRC_DIR)/builtins/pwd.c \
 				$(SRC_DIR)/builtins/cd.c \
 				$(SRC_DIR)/builtins/echo.c \
@@ -96,7 +98,7 @@ SRC_PARSER = 	$(SRC_DIR)/parser/parser.c \
 				$(SRC_DIR)/parser/parser_utils.c
 
 SRC = 	$(SRC_MAIN) $(SRC_SIGNALS) $(SRC_ENV) $(SRC_BUILTINS) \
-		$(SRC_UTILS) $(SRC_LEXER) $(SRC_PARSER)
+		$(SRC_UTILS) $(SRC_LEXER) $(SRC_PARSER) $(SRC_EXECUTOR) \
 
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
