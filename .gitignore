@@ -1,0 +1,22 @@
+# === Compiled object files ===
+*.o
+*.obj
+# === Executables ===
+a.out
+a.exe
+minishell
+# === System files ===
+.DS_Store
+Thumbs.db
+# === Editor/IDE files ===
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+# === Shell history or testing ===
+.history
+.env
+Makefile
+# === Git ===
+.gitignore
