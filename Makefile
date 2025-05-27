@@ -6,7 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/05/21 13:04:14 by jbaetsen      ########   odam.nl          #
+#    Updated: 2025/05/27 21:07:54 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,37 +62,41 @@ LIBFT = ./libraries/libft.a
 #        Sources        #
 # ===================== #
 SRC_MAIN = 		$(SRC_DIR)/main.c \
-          		$(SRC_DIR)/tester.c 
+				$(SRC_DIR)/tester.c
 
 SRC_SIGNALS =	$(SRC_DIR)/signals/signals.c \
 				$(SRC_DIR)/signals/heredoc_signals.c
 
 SRC_ENV =		$(SRC_DIR)/env/env_list.c \
-          		$(SRC_DIR)/env/env_utils.c
+				$(SRC_DIR)/env/env_utils.c
 
 SRC_BUILTINS = 	$(SRC_DIR)/builtins/pwd.c \
-               	$(SRC_DIR)/builtins/cd.c \
-               	$(SRC_DIR)/builtins/echo.c \
+				$(SRC_DIR)/builtins/cd.c \
+				$(SRC_DIR)/builtins/echo.c \
 				$(SRC_DIR)/builtins/env.c \
 				$(SRC_DIR)/builtins/export.c \
 				$(SRC_DIR)/builtins/unset.c \
-				#$(SRC_DIR)/builtins/exit.c 
+				#$(SRC_DIR)/builtins/exit.c
 
 SRC_UTILS = 	$(SRC_DIR)/utils/shell_init.c \
-            	$(SRC_DIR)/utils/list_utils.c \
-            	$(SRC_DIR)/utils/str_utils.c \
+				$(SRC_DIR)/utils/list_utils.c \
+				$(SRC_DIR)/utils/str_utils.c \
 				$(SRC_DIR)/utils/args_utils.c \
-            	$(SRC_DIR)/utils/memory.c \
-				$(SRC_DIR)/utils/free.c 
+				$(SRC_DIR)/utils/memory.c \
+				$(SRC_DIR)/utils/free.c
 
-SRC_LEXER = 	$(SRC_DIR)/lexer/tokenize_utils.c \
-            	$(SRC_DIR)/lexer/lexer.c 
+SRC_LEXER = 	$(SRC_DIR)/lexer/lexer_utils.c \
+				$(SRC_DIR)/lexer/lexer.c \
+				$(SRC_DIR)/lexer/state_handling.c \
+				$(SRC_DIR)/lexer/redir_state_utils.c \
+				$(SRC_DIR)/lexer/token_utils.c \
+				$(SRC_DIR)/lexer/env_state_utils.c
 
 SRC_PARSER = 	$(SRC_DIR)/parser/parser.c \
 				$(SRC_DIR)/parser/parser_utils.c
 
-SRC = $(SRC_MAIN) $(SRC_SIGNALS) $(SRC_ENV) $(SRC_BUILTINS) \
-      $(SRC_UTILS) $(SRC_LEXER) $(SRC_PARSER)
+SRC = 	$(SRC_MAIN) $(SRC_SIGNALS) $(SRC_ENV) $(SRC_BUILTINS) \
+		$(SRC_UTILS) $(SRC_LEXER) $(SRC_PARSER)
 
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
@@ -103,7 +107,7 @@ all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT_FLAGS) -lreadline
-	@echo $(GREEN)"Creating $(NAME)"$(RESET)
+	@echo $(GREEN)"Compiled $(NAME)"$(RESET)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
