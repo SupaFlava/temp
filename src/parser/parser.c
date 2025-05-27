@@ -6,13 +6,13 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/21 15:47:58 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/28 00:34:19 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	append_to_args(t_command *command, char *content)
+int	append_to_args(t_mshell *shell, t_command *command, char *content)
 {
 	int i;
 	int j;
@@ -21,42 +21,65 @@ void	append_to_args(t_command *command, char *content)
 	i = 0;
 	if (!command->args) // if theres no args added to command yet
 	{
-		command->args = malloc(sizeof(char *) * 2);	//mallocs for 2x a char *
-		command->args[0] = ft_strdup(content);		//mallocs char * 1 for the actual needed space for the content
+		command->args = ft_malloc_s(shell,(sizeof(char *) * 2), MEM_TEMP);	//mallocs for 2x a char *
+		command->args[0] = ft_strdup_s(shell, content, MEM_TEMP);		//mallocs char * 1 for the actual needed space for the content
 		command->args[1] = NULL;					//second needs 2 be null for execve()
-		return ;
+		return (0);
 	}
 	while (command->args[i]) // go to the end of current args
 		i++;
-	new_args = malloc(sizeof(char *) * (1 + 2)); //malloc for the current size + content + NULL
+	new_args = ft_malloc_s(shell,(sizeof(char *) * (i + 2)), MEM_TEMP); //malloc for the current size + 2 (content + NULL)
 	if (!new_args)
-		return ;
+		return (1);
 	j = 0;
 	while (j < i)
 	{
 		new_args[j] = command->args[j];
 		j++;
 	}
-	new_args[i] = ft_strdup(content);
+	new_args[i] = ft_strdup_s(shell, content, MEM_TEMP);
+	if (!new_args)
+		return(1);
 	new_args[i + 1] = NULL;
-	free (command->args);
+	//free (command->args);
 	command->args = new_args;
+	return (0);
 }
 
-int	parse_tokens_to_cmds(t_mshell *shell)
+t_command	*parse_tokens_to_cmds(t_mshell *shell)
 {
 	t_token		*token;
-	t_command *command;
+	t_command	*command;
+	t_command	*head;
 
 	token = shell->tokens;
-	command = create_command();
+
+	command = create_command(shell);
+	head = command;
 	while (token && token->type != TOK_PIPE)
 	{
-		if (token->type == TOK_WORD || token->type == TOK_ENV_VAR || token->type == TOK_EXIT_STATUS)
-			append_to_args(command, token->content);
+		if (parse_redir_token(shell, token, command))
+			return (NULL);
+		if (parse_nonredir_token(shell, token, command))
+			return (NULL);
+
+		token = token->next;
 	}
+	if (token != NULL && token->type == TOK_PIPE)
+	{
+		token = token->next;
+		command->next = create_command(shell);
+		command = command->next;
+		while (token && token->type != TOK_PIPE)
+		{
+			if (parse_redir_token(shell, token, command))
+				return (NULL);
+			if (parse_nonredir_token(shell, token, command))
+				return (NULL);
 
+			token = token->next;
+		}
 
-
-	return (0);
+	}
+	return (head);
 }

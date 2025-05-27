@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/27 21:08:37 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/27 23:21:01 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_mshell
 	t_list		*temp_allocs;
 	t_list		*long_allocs;
 	t_token		*tokens;
-	t_command	cmds;
+	t_command	*commands;
 	char		*line;
 	int			exit_status;
 }	t_mshell;

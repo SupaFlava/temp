@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 11:06:16 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/16 16:08:13 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/27 21:31:28 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	shell_init(t_mshell *shell)
 	shell->long_allocs = NULL;
 	shell->temp_allocs = NULL;
 	shell->tokens = NULL;
+	shell->commands = NULL;
 	shell->exit_status = 0;
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 11:22:37 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/20 16:51:18 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/27 23:00:03 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@ int			ft_strcmp(const char *str1, const char *str2);
 
 // args_utils.c
 int	count_args(char **args);
+
+// tester.c
+void	print_commands(t_command *cmd_list);
 
 #endif
