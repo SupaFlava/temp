@@ -6,77 +6,73 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/28 00:18:06 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/29 21:03:43 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	check_builtin(t_token *token, t_command *command)
-{
-	if (!ft_strcmp(token->content, "echo")
-		|| !ft_strcmp(token->content, "cd")
-		|| !ft_strcmp(token->content, "pwd")
-		|| !ft_strcmp(token->content, "export")
-		|| !ft_strcmp(token->content, "unset")
-		|| !ft_strcmp(token->content, "env")
-		|| !ft_strcmp(token->content, "exit"))
-		command->is_builtin = 1;
-}
+// int	append_args(t_mshell *shell, t_command *command, char *content)
+// {
+// 	int		count;
+// 	int		i;
+// 	char	**new_args;
 
-int		parse_nonredir_token(t_mshell *shell, t_token *token, t_command *command)
+// 	if (!content || !command)
+// 		return (0);
+// 	count = 0;
+// 	if (command->args)
+// 		while (command->args[count])
+// 			count++;
+// 	new_args = ft_malloc_s(shell, sizeof(char*) * (count + 2), MEM_TEMP);
+// 	if (!new_args)
+// 		return (0);
+// 	i = 0;
+// 	while (i < count)
+// 	{
+// 		new_args[i] = command->args[i];
+// 		i++;
+// 	}
+// 	new_args[count] = ft_strdup_s(shell, content, MEM_TEMP);
+// 	if (!new_args[count])
+// 		return (0);
+// 	new_args[count + 1] = NULL;
+// 	command->args = new_args;
+// 	return (1);
+// }
+
+void	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg)
 {
-	if (token->type == TOK_WORD
-		|| token->type == TOK_ENV_VAR
-		|| token->type == TOK_EXIT_STATUS
-		|| token->type == TOK_QUOTED)
+	int	i;
+	int	j;
+	char **new_args;
+
+	i = 0;
+	while (command->args && command->args[i])
+		i++;
+	new_args = ft_malloc_s(shell, sizeof(char *) * (i + 2), MEM_TEMP);
+	if (!new_args)
+		return ;
+
+	j = 0;
+	while (j < i)
 	{
-		if (token->type == TOK_WORD && command->args == NULL)
-			check_builtin(token, command);
-		if (append_to_args(shell,command, token->content))
-			return (1);
+		new_args[j] = command->args[j];
+		j++;
 	}
-
-	return (0);
+	new_args[i] = ft_strdup_s(shell, arg, MEM_TEMP);
+	new_args[i + 1] = NULL;
+	command->args = new_args;
 }
 
-int	parse_redir_token(t_mshell *shell, t_token *token, t_command *command)
+void	init_parser(t_parser *p, t_mshell *shell)
 {
-	if (token->type == TOK_REDIR_IN
-		|| token->type == TOK_REDIR_OUT
-		|| token->type == TOK_APPEND
-		|| token->type == TOK_HEREDOC)
-	{
-		if (!token->next || (token->next->type != TOK_WORD && token->next->type != TOK_QUOTED))
-		{
-			ft_printf("SYNTAX ERROR invalid token after redir\n");
-			return (1);
-		}
-		else
-		{
-			if (token->type == TOK_REDIR_IN || token->type == TOK_HEREDOC)
-				command->infile = ft_strdup_s(shell, token->next->content, MEM_TEMP);
-			if (token->type == TOK_REDIR_OUT || token->type == TOK_APPEND)
-				command->outfile = ft_strdup_s(shell, token->next->content, MEM_TEMP);
-		}
-	}
-	return (0);
-}
-
-t_command	*create_command(t_mshell *shell)
-{
-	t_command	*command;
-
-	command = ft_malloc_s(shell,(sizeof(t_command)),MEM_TEMP);
-	if (!command)
-		return (NULL);
-	command->args = NULL;
-	command->infile = NULL;
-	command->outfile = NULL;
-	command->append = 0;
-	command->is_builtin = 0;
-	command->next = NULL;
-	return (command);
+	p->current_token = shell->tokens;
+	p->cmd_list = NULL;
+	p->current_cmd = NULL;
+	p->state = PARSE_START;
+	p->env = shell->env_list;
+	p->exit_value = shell->exit_status;
 }
 
 char	*read_input(void)

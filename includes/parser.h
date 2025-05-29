@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:50:26 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/27 23:44:53 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/29 21:02:20 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,17 @@
 
 // function prototypes
 // parser.c
-t_command	*parse_tokens_to_cmds(t_mshell *shell);
-int			append_to_args(t_mshell *shell, t_command *command, char *content);
-
+t_command		*parse_tokens_to_cmds(t_mshell *shell);
+t_parser_state	parse_start(t_mshell *shell, t_parser *p);
+t_parser_state	parse_word(t_mshell *shell, t_parser *p);
+t_parser_state	handle_pipe(t_mshell *shell, t_parser *p);
+t_parser_state	handle_redir(t_mshell *shell, t_parser *p);
 
 // parser_utils.c
-char		*read_input(void);
-t_command	*create_command(t_mshell *shell);
-int			parse_nonredir_token(t_mshell *shell, t_token *token, t_command *command);
-int			parse_redir_token(t_mshell *shell, t_token *token, t_command *command);
+char	*read_input(void);
+void	init_parser(t_parser *p, t_mshell *shell);
+void	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg);
 
-
+// int		append_args(t_mshell *shell, t_command *command, char *content);
 
 #endif

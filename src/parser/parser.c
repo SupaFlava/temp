@@ -6,80 +6,170 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/28 00:34:19 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/29 21:25:38 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	append_to_args(t_mshell *shell, t_command *command, char *content)
+t_parser_state	handle_parse_word_state(t_mshell *shell, t_parser *p)
 {
-	int i;
-	int j;
-	char **new_args;
+	t_toktype tok = p->current_token->type;
 
-	i = 0;
-	if (!command->args) // if theres no args added to command yet
+	if (tok == TOK_WORD || tok == TOK_QUOTED
+		|| tok == TOK_ENV_VAR || tok == TOK_EXIT_STATUS)
+		return parse_word(shell, p);
+	else if (tok == TOK_REDIR_IN)
+		return PARSE_REDIR;
+	else if (tok == TOK_REDIR_OUT)
+		return PARSE_APPEND;
+	else if (tok == TOK_APPEND)
+		return PARSE_APPEND;
+	else if (tok == TOK_HEREDOC)
+		return PARSE_HEREDOC;
+	else if (tok == TOK_PIPE)
+		return PARSE_PIPE;
+	else
+		return PARSE_ERROR;
+}
+
+t_parser_state	parse_redir(t_mshell *shell, t_parser *p)
+{
+	t_token	*next;
+
+	next = p->current_token->next;
+	if (!next || (next->type != TOK_WORD && next->type != TOK_QUOTED))
+		return (PARSE_ERROR);
+	p->current_cmd->infile = ft_strdup_s(shell, next->content, MEM_TEMP);
+	p->current_token = next;
+	if (!p->current_cmd->infile)
+		return (PARSE_ERROR);
+	return (PARSE_WORD);
+
+}
+
+t_parser_state	parse_append(t_mshell *shell, t_parser *p)
+{
+	t_token	*next;
+
+	next = p->current_token->next;
+	if (!next || (next->type != TOK_WORD && next->type != TOK_QUOTED))
+		return (PARSE_ERROR);
+	p->current_cmd->outfile = ft_strdup_s(shell, next->content, MEM_TEMP);
+	p->current_token = next;
+	p->current_cmd->append = 1;
+	return (PARSE_WORD);
+}
+
+t_parser_state	parse_heredoc(t_mshell *shell, t_parser *p)
+{
+	t_token	*next;
+
+	next = p->current_token->next;
+	if (!next || (next->type != TOK_WORD && next->type != TOK_QUOTED))
+		return (PARSE_ERROR);
+	p->current_cmd->infile = ft_strdup_s(shell, next->content, MEM_TEMP);
+	p->current_token = next;
+	return (PARSE_WORD);
+
+}
+
+
+t_parser_state	parse_pipe(t_mshell *shell, t_parser *p)
+{
+	t_command	*new_cmd;
+	t_command	*last;
+
+	if (!p->current_cmd)
+		return (PARSE_ERROR);
+	if (!p->cmd_list)
+		p->cmd_list = p->current_cmd;
+	else
 	{
-		command->args = ft_malloc_s(shell,(sizeof(char *) * 2), MEM_TEMP);	//mallocs for 2x a char *
-		command->args[0] = ft_strdup_s(shell, content, MEM_TEMP);		//mallocs char * 1 for the actual needed space for the content
-		command->args[1] = NULL;					//second needs 2 be null for execve()
-		return (0);
+		last = p->cmd_list;
+		while (last->next)
+			last = last->next;
+		last->next = p->current_cmd;
 	}
-	while (command->args[i]) // go to the end of current args
-		i++;
-	new_args = ft_malloc_s(shell,(sizeof(char *) * (i + 2)), MEM_TEMP); //malloc for the current size + 2 (content + NULL)
-	if (!new_args)
-		return (1);
-	j = 0;
-	while (j < i)
+	new_cmd = ft_malloc_s(shell, sizeof(t_command), MEM_TEMP);
+	if (!new_cmd)
+		return (PARSE_ERROR);
+	ft_bzero(new_cmd, sizeof(t_command));
+	p->current_cmd = new_cmd;
+	return (PARSE_START);
+}
+
+t_parser_state	parse_word(t_mshell *shell, t_parser *p)
+{
+	if (!p->current_cmd)
 	{
-		new_args[j] = command->args[j];
-		j++;
+		p->current_cmd = ft_malloc_s(shell, sizeof(t_command), MEM_TEMP);
+		if (!p->current_cmd)
+			return (PARSE_ERROR);
+		ft_bzero(p->current_cmd, sizeof(t_command));
+		if (!p->cmd_list)
+			p->cmd_list = p->current_cmd;
 	}
-	new_args[i] = ft_strdup_s(shell, content, MEM_TEMP);
-	if (!new_args)
-		return(1);
-	new_args[i + 1] = NULL;
-	//free (command->args);
-	command->args = new_args;
-	return (0);
+	add_arg_to_cmd(shell, p->current_cmd, p->current_token->content);
+	return (PARSE_WORD);
+}
+
+t_parser_state	parse_start(t_mshell *shell, t_parser *p)
+{
+	t_toktype	tok;
+
+	tok = p->current_token->type;
+
+	if (tok == TOK_WORD || tok == TOK_QUOTED
+		|| tok == TOK_ENV_VAR || tok == TOK_EXIT_STATUS)
+		return (parse_word(shell, p));
+	else if (tok == TOK_REDIR_IN)
+		return (PARSE_REDIR);
+	else if (tok == TOK_REDIR_OUT)
+		return (PARSE_APPEND);
+	else if (tok == TOK_APPEND)
+		return (PARSE_APPEND);
+	else if (tok == TOK_HEREDOC)
+		return (PARSE_HEREDOC);
+	else if (tok == TOK_PIPE)
+		return (PARSE_PIPE);
+	else
+		return (PARSE_ERROR);
 }
 
 t_command	*parse_tokens_to_cmds(t_mshell *shell)
 {
-	t_token		*token;
-	t_command	*command;
-	t_command	*head;
+	t_parser	*p;
 
-	token = shell->tokens;
+	p = ft_malloc_s(shell, sizeof(t_parser), MEM_TEMP);
+	if (!p)
+		return (NULL);
+	init_parser(p, shell);
 
-	command = create_command(shell);
-	head = command;
-	while (token && token->type != TOK_PIPE)
+	while(p->current_token)
 	{
-		if (parse_redir_token(shell, token, command))
+		ft_printf("Parsing token: %s (type %d, state %d)\n",
+			p->current_token->content,
+			p->current_token->type,
+			p->state);
+
+		if (p->state == PARSE_START)
+			p->state = parse_start(shell, p);
+		else if (p->state == PARSE_WORD)
+			p->state = handle_parse_word_state(shell, p);
+		else if (p->state == PARSE_REDIR)
+			p->state = parse_redir(shell, p);
+		else if (p->state == PARSE_HEREDOC)
+			p->state = parse_heredoc(shell, p);
+		else if (p->state == PARSE_APPEND)
+			p->state = parse_append(shell, p);
+		else if (p->state == PARSE_PIPE)
+			p->state = parse_pipe(shell, p);
+		else
 			return (NULL);
-		if (parse_nonredir_token(shell, token, command))
+		if (p->state == PARSE_ERROR)
 			return (NULL);
-
-		token = token->next;
+		p->current_token = p->current_token->next;
 	}
-	if (token != NULL && token->type == TOK_PIPE)
-	{
-		token = token->next;
-		command->next = create_command(shell);
-		command = command->next;
-		while (token && token->type != TOK_PIPE)
-		{
-			if (parse_redir_token(shell, token, command))
-				return (NULL);
-			if (parse_nonredir_token(shell, token, command))
-				return (NULL);
-
-			token = token->next;
-		}
-
-	}
-	return (head);
+	return (p->cmd_list);
 }

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/27 23:21:01 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/29 20:38:26 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ typedef enum e_state
 	STATE_IN_REDIR_OUT,		// >, >>
 	STATE_ESCAPE			// "\"
 }	t_state;
+
+typedef enum e_parse_state
+{
+	PARSE_START,
+	PARSE_WORD,
+	PARSE_REDIR,
+	PARSE_HEREDOC,
+	PARSE_APPEND,
+	PARSE_PIPE,
+	PARSE_ERROR
+}	t_parser_state;
+
 
 typedef enum e_token_type
 {
@@ -61,6 +73,13 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_token
+{
+	void			*content;
+	t_toktype		type;
+	struct s_token	*next;
+}	t_token;
+
 typedef struct s_command
 {
 	char				**args;
@@ -71,12 +90,17 @@ typedef struct s_command
 	struct s_command	*next;
 }	t_command;
 
-typedef struct s_token
+typedef struct s_parser
 {
-	void			*content;
-	t_toktype	type;
-	struct s_token	*next;
-}	t_token;
+	t_token	*current_token;
+	t_command		*cmd_list;
+	t_command		*current_cmd;
+	t_parser_state	state;
+	t_env			*env;
+	int				exit_value;
+
+}	t_parser;
+
 
 typedef struct s_mshell
 {

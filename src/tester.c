@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 15:42:35 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/27 23:02:51 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/05/29 21:30:46 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,36 +28,56 @@ int run_builtin(t_command *cmd, t_mshell *shell)
 		return (0);
 }
 
-
-void	print_commands(t_command *cmd_list)
+void	print_commands(t_mshell *shell)
 {
-	int i;
-	int count;
+	t_command	*cmd;
+	int			i;
+	int			cmd_num;
 
-	count = 0;
-	while (cmd_list)
+
+	cmd = shell->commands;
+	if (!cmd)
 	{
-		ft_printf("=== Command %d ===\n", count);
-		if (cmd_list->args)
+		printf("No commands registered.\n");
+		return;
+	}
+	cmd_num = 1;
+	while (cmd)
+	{
+		printf("Command %d:\n", cmd_num);
+
+		// Arguments
+		if (!cmd->args)
+			printf("  Args: (none)\n");
+		else
 		{
 			i = 0;
-			while (cmd_list->args[i])
+			while (cmd->args[i])
 			{
-				ft_printf("arg[%d]: %s\n", i, cmd_list->args[i]);
+				printf("  Arg[%d]: %s\n", i, cmd->args[i]);
 				i++;
 			}
 		}
+
+		// Input file
+		if (cmd->infile)
+			printf("  Infile: %s\n", cmd->infile);
 		else
-			ft_printf("args: (none)\n");
+			printf("  Infile: (none)\n");
 
-		ft_printf("infile: %s\n", cmd_list->infile ? cmd_list->infile : "(none)");
-		ft_printf("outfile: %s\n", cmd_list->outfile ? cmd_list->outfile : "(none)");
-		ft_printf("append: %d\n", cmd_list->append);
-		ft_printf("is_builtin: %d\n", cmd_list->is_builtin);
-		ft_printf("next: %s\n", cmd_list->next ? "yes" : "no");
-		ft_printf("\n");
+		// Output file
+		if (cmd->outfile)
+			printf("  Outfile: %s\n", cmd->outfile);
+		else
+			printf("  Outfile: (none)\n");
 
-		cmd_list = cmd_list->next;
-		count++;
+		// Append flag
+		printf("  Append: %s\n", cmd->append ? "yes" : "no");
+
+		// Builtin flag
+		printf("  Is Builtin: %s\n", cmd->is_builtin ? "yes" : "no");
+
+		cmd = cmd->next;
+		cmd_num++;
 	}
 }
