@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_init.c                                       :+:      :+:    :+:   */
+/*   fds.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 11:06:16 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/29 18:24:51 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/05/29 16:40:06 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/29 18:42:24 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	shell_init(t_mshell *shell)
+void close_fds(int fd1,int fd2, int fd3)
 {
-	ft_bzero(shell, sizeof(t_mshell));
-	shell->long_allocs = NULL;
-	shell->temp_allocs = NULL;
-	shell->tokens = NULL;
-	shell->exit_status = 0;
+	if (fd1 >= 0 )
+		close(fd1);
+	if (fd2 >= 0 )
+		close(fd2);
+	if (fd3 >= 0 )
+		close(fd3);
 }
 
-void init_context(t_exec_ctx *ctx)
+void    close_parent_fds(t_command *cmd, int *prev_fd, int fds[2])
 {
-	int i;
-
-	i = 0;
-	ctx->prev_fd = -1;
-	ctx->child_count = 0;
-	ctx->last_exit_status = 0;
-	ctx->fds[0] = -1;
-	ctx->fds[1] = -1;
-	while(i < 100)
-		ctx->child_pids[i] = 0;
+    if (*prev_fd != -1)
+        close(*prev_fd);
+    if (cmd->next)
+    {
+        close(fds[1]);
+        *prev_fd = fds[0];
+    }
 }

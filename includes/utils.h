@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:22:37 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/22 11:37:58 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/29 18:26:56 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 
 // function prototypes
 // shell_init.c
-int			shell_init(t_mshell *shell);
-int			shell_init(t_mshell *shell);
+void			shell_init(t_mshell *shell);
+void            init_context(t_exec_ctx *ctx);
+ 
 
 // memory
 void free_env(t_env *node);
@@ -36,7 +37,9 @@ int			ft_strcmp(const char *str1, const char *str2);
 char        *ft_substr_s(t_mshell *shell ,char const *s,unsigned b,size_t len);
 
 // list_utils.c
-
+//fds
+void close_fds(int fd1,int fd2, int fd3);
+void    close_parent_fds(t_command *cmd, int *prev_fd, int fds[2]);
 
 // args_utils.c
 int	count_args(char **args);

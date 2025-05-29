@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/26 12:41:32 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/29 18:28:39 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	if (shell_init(&shell) == EXIT_FAILURE)
-		return(EXIT_FAILURE);
+	shell_init(&shell);
     setup_signals();
 	init_env(&shell ,envp);
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   typedefs.h                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/20 16:54:29 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   typedefs.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/05/29 18:10:58 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,15 @@ typedef struct s_token
 	t_toktype	type;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct s_exec_ctx
+{
+	int	prev_fd;
+	int fds[2];
+	int child_pids[100];
+	int child_count;
+	int last_exit_status; 
+} t_exec_ctx;
 
 typedef struct s_mshell
 {
