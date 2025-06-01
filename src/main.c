@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/29 18:28:39 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/01 17:36:27 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ int	main(int argc, char **argv, char **envp)
 	};
 	
 	t_command cmd1 = {
-		.args = (char *[]){"echo", "hello", NULL},
+		.args = (char *[]){"cd", "/", NULL},
 		.infile = NULL,
 		.outfile = NULL,
 		.append = 0,
-		.next = &cmd2
+		.next = NULL
 	};
 	
 	t_command cmd0 = {
-		.args = (char *[]){"ls", NULL},
+		.args = (char *[]){"echo","hi", NULL},
 		.infile = NULL,
 		.outfile = NULL,
 		.append = 0,

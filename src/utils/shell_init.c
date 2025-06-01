@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:06:16 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/29 18:24:51 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/01 15:29:39 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,8 @@ void init_context(t_exec_ctx *ctx)
 	ctx->fds[0] = -1;
 	ctx->fds[1] = -1;
 	while(i < 100)
+	{
 		ctx->child_pids[i] = 0;
+		i++;
+	}
 }
