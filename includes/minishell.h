@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 13:18:35 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/29 18:04:25 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/02 17:42:45 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 // function prototypes
 int	run_builtin(t_command *cmd, t_mshell *shell);
-void	print_commands(t_mshell *shell);
+void	print_commands(t_command *cmd);
 
 
 #endif

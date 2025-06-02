@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 15:42:35 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/29 21:30:46 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/02 18:16:17 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,56 +28,29 @@ int run_builtin(t_command *cmd, t_mshell *shell)
 		return (0);
 }
 
-void	print_commands(t_mshell *shell)
+void	print_commands(t_command *cmd)
 {
-	t_command	*cmd;
-	int			i;
-	int			cmd_num;
+	int	i;
 
-
-	cmd = shell->commands;
-	if (!cmd)
-	{
-		printf("No commands registered.\n");
-		return;
-	}
-	cmd_num = 1;
 	while (cmd)
 	{
-		printf("Command %d:\n", cmd_num);
-
-		// Arguments
-		if (!cmd->args)
-			printf("  Args: (none)\n");
-		else
+		printf("Command:\n");
+		i = 0;
+		if (cmd->args)
 		{
-			i = 0;
 			while (cmd->args[i])
 			{
-				printf("  Arg[%d]: %s\n", i, cmd->args[i]);
+				printf("  arg[%d]: %s\n", i, cmd->args[i]);
 				i++;
 			}
 		}
-
-		// Input file
-		if (cmd->infile)
-			printf("  Infile: %s\n", cmd->infile);
 		else
-			printf("  Infile: (none)\n");
-
-		// Output file
-		if (cmd->outfile)
-			printf("  Outfile: %s\n", cmd->outfile);
-		else
-			printf("  Outfile: (none)\n");
-
-		// Append flag
-		printf("  Append: %s\n", cmd->append ? "yes" : "no");
-
-		// Builtin flag
-		printf("  Is Builtin: %s\n", cmd->is_builtin ? "yes" : "no");
-
+			printf("  args: (null)\n");
+		printf("  infile: %s\n", cmd->infile ? cmd->infile : "(null)");
+		printf("  outfile: %s\n", cmd->outfile ? cmd->outfile : "(null)");
+		printf("  append: %d\n", cmd->append);
+		printf("  is_builtin: %d\n", cmd->is_builtin);
+		printf("--------------------------\n");
 		cmd = cmd->next;
-		cmd_num++;
 	}
 }

@@ -6,74 +6,12 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/29 21:25:38 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/02 18:09:59 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-t_parser_state	handle_parse_word_state(t_mshell *shell, t_parser *p)
-{
-	t_toktype tok = p->current_token->type;
-
-	if (tok == TOK_WORD || tok == TOK_QUOTED
-		|| tok == TOK_ENV_VAR || tok == TOK_EXIT_STATUS)
-		return parse_word(shell, p);
-	else if (tok == TOK_REDIR_IN)
-		return PARSE_REDIR;
-	else if (tok == TOK_REDIR_OUT)
-		return PARSE_APPEND;
-	else if (tok == TOK_APPEND)
-		return PARSE_APPEND;
-	else if (tok == TOK_HEREDOC)
-		return PARSE_HEREDOC;
-	else if (tok == TOK_PIPE)
-		return PARSE_PIPE;
-	else
-		return PARSE_ERROR;
-}
-
-t_parser_state	parse_redir(t_mshell *shell, t_parser *p)
-{
-	t_token	*next;
-
-	next = p->current_token->next;
-	if (!next || (next->type != TOK_WORD && next->type != TOK_QUOTED))
-		return (PARSE_ERROR);
-	p->current_cmd->infile = ft_strdup_s(shell, next->content, MEM_TEMP);
-	p->current_token = next;
-	if (!p->current_cmd->infile)
-		return (PARSE_ERROR);
-	return (PARSE_WORD);
-
-}
-
-t_parser_state	parse_append(t_mshell *shell, t_parser *p)
-{
-	t_token	*next;
-
-	next = p->current_token->next;
-	if (!next || (next->type != TOK_WORD && next->type != TOK_QUOTED))
-		return (PARSE_ERROR);
-	p->current_cmd->outfile = ft_strdup_s(shell, next->content, MEM_TEMP);
-	p->current_token = next;
-	p->current_cmd->append = 1;
-	return (PARSE_WORD);
-}
-
-t_parser_state	parse_heredoc(t_mshell *shell, t_parser *p)
-{
-	t_token	*next;
-
-	next = p->current_token->next;
-	if (!next || (next->type != TOK_WORD && next->type != TOK_QUOTED))
-		return (PARSE_ERROR);
-	p->current_cmd->infile = ft_strdup_s(shell, next->content, MEM_TEMP);
-	p->current_token = next;
-	return (PARSE_WORD);
-
-}
-
+#include "minishell.h"
 
 t_parser_state	parse_pipe(t_mshell *shell, t_parser *p)
 {
@@ -95,8 +33,77 @@ t_parser_state	parse_pipe(t_mshell *shell, t_parser *p)
 	if (!new_cmd)
 		return (PARSE_ERROR);
 	ft_bzero(new_cmd, sizeof(t_command));
+	new_cmd->next = NULL;
 	p->current_cmd = new_cmd;
 	return (PARSE_START);
+}
+
+t_parser_state	handle_parse_word_state(t_mshell *shell, t_parser *p)
+{
+	t_toktype tok = p->current_token->type;
+
+	if (tok == TOK_WORD || tok == TOK_QUOTED
+		|| tok == TOK_ENV_VAR || tok == TOK_EXIT_STATUS)
+		return (parse_word(shell, p));
+	else if (tok == TOK_REDIR_IN)
+		return (PARSE_REDIR);
+	else if (tok == TOK_REDIR_OUT)
+		return (PARSE_APPEND);
+	else if (tok == TOK_APPEND)
+		return PARSE_APPEND;
+	else if (tok == TOK_HEREDOC)
+		return (PARSE_HEREDOC);
+	else if (tok == TOK_PIPE)
+		return (parse_pipe(shell, p));
+	else
+	{
+		ft_printf("parser error\n");
+		return (PARSE_ERROR);
+	}
+}
+
+t_parser_state	parse_redir(t_mshell *shell, t_parser *p)
+{
+	t_token	*current;
+
+	current = p->current_token;
+	if (!current || (current->type != TOK_WORD && current->type != TOK_QUOTED))
+	{
+		ft_printf("here2\n");
+		return (PARSE_ERROR);
+	}
+	p->current_cmd->infile = ft_strdup_s(shell, current->content, MEM_TEMP);
+	if (!p->current_cmd->infile)
+	{
+		ft_printf("here1\n");
+		return (PARSE_ERROR);
+	}
+	return (PARSE_WORD);
+
+}
+
+t_parser_state	parse_append(t_mshell *shell, t_parser *p)
+{
+	t_token	*current;
+
+	current = p->current_token;
+	if (!current || (current->type != TOK_WORD && current->type != TOK_QUOTED))
+		return (PARSE_ERROR);
+	p->current_cmd->outfile = ft_strdup_s(shell, current->content, MEM_TEMP);
+	p->current_cmd->append = 1;
+	return (PARSE_WORD);
+}
+
+t_parser_state	parse_heredoc(t_mshell *shell, t_parser *p)
+{
+	t_token	*current;
+
+	current = p->current_token;
+	if (!current || (current->type != TOK_WORD && current->type != TOK_QUOTED))
+		return (PARSE_ERROR);
+	p->current_cmd->infile = ft_strdup_s(shell, current->content, MEM_TEMP);
+	return (PARSE_WORD);
+
 }
 
 t_parser_state	parse_word(t_mshell *shell, t_parser *p)
@@ -107,6 +114,7 @@ t_parser_state	parse_word(t_mshell *shell, t_parser *p)
 		if (!p->current_cmd)
 			return (PARSE_ERROR);
 		ft_bzero(p->current_cmd, sizeof(t_command));
+		p->current_cmd->next = NULL;
 		if (!p->cmd_list)
 			p->cmd_list = p->current_cmd;
 	}
@@ -163,13 +171,14 @@ t_command	*parse_tokens_to_cmds(t_mshell *shell)
 			p->state = parse_heredoc(shell, p);
 		else if (p->state == PARSE_APPEND)
 			p->state = parse_append(shell, p);
-		else if (p->state == PARSE_PIPE)
-			p->state = parse_pipe(shell, p);
+		// else if (p->state == PARSE_PIPE)
+		// 	p->state = parse_pipe(shell, p);
 		else
 			return (NULL);
 		if (p->state == PARSE_ERROR)
 			return (NULL);
 		p->current_token = p->current_token->next;
 	}
+	print_commands(p->cmd_list);
 	return (p->cmd_list);
 }

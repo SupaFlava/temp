@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/29 18:03:50 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/02 18:09:36 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv/*, char **envp*/)
 			else
 				print_tokens(shell.tokens); // temp to see registered tokens
 			shell.commands = parse_tokens_to_cmds(&shell);
-			print_commands(&shell); // temp to see registered commands
+			//print_commands(shell.commands); // temp to see registered commands
 		}
 		// run_builtin(&cmd, &shell); // this is a tester
 		free(shell.line);
