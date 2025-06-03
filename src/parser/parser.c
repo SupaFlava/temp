@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/02 18:09:59 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/03 13:39:25 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_parser_state	parse_pipe(t_mshell *shell, t_parser *p)
 	t_command	*new_cmd;
 	t_command	*last;
 
+	last = NULL;
 	if (!p->current_cmd)
 		return (PARSE_ERROR);
 	if (!p->cmd_list)
@@ -27,7 +28,8 @@ t_parser_state	parse_pipe(t_mshell *shell, t_parser *p)
 		last = p->cmd_list;
 		while (last->next)
 			last = last->next;
-		last->next = p->current_cmd;
+		if (last != p->current_cmd) 
+			last->next = p->current_cmd;
 	}
 	new_cmd = ft_malloc_s(shell, sizeof(t_command), MEM_TEMP);
 	if (!new_cmd)
@@ -148,6 +150,8 @@ t_parser_state	parse_start(t_mshell *shell, t_parser *p)
 t_command	*parse_tokens_to_cmds(t_mshell *shell)
 {
 	t_parser	*p;
+	t_command	*last;
+
 
 	p = ft_malloc_s(shell, sizeof(t_parser), MEM_TEMP);
 	if (!p)
@@ -156,10 +160,10 @@ t_command	*parse_tokens_to_cmds(t_mshell *shell)
 
 	while(p->current_token)
 	{
-		ft_printf("Parsing token: %s (type %d, state %d)\n",
-			p->current_token->content,
-			p->current_token->type,
-			p->state);
+		// ft_printf("Parsing token: %s (type %d, state %d)\n",
+		// 	p->current_token->content,
+		// 	p->current_token->type,
+		// 	p->state);
 
 		if (p->state == PARSE_START)
 			p->state = parse_start(shell, p);
@@ -179,6 +183,20 @@ t_command	*parse_tokens_to_cmds(t_mshell *shell)
 			return (NULL);
 		p->current_token = p->current_token->next;
 	}
-	print_commands(p->cmd_list);
+	last = NULL;
+	if (p->current_cmd)
+	{
+		last = p->cmd_list;
+		if (!last)
+			p->cmd_list = p->current_cmd;
+		else
+		{
+			while (last-> next)
+				last = last->next;
+			if (last != p->current_cmd)
+				last->next = p->current_cmd;
+		}
+	}
+
 	return (p->cmd_list);
 }

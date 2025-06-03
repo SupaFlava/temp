@@ -6,40 +6,11 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/29 21:03:43 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/03 13:10:25 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// int	append_args(t_mshell *shell, t_command *command, char *content)
-// {
-// 	int		count;
-// 	int		i;
-// 	char	**new_args;
-
-// 	if (!content || !command)
-// 		return (0);
-// 	count = 0;
-// 	if (command->args)
-// 		while (command->args[count])
-// 			count++;
-// 	new_args = ft_malloc_s(shell, sizeof(char*) * (count + 2), MEM_TEMP);
-// 	if (!new_args)
-// 		return (0);
-// 	i = 0;
-// 	while (i < count)
-// 	{
-// 		new_args[i] = command->args[i];
-// 		i++;
-// 	}
-// 	new_args[count] = ft_strdup_s(shell, content, MEM_TEMP);
-// 	if (!new_args[count])
-// 		return (0);
-// 	new_args[count + 1] = NULL;
-// 	command->args = new_args;
-// 	return (1);
-// }
 
 void	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg)
 {
