@@ -6,13 +6,13 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 12:12:21 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/20 14:29:30 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/04 22:49:08 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-char	*ft_strdup_s(t_mshell *shell, const char *src, t_mem_t type) //mallocs into the struct.
+char	*ft_strdup_s(t_mshell *shell, const char *src, t_mem_t type)
 {
 	size_t	len;
 	char	*dest;
@@ -35,7 +35,7 @@ char	*ft_strndup(t_mshell *shell, const char *str, size_t n)
 	len = 0;
 	while (str[len] && len < n)
 		len++;
-	dup = (char *)ft_malloc_s(shell,(len + 1), MEM_TEMP);
+	dup = (char *)ft_malloc_s(shell, (len + 1), MEM_TEMP);
 	if (!dup)
 		return (NULL);
 	len = 0;

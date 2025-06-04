@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 13:18:35 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/15 11:00:42 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/02 13:18:35 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/02 17:42:45 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # include "signals.h"
 # include "libft.h"
-# include "parse.h"
+# include "parser.h"
 # include "typedefs.h"
 # include "env.h"
 # include "utils.h"
@@ -29,5 +29,7 @@
 
 // function prototypes
 int	run_builtin(t_command *cmd, t_mshell *shell);
+void	print_commands(t_command *cmd);
+
 
 #endif
