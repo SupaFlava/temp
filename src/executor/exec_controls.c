@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   exec_controls.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/01 17:36:24 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/04 13:21:38 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-static void wait_for_pid(int amount , int pids[])
+static void wait_for_pid(int amount, int pids[], t_mshell *shell)
 {
 	int i;
+	int status;
 
 	i = 0;
+	status = -1;
+	shell->exit_status = 0;
 	while (i < amount)
 	{
-		waitpid(pids[i], NULL, 0);
+		waitpid(pids[i], &status, 0);
+		if(i == amount -1)
+		{
+			if(WEXITSTATUS(status))
+				shell->exit_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				shell->exit_status = 128 + WTERMSIG(status);
+		}
 		i++;
 	}
 }
@@ -52,8 +61,11 @@ static pid_t run_child(t_command *cmd,t_exec_ctx ctx ,t_mshell *shell)
 			handle_redir(cmd);
 			if(is_builtin(cmd))
 				exit(run_builtin(cmd, shell));
-		//	check_exec(cmd);
-			exit(0);	
+			else
+			{
+				check_exec(cmd, shell);
+			}
+			exit(0);
 	}
 	return (pid);
 }
@@ -75,11 +87,11 @@ int execute_cmd(t_mshell *shell)
 			return (1);
 		pid = run_child(cmd ,ctx,shell);
 		if(pid < 0)
-			return 1;
+			return (1);
 		ctx.child_pids[ctx.child_count++] = pid;
-		close_parent_fds(cmd,&ctx.prev_fd, ctx.fds);
+		close_parent_fds(cmd, &ctx.prev_fd, ctx.fds);
 		cmd = cmd->next;
 	}
-	wait_for_pid(ctx.child_count, ctx.child_pids);
+	wait_for_pid(ctx.child_count, ctx.child_pids, shell);
 	return (0);
 }

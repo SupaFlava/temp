@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:18:35 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/26 18:34:15 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/04 10:44:05 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+ #include <sys/wait.h>
 
 # include "signals.h"
 # include "libft.h"
