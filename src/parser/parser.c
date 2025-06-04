@@ -6,12 +6,41 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/03 13:39:25 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/04 18:26:41 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "minishell.h"
+
+t_parser_state	parse_env(t_mshell *shell, t_parser *p)
+{
+	t_token	*tok;
+	char *expanded;
+
+	tok = p->current_token;
+	if (!p->current_cmd)
+	{
+		p->current_cmd = ft_malloc_s(shell, sizeof(t_command), MEM_TEMP);
+		if (!p->current_cmd)
+			return (PARSE_ERROR);
+		ft_bzero(p->current_cmd, sizeof(t_command));
+		p->current_cmd->next = NULL;
+		if (!p->cmd_list)
+			p->cmd_list = p->current_cmd;
+	}
+
+	if (tok->type == TOK_ENV_VAR)
+		expanded = get_env(shell->env_list, tok->content);
+	// else if (tok->type == TOK_EXIT_STATUS)
+		//add getting exit status logic here
+	else
+		return (PARSE_ERROR);
+	if (!expanded)
+		expanded = ft_strdup_s(shell, "", MEM_LONG);
+	add_arg_to_cmd(shell, p->current_cmd, expanded);
+	return (PARSE_WORD);
+}
 
 t_parser_state	parse_pipe(t_mshell *shell, t_parser *p)
 {
@@ -28,7 +57,7 @@ t_parser_state	parse_pipe(t_mshell *shell, t_parser *p)
 		last = p->cmd_list;
 		while (last->next)
 			last = last->next;
-		if (last != p->current_cmd) 
+		if (last != p->current_cmd)
 			last->next = p->current_cmd;
 	}
 	new_cmd = ft_malloc_s(shell, sizeof(t_command), MEM_TEMP);
@@ -42,11 +71,13 @@ t_parser_state	parse_pipe(t_mshell *shell, t_parser *p)
 
 t_parser_state	handle_parse_word_state(t_mshell *shell, t_parser *p)
 {
-	t_toktype tok = p->current_token->type;
+	t_toktype tok;
 
-	if (tok == TOK_WORD || tok == TOK_QUOTED
-		|| tok == TOK_ENV_VAR || tok == TOK_EXIT_STATUS)
+	tok = p->current_token->type;
+	if (tok == TOK_WORD || tok == TOK_QUOTED)
 		return (parse_word(shell, p));
+	else if (tok == TOK_ENV_VAR || tok == TOK_EXIT_STATUS)
+		return (parse_env(shell, p));
 	else if (tok == TOK_REDIR_IN)
 		return (PARSE_REDIR);
 	else if (tok == TOK_REDIR_OUT)
@@ -130,9 +161,10 @@ t_parser_state	parse_start(t_mshell *shell, t_parser *p)
 
 	tok = p->current_token->type;
 
-	if (tok == TOK_WORD || tok == TOK_QUOTED
-		|| tok == TOK_ENV_VAR || tok == TOK_EXIT_STATUS)
+	if (tok == TOK_WORD || tok == TOK_QUOTED)
 		return (parse_word(shell, p));
+	else if (tok == TOK_ENV_VAR || tok == TOK_EXIT_STATUS)
+		return (parse_env(shell, p));
 	else if (tok == TOK_REDIR_IN)
 		return (PARSE_REDIR);
 	else if (tok == TOK_REDIR_OUT)

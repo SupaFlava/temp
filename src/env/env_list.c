@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env_list.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 14:20:30 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/16 13:49:31 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   env_list.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/03 14:20:30 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/04 18:46:26 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int  init_env(t_mshell *shell ,char **envp)
     char *key;
     char *value;
     char *equal;
-    
+
     while(*envp)
     {
         equal = ft_strchr(*envp,'=');
         if (!equal)
             return (EXIT_FAILURE);
         key = ft_substr(*envp, 0, equal - *envp);
-        value = ft_strndup(shell ,equal,(ft_strlen(equal) + 1));
+        value = ft_strdup_s(shell ,equal, MEM_LONG);
         env_add(shell, key, value);
 
         envp++;
