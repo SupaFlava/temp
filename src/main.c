@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/04 22:36:05 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/04 22:50:47 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_mshell shell;
+	t_mshell	shell;
+
 	(void)argc;
 	(void)argv;
-
 	if (shell_init(&shell) == EXIT_FAILURE)
-		return(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	setup_signals();
-	init_env(&shell ,envp);
+	init_env(&shell, envp);
 	// t_command cmd = {
 	// 	.args = (char *[]){"cd",NULL}
 	// };
-
 	while (1)
 	{
 		shell.line = read_input();

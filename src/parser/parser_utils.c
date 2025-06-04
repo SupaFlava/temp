@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/04 22:25:34 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/04 22:40:43 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	finalize_command(t_parser *p)
 
 	if (!p->current_cmd)
 		return ;
-
 	last = p->cmd_list;
 	if (!last)
 	{
@@ -33,9 +32,9 @@ void	finalize_command(t_parser *p)
 
 void	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg)
 {
-	int	i;
-	int	j;
-	char **new_args;
+	int		i;
+	int		j;
+	char	**new_args;
 
 	i = 0;
 	while (command->args && command->args[i])
