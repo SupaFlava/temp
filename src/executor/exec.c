@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:23:04 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/04 14:26:40 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:38:57 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	count_env(t_env *env)
 	int i;
 
 	i = 0;
-	while(env->next != NULL)
+	while(env)
 	{
 		i++;
 		env = env->next;
@@ -31,12 +31,12 @@ char *env_to_envp(t_mshell *shell)
 	
 	int count;
 	int i;
-
-	count =  count_env(&shell->env_list);
-	char **envp;
 	
-	envp = ft_malloc_s(shell,count, MEM_TEMP);
 	temp = shell->env_list;
+
+	count =  count_env(temp);
+	char **envp;	
+	envp = ft_malloc_s(shell,sizeof(char *)* (count + 1), MEM_TEMP);
 	while(temp)
 	{
 		
