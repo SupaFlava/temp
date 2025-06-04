@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 15:42:35 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/02 18:16:17 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/04 22:38:52 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 int run_builtin(t_command *cmd, t_mshell *shell)
 {
+	if (!cmd)
+		return (0);
     if (ft_strncmp(cmd->args[0], "cd", ft_strlen(cmd->args[0])) == 0)
         return builtin_cd(shell, cmd->args);
     else if (ft_strncmp(cmd->args[0], "pwd", ft_strlen(cmd->args[0])) == 0)

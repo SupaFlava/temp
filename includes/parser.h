@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:50:26 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/29 21:02:20 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/04 22:20:46 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@
 
 // function prototypes
 // parser.c
-t_command		*parse_tokens_to_cmds(t_mshell *shell);
+t_command		*parser(t_mshell *shell);
 t_parser_state	parse_start(t_mshell *shell, t_parser *p);
 t_parser_state	parse_word(t_mshell *shell, t_parser *p);
 t_parser_state	handle_pipe(t_mshell *shell, t_parser *p);
 t_parser_state	handle_redir(t_mshell *shell, t_parser *p);
 
 // parser_utils.c
+void	finalize_command(t_parser *p);
 char	*read_input(void);
 void	init_parser(t_parser *p, t_mshell *shell);
 void	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg);

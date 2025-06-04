@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/04 18:02:42 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/04 22:08:28 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ typedef enum e_state
 
 typedef enum e_parse_state
 {
-	PARSE_START,
-	PARSE_WORD,
+	PARSE_DEFAULT,
 	PARSE_REDIR,
 	PARSE_HEREDOC,
 	PARSE_APPEND,

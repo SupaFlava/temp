@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/04 18:42:04 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/04 22:36:05 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ int	main(int argc, char **argv, char **envp)
 			shell.tokens = lexer(&shell);
 			if (!shell.tokens)
 				ft_printf("ERROR\n");
-			else
-				print_tokens(shell.tokens); // temp to see registered tokens
-			shell.commands = parse_tokens_to_cmds(&shell);
+			// else
+			// 	print_tokens(shell.tokens); // temp to see registered tokens
+			shell.commands = parser(&shell);
 			print_commands(shell.commands); // temp to see registered commands
 			//env_print(&shell);
 		}
-		// run_builtin(&cmd, &shell); // this is a tester
+		//run_builtin(shell.commands, &shell); // this is a tester
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);
