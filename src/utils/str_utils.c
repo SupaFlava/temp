@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 12:12:21 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/05 10:24:24 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/05 10:49:35 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_strndup_s(t_mshell *shell, const char *str, size_t n, t_mem_t type)
 	len = 0;
 	while (str[len] && len < n)
 		len++;
-	dup = (char *)ft_malloc_s(shell, (len + 1), MEM_TEMP);
+	dup = (char *)ft_malloc_s(shell, (len + 1), type);
 	if (!dup)
 		return (NULL);
 	len = 0;

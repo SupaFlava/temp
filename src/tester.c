@@ -6,19 +6,19 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:42:35 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/05 10:26:41 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/05 10:47:59 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-// #include "minishell.h"
+#include "minishell.h"
 
 
 // int run_builtin(t_command *cmd, t_mshell *shell)
 // {
 // 	if (!cmd)
-		return (0);
-    if (ft_strcmp(cmd->args[0], "cd") == 0)
+	//	return (0);
+   // if (ft_strcmp(cmd->args[0], "cd") == 0)
 //         return builtin_cd(shell, cmd->args);
 //     else if (ft_strcmp(cmd->args[0], "pwd") == 0)
 //         return builtin_pwd(shell);

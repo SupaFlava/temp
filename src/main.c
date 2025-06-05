@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/05 10:26:12 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/05 11:13:33 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 		.next = NULL
 	};
 
-	shell.cmds = cmd0;
+	shell.commands = &cmd0;
 	while (1)
 	{
 		shell.line = read_input();
@@ -62,10 +62,8 @@ int	main(int argc, char **argv, char **envp)
 			// 	print_tokens(shell.tokens); // temp to see registered tokens
 			shell.commands = parser(&shell);
 			print_commands(shell.commands); // temp to see registered commands
-			//env_print(&shell);
 		}
 		execute_cmd(&shell);
-	//	run_builtin(&cmd, &shell); // this is a tester
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);

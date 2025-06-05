@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/04 22:42:59 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/03 14:20:07 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/05 11:03:32 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 t_parser_state	parse_env(t_mshell *shell, t_parser *p)
 {
 	t_token	*tok;
-	char	*expanded;
+	t_env	*expanded;
 
 	tok = p->current_token;
 	if (!p->current_cmd)
@@ -35,9 +35,9 @@ t_parser_state	parse_env(t_mshell *shell, t_parser *p)
 		//WIP: exit status logic here
 	else
 		return (PARSE_ERROR);
-	if (!expanded)
-		expanded = ft_strdup_s(shell, "", MEM_LONG);
-	add_arg_to_cmd(shell, p->current_cmd, expanded);
+	if (!expanded || !expanded->value)
+		expanded->value = ft_strdup_s(shell, "", MEM_LONG);
+	add_arg_to_cmd(shell, p->current_cmd, expanded->value);
 	return (PARSE_DEFAULT);
 }
 
