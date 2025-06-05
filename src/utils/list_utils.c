@@ -6,9 +6,8 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 14:49:32 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/20 16:45:25 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/04 22:46:28 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:18:35 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/04 10:44:05 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/05 10:24:50 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # include "signals.h"
 # include "libft.h"
-# include "parse.h"
+# include "parser.h"
 # include "typedefs.h"
 # include "env.h"
 # include "utils.h"
@@ -34,5 +34,7 @@
 
 // function prototypes
 int	run_builtin(t_command *cmd, t_mshell *shell);
+void	print_commands(t_command *cmd);
+
 
 #endif

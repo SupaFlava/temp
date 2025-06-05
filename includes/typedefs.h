@@ -6,13 +6,14 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/01 16:57:13 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/05 10:23:39 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPEDEFS_H
 # define TYPEDEFS_H
 
+# include "libft.h"
 // enums
 typedef enum e_state
 {
@@ -26,6 +27,17 @@ typedef enum e_state
 	STATE_IN_REDIR_OUT,		// >, >>
 	STATE_ESCAPE			// "\"
 }	t_state;
+
+typedef enum e_parse_state
+{
+	PARSE_DEFAULT,
+	PARSE_REDIR,
+	PARSE_HEREDOC,
+	PARSE_APPEND,
+	PARSE_PIPE,
+	PARSE_ERROR
+}	t_parser_state;
+
 
 typedef enum e_token_type
 {
@@ -60,21 +72,34 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_token
+{
+	void			*content;
+	t_toktype		type;
+	struct s_token	*next;
+}	t_token;
+
 typedef struct s_command
 {
 	char				**args;
 	char				*infile;
 	char				*outfile;
 	int					append;
+	int					is_builtin;
 	struct s_command	*next;
 }	t_command;
 
-typedef struct s_token
+typedef struct s_parser
 {
-	void			*content;
-	t_toktype	type;
-	struct s_token	*next;
-}	t_token;
+	t_token	*current_token;
+	t_command		*cmd_list;
+	t_command		*current_cmd;
+	t_parser_state	state;
+	t_env			*env;
+	int				exit_value;
+
+}	t_parser;
+
 
 typedef struct s_exec_ctx
 {
@@ -91,9 +116,9 @@ typedef struct s_mshell
 	t_list		*temp_allocs;
 	t_list		*long_allocs;
 	t_token		*tokens;
+	t_command	*commands;
 	char		*line;
 	int			exit_status;
-	t_command	cmds;
 }	t_mshell;
 
 #endif

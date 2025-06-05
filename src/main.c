@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/04 13:30:50 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/05 10:26:12 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_mshell shell;
+	t_mshell	shell;
+
 	(void)argc;
 	(void)argv;
 
@@ -57,8 +58,11 @@ int	main(int argc, char **argv, char **envp)
 			shell.tokens = lexer(&shell);
 			if (!shell.tokens)
 				ft_printf("ERROR\n");
-			else
-				print_tokens(shell.tokens);
+			// else
+			// 	print_tokens(shell.tokens); // temp to see registered tokens
+			shell.commands = parser(&shell);
+			print_commands(shell.commands); // temp to see registered commands
+			//env_print(&shell);
 		}
 		execute_cmd(&shell);
 	//	run_builtin(&cmd, &shell); // this is a tester
