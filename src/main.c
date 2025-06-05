@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/05 11:13:33 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/05 15:45:06 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,32 @@ int	main(int argc, char **argv, char **envp)
     setup_signals();
 	init_env(&shell ,envp);
 
-	t_command cmd2 = {
-		.args = (char *[]){"wc", NULL},
-		.infile = NULL,
-		.outfile = NULL,
-		.append = 0,
-		.next = NULL
-	};
-	(void)cmd2;
-	t_command cmd1 = {
-		.args = (char *[]){"cd", "/", NULL},
-		.infile = NULL,
-		.outfile = NULL,
-		.append = 0,
-		.next = NULL
-	};
+	// t_command cmd2 = {
+	// 	.args = (char *[]){"wc", NULL},
+	// 	.infile = NULL,
+	// 	.outfile = NULL,
+	// 	.append = 0,
+	// 	.next = NULL
+	// };
+	// (void)cmd2;
+	// t_command cmd1 = {
+	// 	.args = (char *[]){"cd", "/", NULL},
+	// 	.infile = NULL,
+	// 	.outfile = NULL,
+	// 	.append = 0,
+	// 	.next = NULL
+	// };
 	
-	(void) cmd1;
-	t_command cmd0 = {
-		.args = (char *[]){"/bin/ls", NULL},
-		.infile = NULL,
-		.outfile = NULL,
-		.append = 0,
-		.next = NULL
-	};
+	// (void) cmd1;
+	// t_command cmd0 = {
+	// 	.args = (char *[]){"/bin/ls", NULL},
+	// 	.infile = NULL,
+	// 	.outfile = NULL,
+	// 	.append = 0,
+	// 	.next = NULL
+	// };
 
-	shell.commands = &cmd0;
+	//shell.commands = &cmd0;
 	while (1)
 	{
 		shell.line = read_input();
@@ -63,7 +63,8 @@ int	main(int argc, char **argv, char **envp)
 			shell.commands = parser(&shell);
 			print_commands(shell.commands); // temp to see registered commands
 		}
-		execute_cmd(&shell);
+		if (shell.commands)
+			execute_cmd(&shell);
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);

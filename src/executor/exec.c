@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 12:23:04 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/05 11:25:41 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   exec.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/06/04 12:23:04 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/05 15:46:18 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char **env_to_envp(t_mshell *shell)
 	while(temp)
 	{
 		joinded = ft_strjoin(temp->key, "=");
-		envp[i++] = ft_join_and_free(joinded, temp->value);
+		envp[i] = ft_join_and_free(joinded, temp->value);
 		i++;
 		temp = temp->next;
 	}
@@ -52,7 +52,9 @@ int check_exec(t_command *cmd, t_mshell *shell)
 {
 	char **envp;
 
-	 envp = env_to_envp(shell);
+	envp = env_to_envp(shell);
+	if (!shell->commands)
+		return (0);
 	
 	if(ft_strchr(cmd->args[0], '/') != NULL)
 	{
