@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/05 11:04:09 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:41:32 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,11 @@ int execute_cmd(t_mshell *shell)
 	t_exec_ctx ctx;
 	int pid;
 	
-
 	cmd = shell->commands;
 	init_context(&ctx);
+	
+	if(!cmd->args[0] || !cmd->args)
+		return (0);
 	while(cmd)
 	{
 		if(is_builtin(cmd) && !cmd->next && ctx.prev_fd == -1)

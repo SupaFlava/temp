@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:23:04 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/05 11:25:41 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:25:51 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ int	count_env(t_env *env)
 	return (i);
 }
 
+int exec_exist(char *arg, char **envp)
+{
+	(void)envp;
+
+	if (access(arg,X_OK) < 0)
+		return (1);
+	return (0);
+}
 char **env_to_envp(t_mshell *shell)
 {
 	t_env *temp;
@@ -41,27 +49,65 @@ char **env_to_envp(t_mshell *shell)
 	{
 		joinded = ft_strjoin(temp->key, "=");
 		envp[i++] = ft_join_and_free(joinded, temp->value);
-		i++;
 		temp = temp->next;
 	}
 	envp[i] = NULL;
 	return (envp);
 }
 
+char *find_in_path(char *arg, t_env *envp)
+{
+	t_env *temp;
+	char **env_arr;
+	char *joined;
+	char *path;
+	int	i;
+	
+	(void)arg;
+	temp = get_env(envp, "PATH");
+	if (!temp)
+		return (ft_printf("NO PATH"), NULL);
+	env_arr = ft_split(temp->value,':');
+	i = 0;
+	while(env_arr[i])
+	{
+		joined = ft_strjoin(env_arr[i],"/");
+		path = ft_join_and_free(joined, arg);
+		if(exec_exist(arg,env_arr))
+		{
+			return (path);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
 int check_exec(t_command *cmd, t_mshell *shell)
 {
 	char **envp;
-
-	 envp = env_to_envp(shell);
+	char *path;
+	envp = env_to_envp(shell);
 	
 	if(ft_strchr(cmd->args[0], '/') != NULL)
 	{
-		printf("in here");
+		if (!exec_exist(cmd->args[0],envp))
+		{
+			ft_printf("bash: %s No such file or directory\n", cmd->args[0]);
+			return (1);
+		}
 		execve(cmd->args[0],cmd->args ,envp);
 	}
 	else
 	{
-		printf("no exec\n");
+		path =	find_in_path(cmd->args[0],shell->env_list);
+		printf("path is  %s", path);
+		if(!path)
+		{
+			
+			ft_printf("bash: %s No such file or directory\n", cmd->args[0]);
+			return (1);
+		}
+		execve(path,cmd->args, envp);
 	}
 	return (0);
 }

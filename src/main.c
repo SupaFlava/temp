@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/05 11:13:33 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:44:42 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,6 @@ int	main(int argc, char **argv, char **envp)
 	shell_init(&shell);
     setup_signals();
 	init_env(&shell ,envp);
-
-	t_command cmd2 = {
-		.args = (char *[]){"wc", NULL},
-		.infile = NULL,
-		.outfile = NULL,
-		.append = 0,
-		.next = NULL
-	};
-	(void)cmd2;
-	t_command cmd1 = {
-		.args = (char *[]){"cd", "/", NULL},
-		.infile = NULL,
-		.outfile = NULL,
-		.append = 0,
-		.next = NULL
-	};
-	
-	(void) cmd1;
-	t_command cmd0 = {
-		.args = (char *[]){"/bin/ls", NULL},
-		.infile = NULL,
-		.outfile = NULL,
-		.append = 0,
-		.next = NULL
-	};
-
-	shell.commands = &cmd0;
 	while (1)
 	{
 		shell.line = read_input();

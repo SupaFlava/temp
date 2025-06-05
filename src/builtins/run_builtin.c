@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 15:44:20 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/01 15:46:39 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:27:38 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int is_builtin(t_command *cmd)
 {
+	if(!cmd)
+		return (0);
     if (ft_strcmp(cmd->args[0], "cd") == 0)
         return (1);
     else if (ft_strcmp(cmd->args[0], "pwd") == 0)
