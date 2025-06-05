@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   utils.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 11:22:37 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/29 18:04:48 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   utils.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 11:22:37 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/05 10:25:16 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,31 @@
 
 // function prototypes
 // shell_init.c
-int			shell_init(t_mshell *shell);
-void		*ft_malloc_s(t_mshell *shell, size_t size, t_mem_t type);
+void			shell_init(t_mshell *shell);
+void            init_context(t_exec_ctx *ctx);
+ 
+
+// memory
+void free_env(t_env *node);
 void		ft_free(t_mshell *shell, t_mem_t type);
-int			shell_init(t_mshell *shell);
+void		*ft_malloc_s(t_mshell *shell, size_t size, t_mem_t type);
+
 
 // str_utils.c
 char		*ft_strdup_s(t_mshell *shell, const char *src, t_mem_t type);
-char		*ft_strndup(t_mshell *shell, const char *str, size_t n);
+char		*ft_strndup_s(t_mshell *shell, const char *str, size_t n, t_mem_t type);
 char		*ft_strcpy(char *dst, const char *src);
 int			ft_strcmp(const char *str1, const char *str2);
+char        *ft_substr_s(t_mshell *shell ,char const *s,unsigned b,size_t len);
 
 // list_utils.c
-
+//fds
+void close_fds(int fd1,int fd2, int fd3);
+void    close_parent_fds(t_command *cmd, int *prev_fd, int fds[2]);
 
 // args_utils.c
 int	count_args(char **args);
-
-// tester.c
+int is_numeric(char *arg);
 
 
 #endif

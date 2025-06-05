@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/15 12:16:01 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/21 14:27:20 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/05/26 12:22:05 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/04 12:49:04 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef EXECUTE_H
+# define EXECUTE_H
 
-int	builtin_env(t_mshell *shell , char **args)
-{
+# include "minishell.h"
 
-	int argc;
+int execute_cmd(t_mshell *shell);
+int handle_redir(t_command *cmd);
+int check_exec(t_command *cmd, t_mshell *shell);
 
-	argc = count_args(args);
-	ft_printf("argc is %i\n",argc);
-	if (argc == 1)
-	{
-		env_print(shell);
-		return (EXIT_SUCCESS);
-	}
-	ft_printf("Should not have args\n");
-	return(EXIT_FAILURE);
-}
+#endif

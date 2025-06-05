@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   echo.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 16:07:34 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/05/16 14:36:59 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 16:07:34 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/05 11:23:12 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ int	builtin_echo(t_mshell *shell ,char **args)
 
 	flag = 0;
 	i = 2;
+	if(!args[1])
+	{
+		return(ft_printf("\n"), 0);
+	}
 	if (ft_strlen(args[1]) == 2 && ft_strncmp(args[1], "-n" ,2) == 0)
 		flag =1;
 	while (args[i] != NULL)

@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/06/04 22:45:13 by jbaetsen      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
+#    Updated: 2025/06/05 10:24:35 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,9 @@ LIBFT_FLAGS = -L./libraries -lft
 
 UNAME := $(shell uname)
 
-ifeq ($(UNAME), Linux)
-    CFLAGS += -fsanitize=address
-endif
+# ifeq ($(UNAME), Linux)
+#     CFLAGS += -fsanitize=address
+# endif
 
 ifeq ($(UNAME), Darwin)  # macOS
     # Homebrew path for GNU readline on macOS
@@ -70,20 +70,26 @@ SRC_SIGNALS =	$(SRC_DIR)/signals/signals.c \
 SRC_ENV =		$(SRC_DIR)/env/env_list.c \
 				$(SRC_DIR)/env/env_utils.c
 
+SRC_EXECUTOR =  $(SRC_DIR)/executor/exec_controls.c \
+				$(SRC_DIR)/executor/redirection.c \
+				$(SRC_DIR)/executor/exec.c
+
 SRC_BUILTINS = 	$(SRC_DIR)/builtins/pwd.c \
 				$(SRC_DIR)/builtins/cd.c \
 				$(SRC_DIR)/builtins/echo.c \
 				$(SRC_DIR)/builtins/env.c \
 				$(SRC_DIR)/builtins/export.c \
 				$(SRC_DIR)/builtins/unset.c \
-				#$(SRC_DIR)/builtins/exit.c
+				$(SRC_DIR)/builtins/exit.c \
+				$(SRC_DIR)/builtins/run_builtin.c\
 
 SRC_UTILS = 	$(SRC_DIR)/utils/shell_init.c \
 				$(SRC_DIR)/utils/list_utils.c \
 				$(SRC_DIR)/utils/str_utils.c \
 				$(SRC_DIR)/utils/args_utils.c \
 				$(SRC_DIR)/utils/memory.c \
-				$(SRC_DIR)/utils/free.c
+				$(SRC_DIR)/utils/free.c \
+				$(SRC_DIR)/utils/fds.c
 
 SRC_LEXER = 	$(SRC_DIR)/lexer/lexer_utils.c \
 				$(SRC_DIR)/lexer/lexer.c \
@@ -97,7 +103,7 @@ SRC_PARSER = 	$(SRC_DIR)/parser/parser.c \
 				$(SRC_DIR)/parser/parse_redirs.c
 
 SRC = 	$(SRC_MAIN) $(SRC_SIGNALS) $(SRC_ENV) $(SRC_BUILTINS) \
-		$(SRC_UTILS) $(SRC_LEXER) $(SRC_PARSER)
+		$(SRC_UTILS) $(SRC_LEXER) $(SRC_PARSER) $(SRC_EXECUTOR) \
 
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 

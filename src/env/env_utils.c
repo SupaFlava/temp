@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:39:02 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/16 13:08:03 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:02:07 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void env_print(t_mshell *shell)
 	t_env *temp;
 	
 	temp = shell->env_list;
-
-
 	while (temp != NULL)
 	{
 		if (temp->key != NULL)
@@ -45,9 +43,9 @@ void env_print(t_mshell *shell)
 		temp = temp->next;
 	}
 }
-char *get_env(t_env *env , char *key)
+t_env *get_env(t_env *env , char *key)
 {
-	char *path;
+	t_env *result;
 	t_env *temp_env;
 
 	temp_env = env;
@@ -55,8 +53,8 @@ char *get_env(t_env *env , char *key)
 	{
 		if (ft_strcmp(temp_env->key, key) == 0)
 		{
-			path = temp_env->value;
-			return (path);
+			result = temp_env;
+			return (result);
 		}
 		temp_env = temp_env->next;
 	}
@@ -77,4 +75,32 @@ int	set_env(t_env *env, char *key, char *value)
 		temp = temp->next;
 		}
 		return (EXIT_FAILURE);
+}
+	
+int delete_env(t_env **list, t_env *node)
+{
+	t_env *prev;
+	t_env *current;
+
+	if(*list == node)
+	{
+		*list = node->next;
+		return (1);
+	} 
+	else
+	{
+		prev = *list;
+		current = (*list)->next;
 	}
+ 	while (current)
+	{
+		if (current == node)
+		{
+			prev->next = current->next;
+			return (1);
+		}
+		prev = current;
+		current = current->next;
+	}
+	return (0);
+}

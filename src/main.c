@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/04 22:50:47 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/06/05 11:13:33 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,37 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	if (shell_init(&shell) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	setup_signals();
-	init_env(&shell, envp);
-	// t_command cmd = {
-	// 	.args = (char *[]){"cd",NULL}
-	// };
+
+	shell_init(&shell);
+    setup_signals();
+	init_env(&shell ,envp);
+
+	t_command cmd2 = {
+		.args = (char *[]){"wc", NULL},
+		.infile = NULL,
+		.outfile = NULL,
+		.append = 0,
+		.next = NULL
+	};
+	(void)cmd2;
+	t_command cmd1 = {
+		.args = (char *[]){"cd", "/", NULL},
+		.infile = NULL,
+		.outfile = NULL,
+		.append = 0,
+		.next = NULL
+	};
+	
+	(void) cmd1;
+	t_command cmd0 = {
+		.args = (char *[]){"/bin/ls", NULL},
+		.infile = NULL,
+		.outfile = NULL,
+		.append = 0,
+		.next = NULL
+	};
+
+	shell.commands = &cmd0;
 	while (1)
 	{
 		shell.line = read_input();
@@ -38,9 +62,8 @@ int	main(int argc, char **argv, char **envp)
 			// 	print_tokens(shell.tokens); // temp to see registered tokens
 			shell.commands = parser(&shell);
 			print_commands(shell.commands); // temp to see registered commands
-			//env_print(&shell);
 		}
-		//run_builtin(shell.commands, &shell); // this is a tester
+		execute_cmd(&shell);
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:06:31 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/16 11:46:11 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/05/18 13:39:46 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,20 @@ int	count_args(char **args)
 		i++;
 	}
 	return (i);
+}
+
+int is_numeric(char *arg)
+{
+	long long i;
+
+	i = 0;
+	while(arg[i])
+	{
+		if(!ft_isdigit(arg[i]))
+		{
+			return (0);
+		}
+		i++;
+	}
+	return (1);
 }
