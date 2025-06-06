@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:22:37 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/05 10:25:16 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/06 11:35:37 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void            init_context(t_exec_ctx *ctx);
 void free_env(t_env *node);
 void		ft_free(t_mshell *shell, t_mem_t type);
 void		*ft_malloc_s(t_mshell *shell, size_t size, t_mem_t type);
+void		free_arr(char **arr);
+
 
 
 // str_utils.c

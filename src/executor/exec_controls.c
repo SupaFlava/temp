@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   exec_controls.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/24 12:20:51 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/05 16:26:16 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   exec_controls.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/06 10:56:40 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ int execute_cmd(t_mshell *shell)
 	t_exec_ctx ctx;
 	int pid;
 	
-	// if (!shell->commands || !shell->commands->args)
-	// 	return (0);
 	cmd = shell->commands;
 	init_context(&ctx);
+	
+	if(!cmd->args[0] || !cmd->args)
+		return (0);
 	while(cmd)
 	{
 		if(is_builtin(cmd) && !cmd->next && ctx.prev_fd == -1)
