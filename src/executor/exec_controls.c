@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/05 15:41:32 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/06 10:56:40 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	prep_pipe(t_command *cmd, int *fds)
 	if(cmd->next)
 	{
 		if (pipe(fds) == -1)
-			return (printf("error"), 1);
+			return (printf("error"), -1);
 	}
 	return (0);
 }
@@ -47,6 +47,9 @@ static int	prep_pipe(t_command *cmd, int *fds)
 static pid_t run_child(t_command *cmd,t_exec_ctx ctx ,t_mshell *shell)
 {
 	pid_t pid;
+
+	if (!cmd || !cmd->args || !cmd->args[0])
+		return(perror( "no args\n"), -1);
 	
 	pid = fork();
 	if (pid == -1)

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:23:04 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/05 15:25:51 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/06 10:57:38 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ char **env_to_envp(t_mshell *shell)
 	while(temp)
 	{
 		joinded = ft_strjoin(temp->key, "=");
-		envp[i++] = ft_join_and_free(joinded, temp->value);
+		envp[i] = ft_join_and_free(joinded, temp->value);
+		i++;
 		temp = temp->next;
 	}
 	envp[i] = NULL;
@@ -85,8 +86,10 @@ char *find_in_path(char *arg, t_env *envp)
 int check_exec(t_command *cmd, t_mshell *shell)
 {
 	char **envp;
-	char *path;
+
 	envp = env_to_envp(shell);
+	if (!shell->commands)
+		return (0);
 	
 	if(ft_strchr(cmd->args[0], '/') != NULL)
 	{
