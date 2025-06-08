@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/08 14:22:38 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/08 14:59:17 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct s_parser
 	t_command		*current_cmd;
 	t_parser_state	state;
 	t_env			*env;
-	int				exit_value;
+	char			*exit_value;
 
 }	t_parser;
 

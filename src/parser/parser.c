@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 14:20:07 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/05 11:03:32 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/08 15:26:32 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,19 @@ t_parser_state	parse_env(t_mshell *shell, t_parser *p)
 			p->cmd_list = p->current_cmd;
 	}
 	if (tok->type == TOK_ENV_VAR)
+	{
 		expanded = get_env(shell->env_list, tok->content);
-	// else if (tok->type == TOK_EXIT_STATUS)
-		//WIP: exit status logic here
+		if (!expanded || !expanded->value)
+			expanded->value = ft_strdup_s(shell, "", MEM_LONG);
+		add_arg_to_cmd(shell, p->current_cmd, expanded->value);
+	}
+	else if (tok->type == TOK_EXIT_STATUS)
+	{
+		p->exit_value = ft_itoa_s(shell, shell->exit_status, MEM_LONG);
+		add_arg_to_cmd(shell, p->current_cmd, p->exit_value);
+	}
 	else
 		return (PARSE_ERROR);
-	if (!expanded || !expanded->value)
-		expanded->value = ft_strdup_s(shell, "", MEM_LONG);
-	add_arg_to_cmd(shell, p->current_cmd, expanded->value);
 	return (PARSE_DEFAULT);
 }
 
