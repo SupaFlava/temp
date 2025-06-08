@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   str_utils.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 12:12:21 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/05 10:49:35 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   str_utils.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/08 12:12:21 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/08 15:24:13 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,51 @@ char *ft_substr_s(t_mshell *shell ,char const *s,unsigned b,size_t len)
 		return (0);
 	ft_strlcpy(new, s + b, finish +1);
 	return (new);
+}
+
+static unsigned int	ft_numberlength(int num)
+{
+	unsigned int	len;
+
+	len = 0;
+	if (num == 0)
+		return (1);
+	if (num < 0)
+		len += 1;
+	while (num != 0)
+	{
+		num /= 10;
+		len++;
+	}
+	return (len);
+}
+
+
+char	*ft_itoa_s(t_mshell *shell, int n, t_mem_t type)
+{
+	char			*string;
+	unsigned int	num;
+	unsigned int	len;
+
+	len = ft_numberlength(n);
+	string = (char *)ft_malloc_s(shell, sizeof(char) * (len + 1), type);
+	if (string == NULL)
+		return (NULL);
+	if (n < 0)
+	{
+		string[0] = '-';
+		num = -n;
+	}
+	else
+		num = n;
+	if (num == 0)
+		string[0] = '0';
+	string[len] = '\0';
+	while (num != 0)
+	{
+		string[len - 1] = (num % 10) + '0';
+		num = num / 10;
+		len--;
+	}
+	return (string);
 }
