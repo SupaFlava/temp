@@ -6,7 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/06/06 20:13:17 by rmhazres         ###   ########.fr        #
+#    Updated: 2025/06/10 12:00:44 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,8 @@ SRC_ENV =		$(SRC_DIR)/env/env_list.c \
 SRC_EXECUTOR =  $(SRC_DIR)/executor/exec_controls.c \
 				$(SRC_DIR)/executor/redirection.c \
 				$(SRC_DIR)/executor/exec.c\
-				$(SRC_DIR)/executor/exec_utils.c
+				$(SRC_DIR)/executor/exec_utils.c \
+				$(SRC_DIR)/executor/pipe.c
 
 SRC_BUILTINS = 	$(SRC_DIR)/builtins/pwd.c \
 				$(SRC_DIR)/builtins/cd.c \
