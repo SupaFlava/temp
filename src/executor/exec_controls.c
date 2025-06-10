@@ -6,97 +6,52 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/06 10:56:40 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/10 12:04:12 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void wait_for_pid(int amount, int pids[], t_mshell *shell)
+static void restore_stdio(int in, int out)
 {
-	int i;
-	int status;
-
-	i = 0;
-	status = -1;
-	shell->exit_status = 0;
-	while (i < amount)
-	{
-		waitpid(pids[i], &status, 0);
-		if(i == amount -1)
-		{
-			if(WEXITSTATUS(status))
-				shell->exit_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				shell->exit_status = 128 + WTERMSIG(status);
-		}
-		i++;
-	}
+	dup2(in, STDIN_FILENO);
+	dup2(out, STDOUT_FILENO);
+	close(in);
+	close(out);
 }
 
-static int	prep_pipe(t_command *cmd, int *fds)
+static int execute_single_builtin(t_command *cmd, t_mshell *shell)
 {
-	if(cmd->next)
-	{
-		if (pipe(fds) == -1)
-			return (printf("error"), -1);
-	}
-	return (0);
-}
-
-static pid_t run_child(t_command *cmd,t_exec_ctx ctx ,t_mshell *shell)
-{
-	pid_t pid;
-
-	if (!cmd || !cmd->args || !cmd->args[0])
-		return(perror( "no args\n"), -1);
+	int saved_stdin;
+	int saved_stdout;
+	int ret;
 	
-	pid = fork();
-	if (pid == -1)
-		return (perror("Fork"), -1);
-	if (pid == 0)
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
+	if(handle_redir(cmd) < 0)
 	{
-	if(ctx.prev_fd != -1)
-				dup2(ctx.prev_fd, STDIN_FILENO);
-			if (cmd->next)
-				dup2(ctx.fds[1], STDOUT_FILENO);
-			close_fds(ctx.prev_fd, ctx.fds[0], ctx.fds[1]);
-			handle_redir(cmd);
-			if(is_builtin(cmd))
-				exit(run_builtin(cmd, shell));
-			else
-			{
-				check_exec(cmd, shell);
-			}
-			exit(0);
-	}
-	return (pid);
+		restore_stdio(saved_stdin, saved_stdout);
+		return (1);
+	}		
+	ret = run_builtin(cmd, shell);
+	restore_stdio(saved_stdin, saved_stdout);
+	return (ret);
 }
 
-int execute_cmd(t_mshell *shell)
+static int is_single_builtin(t_command *cmd, t_exec_ctx *ctx)
 {
-	t_command *cmd;
+	return(is_builtin(cmd) && !cmd->next && ctx->prev_fd == -1);	
+}
+int	execute_cmd(t_mshell *shell)
+{
 	t_exec_ctx ctx;
-	int pid;
+	t_command *cmd;
 	
-	cmd = shell->commands;
 	init_context(&ctx);
-	
-	if(!cmd->args[0] || !cmd->args)
+	cmd = shell->commands;
+	if(!cmd || !cmd->args || !cmd->args[0])
 		return (0);
-	while(cmd)
-	{
-		if(is_builtin(cmd) && !cmd->next && ctx.prev_fd == -1)
-			return (run_builtin(cmd, shell));
-		if(prep_pipe(cmd, ctx.fds) < 0)
-			return (1);
-		pid = run_child(cmd ,ctx,shell);
-		if(pid < 0)
-			return (1);
-		ctx.child_pids[ctx.child_count++] = pid;
-		close_parent_fds(cmd, &ctx.prev_fd, ctx.fds);
-		cmd = cmd->next;
-	}
-	wait_for_pid(ctx.child_count, ctx.child_pids, shell);
-	return (0);
+	if (is_single_builtin(cmd, &ctx))
+		return (execute_single_builtin(cmd, shell));
+	return (execute_pipeline(cmd, shell, &ctx));
 }

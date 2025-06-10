@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   redirection.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/26 18:15:06 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/05 14:56:31 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   redirection.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/26 18:15:06 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/06 21:52:19 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int redir_out(t_command *cmd)
     
     if(cmd->append)
     {
-       fd = open(cmd->outfile, O_CREAT | O_WRONLY | O_APPEND);
+       fd = open(cmd->outfile, O_CREAT | O_WRONLY | O_APPEND, 0644);
        if (fd < 0)
             return (-1);
        dup2(fd, STDOUT_FILENO);
@@ -40,7 +40,7 @@ int redir_out(t_command *cmd)
     }
     else
     {
-       fd = open(cmd->outfile, O_CREAT | O_WRONLY | O_TRUNC);
+       fd = open(cmd->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
        if (fd < 0)
             return (-1);
         dup2(fd, STDOUT_FILENO);

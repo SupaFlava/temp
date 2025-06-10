@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:39:02 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/05/22 13:02:07 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:41:10 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void env_print(t_mshell *shell)
 	while (temp != NULL)
 	{
 		if (temp->key != NULL)
-			ft_printf("%s=",temp->key);
+			ft_putstr_fd(temp->key,STDOUT_FILENO);
 		if (temp->value != NULL)
-			ft_printf("%s\n",temp->value);
+			ft_putstr_fd(temp->value,STDOUT_FILENO);
 		temp = temp->next;
 	}
 }
