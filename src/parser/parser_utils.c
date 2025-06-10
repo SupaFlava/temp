@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/05 16:21:56 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/08 15:24:53 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	init_parser(t_parser *p, t_mshell *shell)
 	p->current_cmd = NULL;
 	p->state = PARSE_DEFAULT;
 	p->env = shell->env_list;
-	p->exit_value = shell->exit_status;
+	p->exit_value = ft_itoa_s(shell, shell->exit_status, MEM_LONG);
 }
 
 void	process_input(t_mshell *shell)
@@ -73,12 +73,15 @@ void	process_input(t_mshell *shell)
 	}
 	if (shell->tokens)
 	{
+		print_tokens(shell->tokens);
 		shell->commands = parser(shell);
 		if (!shell->commands)
 		{
 			ft_printf("no commands found\n");
 			return ;
 		}
+		else
+			print_commands(shell->commands);
 	}
 }
 
@@ -94,4 +97,3 @@ char	*read_input(void)
 	}
 	return (line);
 }
-

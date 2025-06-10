@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 11:22:37 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/06 11:35:37 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   utils.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/06 11:22:37 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/08 15:27:35 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // shell_init.c
 void			shell_init(t_mshell *shell);
 void            init_context(t_exec_ctx *ctx);
- 
+
 
 // memory
 void free_env(t_env *node);
@@ -37,6 +37,7 @@ char		*ft_strndup_s(t_mshell *shell, const char *str, size_t n, t_mem_t type);
 char		*ft_strcpy(char *dst, const char *src);
 int			ft_strcmp(const char *str1, const char *str2);
 char        *ft_substr_s(t_mshell *shell ,char const *s,unsigned b,size_t len);
+char	*ft_itoa_s(t_mshell *shell, int n, t_mem_t type);
 
 // list_utils.c
 //fds

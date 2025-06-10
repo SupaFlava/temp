@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   typedefs.h                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/05 10:23:39 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   typedefs.h                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/08 14:59:17 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_command
 	char				*infile;
 	char				*outfile;
 	int					append;
+	char				*delimiter;
 	int					is_builtin;
 	struct s_command	*next;
 }	t_command;
@@ -96,7 +97,7 @@ typedef struct s_parser
 	t_command		*current_cmd;
 	t_parser_state	state;
 	t_env			*env;
-	int				exit_value;
+	char			*exit_value;
 
 }	t_parser;
 
@@ -107,7 +108,7 @@ typedef struct s_exec_ctx
 	int fds[2];
 	int child_pids[100];
 	int child_count;
-	int last_exit_status; 
+	int last_exit_status;
 } t_exec_ctx;
 
 typedef struct s_mshell
