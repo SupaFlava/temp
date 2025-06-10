@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/06 10:56:40 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/07 12:30:04 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,35 @@ int execute_cmd(t_mshell *shell)
 	t_command *cmd;
 	t_exec_ctx ctx;
 	int pid;
+	int saved_stdin;
+	int saved_stdout;
+	int ret;
 	
 	cmd = shell->commands;
 	init_context(&ctx);
-	
 	if(!cmd->args[0] || !cmd->args)
 		return (0);
 	while(cmd)
 	{
 		if(is_builtin(cmd) && !cmd->next && ctx.prev_fd == -1)
-			return (run_builtin(cmd, shell));
+		{
+			saved_stdin = dup(STDIN_FILENO);
+			saved_stdout = dup(STDOUT_FILENO);
+			if (handle_redir(cmd) < 0)
+			{
+				dup2(saved_stdin, STDIN_FILENO);
+				dup2(saved_stdout, STDOUT_FILENO);
+				close(saved_stdin);
+				close(saved_stdout);
+				return (1);
+			}
+			ret =  (run_builtin(cmd, shell));
+			dup2(saved_stdin, STDIN_FILENO);
+			dup2(saved_stdout, STDOUT_FILENO);
+			close(saved_stdin);
+			close(saved_stdout);
+			return (ret);
+		}
 		if(prep_pipe(cmd, ctx.fds) < 0)
 			return (1);
 		pid = run_child(cmd ,ctx,shell);

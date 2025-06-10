@@ -1,0 +1,13 @@
+
+
+      10      10      81
+Makefile
+includes
+libft
+libraries
+minishell
+obj
+src
+temp.c
+test.txt
+testfile.txt

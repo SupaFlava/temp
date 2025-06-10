@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:45:29 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/05 10:27:22 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:38:29 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ int	builtin_cd(t_mshell *shell, char **args)
 	t_env *path;
 
 	argc = count_args(args);
-	printf("argc is %i\n", argc);
 	if (argc > 2)
 	{
-		ft_printf("cd: too many arguments");
+		ft_putstr_fd("cd: too many arguments", STDOUT_FILENO);
 		return (EXIT_FAILURE);
 	}
 	if (argc == 1)
@@ -49,7 +48,7 @@ int	builtin_cd(t_mshell *shell, char **args)
 		path = get_env(shell->env_list,"HOME");
 		if (path == NULL)
 		{
-			ft_printf("minishell: cd: HOME not set\n");
+			ft_putstr_fd("minishell: cd: HOME not set\n",STDOUT_FILENO);
 			return (EXIT_FAILURE);
 		}
 		change_dir(shell, path->value);

@@ -6,11 +6,24 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:20:30 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/05 11:52:23 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/06 18:01:45 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	count_env(t_env *env)
+{
+	int i;
+
+	i = 0;
+	while(env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
+}
 
 int env_add(t_mshell *shell, char *key, char *value)
 {
