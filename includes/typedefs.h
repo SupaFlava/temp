@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/10 23:28:12 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/11 16:48:57 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,6 @@
 
 # include "libft.h"
 // enums
-typedef enum e_state
-{
-	STATE_DEFAULT,
-	STATE_IN_WORD,			//non quoted words like : ls, file.txt
-	STATE_IN_SINGLE_QUOTE,	//single quoted strings
-	STATE_IN_DOUBLE_QUOTE,	// double quoted strings
-	STATE_IN_ENV,			//env variable like : $PATH
-	STATE_IN_QUOTED_ENV,	// when $ENV varbiable found in double quoted str
-	STATE_IN_REDIR_IN,		// < , <<
-	STATE_IN_REDIR_OUT,		// >, >>
-	STATE_ESCAPE			// "\"
-}	t_state;
-
 typedef enum e_lexer_state
 {
 	LEXER_DEFAULT,

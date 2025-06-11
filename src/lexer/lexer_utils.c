@@ -6,71 +6,76 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 13:39:05 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/11 02:31:44 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/11 19:08:42 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	check_quote_state(t_state *state)
+t_lexer_state	check_quote_state(t_lexer_state state)
 {
-	if (*state == STATE_IN_DOUBLE_QUOTE || *state == STATE_IN_SINGLE_QUOTE)
+	if (state == LEXER_DQUOTE || state == LEXER_SQUOTE)
 	{
 		ft_printf("no closing quote found, SYNTAX ERROR\n");
-		return (1);
+		return (LEXER_ERROR);
 	}
-	return (0);
+	return (LEXER_DEFAULT);
 }
 
-int	append_char_to_buffer(t_mshell *shell, char **buffer, char c)
+t_lexer_state	append_char_to_buffer(t_mshell *shell, t_lexer *l, char c)
 {
 	size_t	len;
 	char	*new_buffer;
 
-	if (buffer != NULL)
-		len = ft_strlen(*buffer);
+	if (l->buffer)
+		len = ft_strlen(l->buffer);
 	else
 		len = 0;
 	new_buffer = ft_malloc_s(shell, (len + 2), MEM_TEMP);
 	if (!new_buffer)
-		return (1);
-	if (*buffer != NULL)
-		ft_strcpy(new_buffer, *buffer);
+		return (LEXER_ERROR);
+	if (l->buffer)
+		ft_strcpy(new_buffer, l->buffer);
 	else
 		new_buffer[0] = '\0';
 	new_buffer[len] = c;
 	new_buffer[len + 1] = '\0';
-	*buffer = new_buffer;
-	return (0);
+	l->buffer = new_buffer;
+	return (l->state);
 }
 
-int	flush_set_state(t_mshell *sh, char **buf, t_state *state, t_state n_state)
+t_lexer_state	flush_set_state(t_mshell *sh, t_lexer *l, t_lexer_state new_state)
 {
-	if (add_token(sh, buf, TOK_WORD))
-		return (1);
-	*state = n_state;
-	return (0);
+	if (l->buffer && *l->buffer)
+	{
+		if (!add_token(sh, l, TOK_WORD))
+			return (LEXER_ERROR);
+	}
+		l->state = new_state;
+		return (l->state);
 }
 
-int	flush_set_buf(t_mshell *sh, char **buf, const char *s, t_toktype type)
+t_lexer_state	flush_set_buf(t_mshell *sh, t_lexer *l, const char *s, t_toktype type)
 {
-	if (add_token(sh, buf, TOK_WORD))
-		return (1);
-	*buf = ft_strdup_s(sh, s, MEM_TEMP);
-	if (!*buf)
-		return (1);
-	if (add_token(sh, buf, type))
-		return (1);
-	*buf = NULL;
-	return (0);
+	if (add_token(sh, l, TOK_WORD) == LEXER_ERROR)
+		return (LEXER_ERROR);
+	l->buffer = ft_strdup_s(sh, s, MEM_TEMP);
+	if (!l->buffer)
+		return (LEXER_ERROR);
+	if (add_token(sh, l, type) == LEXER_ERROR)
+		return (LEXER_ERROR);
+	l->buffer = NULL;
+	return (l->state);
 }
 
-int	set_buf_to_char(t_mshell *shell, char **buf, char c)
+t_lexer_state	set_buf_to_char(t_mshell *shell, t_lexer *l, char c)
 {
 	char	temp[2];
 
 	temp[0] = c;
 	temp[1] = '\0';
-	*buf = ft_strdup_s(shell, temp, MEM_TEMP);
-	return (*buf == NULL);
+	l->buffer = ft_strdup_s(shell, temp, MEM_TEMP);
+	if (!l->buffer)
+		return (LEXER_ERROR);
+	return (l->state);
 }

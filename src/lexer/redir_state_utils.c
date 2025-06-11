@@ -6,22 +6,22 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 15:45:43 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/11 02:32:07 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/11 19:02:12 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	handle_redir_in(t_mshell *shell, char **buf, t_state *state)
+t_lexer_state	handle_redir_in(t_mshell *shell, t_lexer *l)
 {
-	if (flush_set_state(shell, buf, state, STATE_IN_REDIR_IN))
-		return (1);
-	return (set_buf_to_char(shell, buf, '<'));
+	if (flush_set_state(shell, l, LEXER_REDIR_IN) == LEXER_ERROR)
+		return (LEXER_ERROR);
+	return (set_buf_to_char(shell, l, '<'));
 }
 
-int	handle_redir_out(t_mshell *shell, char **buf, t_state *state)
+t_lexer_state	handle_redir_out(t_mshell *shell, t_lexer *l)
 {
-	if (flush_set_state(shell, buf, state, STATE_IN_REDIR_OUT))
-		return (1);
-	return (set_buf_to_char(shell, buf, '>'));
+	if (flush_set_state(shell, l, LEXER_REDIR_OUT) == LEXER_ERROR)
+		return (LEXER_ERROR);
+	return (set_buf_to_char(shell, l, '>'));
 }
