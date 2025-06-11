@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   state_handling.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 12:59:46 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/21 11:47:19 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   state_handling.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/10 22:28:41 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,18 @@ int	d_quote_state(t_mshell *shell, t_state *state, char c, char **buffer)
 
 int	env_state(t_mshell *shell, t_state *state, char c, char **buffer)
 {
+	if (*state == STATE_IN_QUOTED_ENV && c == '"' && !*buffer)
+	{
+		if (append_char_to_buffer(shell, buffer, '$'))
+			return (1);
+		*state = STATE_IN_DOUBLE_QUOTE;
+		return (handle_char(shell, state, c, buffer));
+	}
 	if (c == '?' && !*buffer)
 		return (handle_exit_status(shell, state, buffer));
-	else if (!ft_isalnum(c) && c != '_')
+	if (!ft_isalnum(c) && c != '_')
 		return (handle_invalid_char(shell, state, c, buffer));
-	else if (append_char_to_buffer(shell, buffer, c))
+	if (append_char_to_buffer(shell, buffer, c))
 		return (1);
 	return (0);
 }

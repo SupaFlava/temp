@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/08 15:24:53 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/10 22:42:19 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg)
 	command->args = new_args;
 }
 
-void	init_parser(t_parser *p, t_mshell *shell)
+void	init_parser(t_mshell *shell, t_parser *p)
 {
 	p->current_token = shell->tokens;
 	p->cmd_list = NULL;

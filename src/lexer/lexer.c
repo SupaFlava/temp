@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 19:08:53 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/21 11:46:05 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lexer.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/19 19:08:53 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/10 23:49:20 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ int	handle_char(t_mshell *shell, t_state *state, char c, char **buffer)
 
 int	finalize_tokens(t_mshell *shell, t_state *state, char **buffer)
 {
+	if ((*state == STATE_IN_ENV || *state == STATE_IN_QUOTED_ENV) && *buffer == NULL)
+	{
+		if (append_char_to_buffer(shell, buffer, '$'))
+			return (1);
+		if (*state == STATE_IN_QUOTED_ENV)
+			*state = STATE_IN_DOUBLE_QUOTE;
+		else
+			*state = STATE_DEFAULT;
+	}
 	if (buffer && *buffer)
 	{
 		if (add_token(shell, buffer, find_token_type(*buffer, *state)))
@@ -59,6 +68,7 @@ int	process_line_loop(t_mshell *shell, t_state *state, char **buffer)
 			return (1);
 		i++;
 	}
+
 	return (0);
 }
 

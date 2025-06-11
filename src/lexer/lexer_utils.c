@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 13:39:05 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/05/20 16:54:29 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/11 02:31:44 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_quote_state(t_state *state)
 {
 	if (*state == STATE_IN_DOUBLE_QUOTE || *state == STATE_IN_SINGLE_QUOTE)
 	{
-		ft_printf("no closing quote found, SYNTAX");
+		ft_printf("no closing quote found, SYNTAX ERROR\n");
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/08 14:59:17 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/10 23:28:12 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ typedef enum e_state
 	STATE_IN_REDIR_OUT,		// >, >>
 	STATE_ESCAPE			// "\"
 }	t_state;
+
+typedef enum e_lexer_state
+{
+	LEXER_DEFAULT,
+	LEXER_SQUOTE,
+	LEXER_DQUOTE,
+	LEXER_ENV,
+	LEXER_QUOTED_ENV,
+	LEXER_REDIR_IN,
+	LEXER_REDIR_OUT,
+	LEXER_ERROR
+}	t_lexer_state;
 
 typedef enum e_parse_state
 {
@@ -98,9 +110,17 @@ typedef struct s_parser
 	t_parser_state	state;
 	t_env			*env;
 	char			*exit_value;
-
 }	t_parser;
 
+typedef struct s_lexer
+{
+	t_lexer_state	state;
+	t_token			*tokens;
+	char 			*buffer;
+	size_t			index;
+	char			*input;
+	char			c;
+}	t_lexer;
 
 typedef struct s_exec_ctx
 {
