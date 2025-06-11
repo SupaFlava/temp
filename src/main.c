@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/06 10:55:35 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/11 19:11:00 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	main(int argc, char **argv, char **envp)
 		if (shell.line && *shell.line)
 		{
 			add_history(shell.line);
-			process_input(&shell); // now combines the lexer and the parser
-			if (shell.commands)
-				execute_cmd(&shell);
+			process_input(&shell);
+			// if (shell.commands)
+			// 	execute_cmd(&shell);
 		}
 		free(shell.line);
 		shell.line = NULL;
