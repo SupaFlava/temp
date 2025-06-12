@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/11 20:47:33 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/12 17:13:20 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,15 @@ t_lexer_state	default_state(t_mshell *shell, t_lexer *l, char c)
 	else if (c == '>')
 		return (handle_redir_out(shell, l));
 	else if (c == '$')
-		l->state =LEXER_ENV;
-
+	{
+		if (l->buffer && *l->buffer)
+		{
+			if(add_token(shell, l, TOK_WORD) == LEXER_ERROR)
+				return (LEXER_ERROR);
+				
+		}
+		return (LEXER_ENV);
+	}
 	return (append_char_to_buffer(shell, l, c));
 }
 
@@ -46,49 +53,28 @@ t_lexer_state	d_quote_state(t_mshell *shell, t_lexer *l, char c)
 {
 	if (c == '"')
 	{
-		if (l->buffer)
-			return (add_token(shell, l, TOK_QUOTED));
+		if (l->buffer && add_token(shell, l, TOK_QUOTED) == LEXER_ERROR)
+			return (LEXER_ERROR);
 		return (LEXER_DEFAULT);
 	}
 	else if (c == '$')
 	{
-		l->state = LEXER_QUOTED_ENV;
-		if (l->buffer)
-			return (add_token(shell, l, TOK_QUOTED));
+		if (l->buffer &&add_token(shell, l, TOK_QUOTED) == LEXER_ERROR)
+			return (LEXER_ERROR);
+		return (LEXER_QUOTED_ENV);
 	}
 	return (append_char_to_buffer(shell, l, c));
 }
 
 t_lexer_state	env_state(t_mshell *shell, t_lexer *l, char c)
 {
-	char *env_var;
-
-	if (l->buffer && ft_strcmp(l->buffer, "$") == 0 && c == '?')
+	ft_printf("[DEBUG] env_state: buffer = \"%s\"\n", l->buffer ? l->buffer : "(null)");
+	if (!l->buffer && c == '?')
 		return (handle_exit_status(shell, l));
 
 	if (!ft_isalnum(c) && c != '_')
-	{
-		if (l->buffer && l->buffer[0] == '$'
-			&& ft_str_is_valid_env(l->buffer + 1))
-		{
-			env_var = ft_strdup_s(shell, l->buffer + 1, MEM_TEMP);
-			if (!env_var)
-				return (LEXER_ERROR);
-			l->buffer = env_var;
-			if (add_token(shell, l, TOK_ENV_VAR) == LEXER_ERROR)
-				return (LEXER_ERROR);
-		}
-		else
-		{
-			if (add_token(shell, l, TOK_ENV_VAR) == LEXER_ERROR)
-				return (LEXER_ERROR);
-		}
-		if (l->state == LEXER_QUOTED_ENV)
-			l->state = LEXER_DQUOTE;
-		else
-			l->state = LEXER_DEFAULT;
-		return (handle_char(shell, l, c));
-	}
+		return (handle_invalid_env(shell, l, c));	
+		
 	return (append_char_to_buffer(shell, l, c));
 }
 
