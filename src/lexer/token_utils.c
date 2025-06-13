@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   token_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/20 16:36:46 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/21 12:35:25 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   token_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/20 16:36:46 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/11 19:11:34 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-t_toktype	find_token_type(const char *buffer, t_state state)
+t_toktype	find_token_type(const char *buffer, t_lexer_state state)
 {
 	if (ft_strcmp(buffer, "|") == 0)
 		return (TOK_PIPE);
@@ -26,9 +26,9 @@ t_toktype	find_token_type(const char *buffer, t_state state)
 		return (TOK_REDIR_OUT);
 	else if (ft_strcmp(buffer, "$?") == 0)
 		return (TOK_EXIT_STATUS);
-	else if (state == STATE_IN_ENV)
+	else if (state == LEXER_ENV)
 		return (TOK_ENV_VAR);
-	else if (state == STATE_IN_SINGLE_QUOTE || state == STATE_IN_DOUBLE_QUOTE)
+	else if (state == LEXER_SQUOTE || state == LEXER_DQUOTE)
 		return (TOK_QUOTED);
 	else
 		return (TOK_WORD);
@@ -82,30 +82,30 @@ void	free_tokens(t_token *tokens)
 	}
 }
 
-int	add_token(t_mshell *shell, char **buffer, t_toktype type)
+t_lexer_state	add_token(t_mshell *shell, t_lexer *l, t_toktype type)
 {
 	t_token	*new;
 	t_token	*last;
 
-	if (!buffer || !*buffer || !**buffer)
-		return (0);
+	if (!l->buffer || !*l->buffer)
+		return (l->state);
 	new = ft_malloc_s(shell, sizeof(t_token), MEM_TEMP);
 	if (!new)
-		return (1);
-	new->content = ft_strndup_s(shell, *buffer, ft_strlen(*buffer), MEM_TEMP);
+		return (LEXER_ERROR);
+	new->content = ft_strndup_s(shell, l->buffer, ft_strlen(l->buffer), MEM_TEMP);
 	if (!new->content)
-		return (1);
+		return (LEXER_ERROR);
 	new->type = type;
 	new->next = NULL;
-	if (!shell->tokens)
-		shell->tokens = new;
+	if (!l->tokens)
+		l->tokens = new;
 	else
 	{
-		last = shell->tokens;
+		last = l->tokens;
 		while (last->next)
 			last = last->next;
 		last->next = new;
 	}
-	*buffer = NULL;
-	return (0);
+	l->buffer = NULL;
+	return (l->state);
 }

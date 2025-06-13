@@ -1,112 +1,117 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   state_handling.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 12:59:46 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/21 11:47:19 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   state_handling.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/11 20:47:33 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	default_state(t_mshell *shell, t_state *state, char c, char **buffer)
+t_lexer_state	default_state(t_mshell *shell, t_lexer *l, char c)
 {
 	if (c == ' ')
-		return (add_token(shell, buffer, TOK_WORD));
+		return (add_token(shell, l, TOK_WORD));
 	else if (c == '\'')
-		return (flush_set_state(shell, buffer, state, STATE_IN_SINGLE_QUOTE));
+		return (flush_set_state(shell, l, LEXER_SQUOTE));
 	else if (c == '\"')
-		return (flush_set_state(shell, buffer, state, STATE_IN_DOUBLE_QUOTE));
+		return (flush_set_state(shell, l, LEXER_DQUOTE));
 	else if (c == '|')
-		return (flush_set_buf(shell, buffer, "|", TOK_PIPE));
+		return (flush_set_buf(shell, l, "|", TOK_PIPE));
 	else if (c == '<')
-		return (handle_redir_in(shell, buffer, state));
+		return (handle_redir_in(shell, l));
 	else if (c == '>')
-		return (handle_redir_out(shell, buffer, state));
+		return (handle_redir_out(shell, l));
 	else if (c == '$')
-		*state = STATE_IN_ENV;
-	else
-		return (append_char_to_buffer(shell, buffer, c));
-	return (0);
+		l->state =LEXER_ENV;
+
+	return (append_char_to_buffer(shell, l, c));
 }
 
-int	s_quote_state(t_mshell *shell, t_state *state, char c, char **buffer)
+t_lexer_state	s_quote_state(t_mshell *shell, t_lexer *l, char c)
 {
 	if (c == '\'')
 	{
-		*state = STATE_DEFAULT;
-		if (add_token (shell, buffer, TOK_QUOTED))
-			return (1);
+		l->state = LEXER_DEFAULT;
+		return (add_token (shell, l, TOK_QUOTED));
 	}
-	else
-		return (append_char_to_buffer(shell, buffer, c));
-	return (0);
+	return (append_char_to_buffer(shell, l, c));
 }
 
-int	d_quote_state(t_mshell *shell, t_state *state, char c, char **buffer)
+t_lexer_state	d_quote_state(t_mshell *shell, t_lexer *l, char c)
 {
 	if (c == '"')
 	{
-		*state = STATE_DEFAULT;
-		if (*buffer != NULL)
-		{
-			if (add_token(shell, buffer, TOK_QUOTED))
-				return (1);
-		}
+		if (l->buffer)
+			return (add_token(shell, l, TOK_QUOTED));
+		return (LEXER_DEFAULT);
 	}
 	else if (c == '$')
 	{
-		if (*buffer != NULL)
-		{
-			if (add_token(shell, buffer, TOK_QUOTED))
-				return (1);
-		}
-		*state = STATE_IN_QUOTED_ENV;
+		l->state = LEXER_QUOTED_ENV;
+		if (l->buffer)
+			return (add_token(shell, l, TOK_QUOTED));
 	}
-	else
-		return (append_char_to_buffer(shell, buffer, c));
-	return (0);
+	return (append_char_to_buffer(shell, l, c));
 }
 
-int	env_state(t_mshell *shell, t_state *state, char c, char **buffer)
+t_lexer_state	env_state(t_mshell *shell, t_lexer *l, char c)
 {
-	if (c == '?' && !*buffer)
-		return (handle_exit_status(shell, state, buffer));
-	else if (!ft_isalnum(c) && c != '_')
-		return (handle_invalid_char(shell, state, c, buffer));
-	else if (append_char_to_buffer(shell, buffer, c))
-		return (1);
-	return (0);
+	char *env_var;
+
+	if (l->buffer && ft_strcmp(l->buffer, "$") == 0 && c == '?')
+		return (handle_exit_status(shell, l));
+
+	if (!ft_isalnum(c) && c != '_')
+	{
+		if (l->buffer && l->buffer[0] == '$'
+			&& ft_str_is_valid_env(l->buffer + 1))
+		{
+			env_var = ft_strdup_s(shell, l->buffer + 1, MEM_TEMP);
+			if (!env_var)
+				return (LEXER_ERROR);
+			l->buffer = env_var;
+			if (add_token(shell, l, TOK_ENV_VAR) == LEXER_ERROR)
+				return (LEXER_ERROR);
+		}
+		else
+		{
+			if (add_token(shell, l, TOK_ENV_VAR) == LEXER_ERROR)
+				return (LEXER_ERROR);
+		}
+		if (l->state == LEXER_QUOTED_ENV)
+			l->state = LEXER_DQUOTE;
+		else
+			l->state = LEXER_DEFAULT;
+		return (handle_char(shell, l, c));
+	}
+	return (append_char_to_buffer(shell, l, c));
 }
 
-int	redir_state(t_mshell *shell, t_state *state, char c, char **buffer)
+t_lexer_state	redir_state(t_mshell *shell, t_lexer *l, char c)
 {
 	t_toktype	t;
 
-	if ((*state == STATE_IN_REDIR_IN && c == '<')
-		|| (*state == STATE_IN_REDIR_OUT && c == '>'))
-	{
-		if (append_char_to_buffer(shell, buffer, c))
-			return (1);
-	}
-	if (ft_strcmp(*buffer, "<<") == 0)
+	if ((l->state == LEXER_REDIR_IN && c == '<')
+		|| (l->state == LEXER_REDIR_OUT && c == '>'))
+		return (append_char_to_buffer(shell, l, c));
+
+	if (ft_strcmp(l->buffer, "<<") == 0)
 		t = TOK_HEREDOC;
-	else if (ft_strcmp(*buffer, ">>") == 0)
+	else if (ft_strcmp(l->buffer, ">>") == 0)
 		t = TOK_APPEND;
-	else if (*state == STATE_IN_REDIR_IN)
+	else if (l->state == LEXER_REDIR_IN)
 		t = TOK_REDIR_IN;
 	else
 		t = TOK_REDIR_OUT;
-	if (add_token(shell, buffer, t))
-		return (1);
-	*state = STATE_DEFAULT;
+	if (add_token(shell, l, t) == LEXER_ERROR)
+		return (LEXER_ERROR);
+	l->state = LEXER_DEFAULT;
 	if ((t == TOK_REDIR_IN && c != '<') || (t == TOK_REDIR_OUT && c != '>'))
-	{
-		if (handle_char(shell, state, c, buffer))
-			return (1);
-	}
-	return (0);
+		return (handle_char(shell, l, c));
+	return (LEXER_DEFAULT);
 }

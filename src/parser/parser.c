@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/08 15:26:32 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/10 22:42:26 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ t_command	*parser(t_mshell *shell)
 	p = ft_malloc_s(shell, sizeof(t_parser), MEM_TEMP);
 	if (!p)
 		return (NULL);
-	init_parser(p, shell);
+	init_parser(shell, p);
 	while (p->current_token)
 	{
 		if (p->state == PARSE_REDIR)
