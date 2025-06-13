@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/11 19:11:00 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/13 19:43:46 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(shell.line);
 			process_input(&shell);
-			// if (shell.commands)
-			// 	execute_cmd(&shell);
+			if (shell.commands)
+				execute_cmd(&shell);
 		}
 		free(shell.line);
 		shell.line = NULL;

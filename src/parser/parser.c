@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/10 22:42:26 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/13 19:33:01 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,17 @@ t_parser_state	parse_env(t_mshell *shell, t_parser *p)
 	tok = p->current_token;
 	if (!p->current_cmd)
 	{
-		p->current_cmd = ft_malloc_s(shell, sizeof(t_command), MEM_TEMP);
+		p->current_cmd = init_command(shell, p);
 		if (!p->current_cmd)
 			return (PARSE_ERROR);
-		ft_bzero(p->current_cmd, sizeof(t_command));
-		p->current_cmd->next = NULL;
-		if (!p->cmd_list)
-			p->cmd_list = p->current_cmd;
 	}
 	if (tok->type == TOK_ENV_VAR)
 	{
-		expanded = get_env(shell->env_list, tok->content);
-		if (!expanded || !expanded->value)
-			expanded->value = ft_strdup_s(shell, "", MEM_LONG);
-		add_arg_to_cmd(shell, p->current_cmd, expanded->value);
+		expanded = expand_env(shell, tok->content);
+		if (!expanded || expanded->value)
+			add_arg_to_cmd(shell, p->current_cmd, "");
+		else
+			add_arg_to_cmd(shell, p->current_cmd, expanded->value);
 	}
 	else if (tok->type == TOK_EXIT_STATUS)
 	{
@@ -64,11 +61,9 @@ t_parser_state	parse_pipe(t_mshell *shell, t_parser *p)
 		if (last != p->current_cmd)
 			last->next = p->current_cmd;
 	}
-	new_cmd = ft_malloc_s(shell, sizeof(t_command), MEM_TEMP);
+	new_cmd = init_command(shell, p);
 	if (!new_cmd)
 		return (PARSE_ERROR);
-	ft_bzero(new_cmd, sizeof(t_command));
-	new_cmd->next = NULL;
 	p->current_cmd = new_cmd;
 	return (PARSE_DEFAULT);
 }
@@ -77,13 +72,9 @@ t_parser_state	parse_word(t_mshell *shell, t_parser *p)
 {
 	if (!p->current_cmd)
 	{
-		p->current_cmd = ft_malloc_s(shell, sizeof(t_command), MEM_TEMP);
+		p->current_cmd = init_command(shell, p);
 		if (!p->current_cmd)
 			return (PARSE_ERROR);
-		ft_bzero(p->current_cmd, sizeof(t_command));
-		p->current_cmd->next = NULL;
-		if (!p->cmd_list)
-			p->cmd_list = p->current_cmd;
 	}
 	add_arg_to_cmd(shell, p->current_cmd, p->current_token->content);
 	return (PARSE_DEFAULT);
