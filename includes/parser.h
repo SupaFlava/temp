@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:50:26 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/10 22:42:51 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/13 18:34:04 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ t_parser_state	parse_append(t_mshell *shell, t_parser *p);
 t_parser_state	parse_heredoc(t_mshell *shell, t_parser *p);
 
 // parser_utils.c
-void	finalize_command(t_parser *p);
-char	*read_input(void);
-void	process_input(t_mshell *shell);
-void	init_parser(t_mshell *shell, t_parser *p);
-void	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg);
+void			finalize_command(t_parser *p);
+char			*read_input(void);
+void			process_input(t_mshell *shell);
+void			add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg);
 
-
+// init_parser.c
+void			init_parser(t_mshell *shell, t_parser *p);
+t_command		*init_command(t_mshell *shell, t_parser *p);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/13 15:46:00 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/13 18:48:43 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,6 @@ void	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg)
 	command->args = new_args;
 }
 
-void	init_parser(t_mshell *shell, t_parser *p)
-{
-	p->current_token = shell->tokens;
-	p->cmd_list = NULL;
-	p->current_cmd = NULL;
-	p->state = PARSE_DEFAULT;
-	p->env = shell->env_list;
-	p->exit_value = ft_itoa_s(shell, shell->exit_status, MEM_LONG);
-}
-
 void	process_input(t_mshell *shell)
 {
 	shell->tokens = lexer(shell);
@@ -71,19 +61,18 @@ void	process_input(t_mshell *shell)
 		ft_printf("no tokens found\n");
 		return ;
 	}
-	print_tokens(shell->tokens);
-	// if (shell->tokens)
-	// {
-	// 	print_tokens(shell->tokens);
-	// 	shell->commands = parser(shell);
-	// 	if (!shell->commands)
-	// 	{
-	// 		ft_printf("no commands found\n");
-	// 		return ;
-	// 	}
-	// 	else
-	// 		print_commands(shell->commands);
-	// }
+	if (shell->tokens)
+	{
+		print_tokens(shell->tokens);
+		shell->commands = parser(shell);
+		if (!shell->commands)
+		{
+			ft_printf("no commands found\n");
+			return ;
+		}
+		else
+			print_commands(shell->commands);
+	}
 }
 
 char	*read_input(void)
