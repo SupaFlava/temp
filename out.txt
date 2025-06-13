@@ -1,0 +1,2 @@
+hello
+/Users/supaflava/Desktop/minishell

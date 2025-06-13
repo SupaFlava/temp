@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parse_redirs.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/06/04 22:42:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/08 14:22:38 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parse_redirs.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 22:42:46 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/06/10 13:05:57 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "minishell.h"
 
 t_parser_state	parse_redir(t_mshell *shell, t_parser *p)
 {
@@ -51,5 +52,7 @@ t_parser_state	parse_heredoc(t_mshell *shell, t_parser *p)
 	if (!current || (current->type != TOK_WORD && current->type != TOK_QUOTED))
 		return (PARSE_ERROR);
 	p->current_cmd->delimiter = ft_strdup_s(shell, current->content, MEM_TEMP);
+	p->current_cmd->is_heredoc = true;
+	
 	return (PARSE_DEFAULT);
 }
