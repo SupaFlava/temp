@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/13 17:44:25 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/13 19:33:01 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ t_parser_state	parse_env(t_mshell *shell, t_parser *p)
 	}
 	if (tok->type == TOK_ENV_VAR)
 	{
-		expanded = get_env(shell->env_list, tok->content);
-		if (!expanded || !expanded->value)
-			expanded->value = ft_strdup_s(shell, "", MEM_LONG);
-		add_arg_to_cmd(shell, p->current_cmd, expanded->value);
+		expanded = expand_env(shell, tok->content);
+		if (!expanded || expanded->value)
+			add_arg_to_cmd(shell, p->current_cmd, "");
+		else
+			add_arg_to_cmd(shell, p->current_cmd, expanded->value);
 	}
 	else if (tok->type == TOK_EXIT_STATUS)
 	{

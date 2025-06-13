@@ -6,11 +6,28 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/13 18:48:43 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/13 19:37:40 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_env	*expand_env(t_mshell *shell, char *key)
+{
+	t_env *expanded;
+
+	expanded = get_env(shell->env_list, key);
+	if (!expanded)
+	{
+		expanded = ft_malloc_s(shell, sizeof(t_env), MEM_LONG);
+		if (!expanded)
+			return (NULL);
+		expanded->key = ft_strdup_s(shell, key, MEM_LONG);
+		expanded->value = ft_strdup_s(shell, "", MEM_LONG);
+		expanded->next = NULL;
+	}
+	return (expanded);
+}
 
 void	finalize_command(t_parser *p)
 {
@@ -63,15 +80,15 @@ void	process_input(t_mshell *shell)
 	}
 	if (shell->tokens)
 	{
-		print_tokens(shell->tokens);
+		// print_tokens(shell->tokens);
 		shell->commands = parser(shell);
 		if (!shell->commands)
 		{
 			ft_printf("no commands found\n");
 			return ;
 		}
-		else
-			print_commands(shell->commands);
+		// else
+		// 	print_commands(shell->commands);
 	}
 }
 
