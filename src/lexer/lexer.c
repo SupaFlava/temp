@@ -6,13 +6,13 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/19 19:08:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/11 19:11:21 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/13 16:44:45 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-t_lexer_state	handle_char(t_mshell *shell, t_lexer *l, char c)
+t_lexstate	handle_char(t_mshell *shell, t_lexer *l, char c)
 {
 	if (l->state == LEXER_DEFAULT)
 		return (default_state(shell, l, c));
@@ -32,6 +32,8 @@ int	finalize_tokens(t_mshell *shell, t_lexer *l)
 	t_toktype	type;
 
 	type = TOK_WORD;
+	if (check_quote_state(l->state) == LEXER_ERROR)
+		return (0);
 	if ((l->state == LEXER_ENV || l->state == LEXER_QUOTED_ENV) && !l->buffer)
 	{
 		if (append_char_to_buffer(shell, l, '$') == LEXER_ERROR)
@@ -47,8 +49,6 @@ int	finalize_tokens(t_mshell *shell, t_lexer *l)
 		if (add_token(shell, l, type) == LEXER_ERROR)
 			return (0);
 	}
-	if (check_quote_state(l->state) == LEXER_ERROR)
-		return (0);
 	return (1);
 }
 
@@ -64,9 +64,12 @@ void	init_lexer(t_mshell *shell, t_lexer *l)
 
 int	process_line_loop(t_mshell *shell, t_lexer *l)
 {
+	char	c;
+
+	c = l->input[l->index];
 	while (l->input[l->index])
 	{
-		char c = l->input[l->index];
+		c = l->input[l->index];
 		l->state = handle_char(shell, l, c);
 		if (l->state == LEXER_ERROR)
 			return (0);
@@ -77,7 +80,6 @@ int	process_line_loop(t_mshell *shell, t_lexer *l)
 
 t_token	*lexer(t_mshell *shell)
 {
-
 	t_lexer	*l;
 
 	if (!shell->line || *(shell->line) == '\0')
@@ -85,7 +87,6 @@ t_token	*lexer(t_mshell *shell)
 	l = ft_malloc_s(shell, sizeof(t_lexer), MEM_TEMP);
 	if (!l)
 		return (NULL);
-
 	init_lexer(shell, l);
 	if (!process_line_loop(shell, l))
 		return (NULL);

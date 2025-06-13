@@ -6,13 +6,13 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/12 17:13:20 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/13 16:35:35 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-t_lexer_state	default_state(t_mshell *shell, t_lexer *l, char c)
+t_lexstate	default_state(t_mshell *shell, t_lexer *l, char c)
 {
 	if (c == ' ')
 		return (add_token(shell, l, TOK_WORD));
@@ -30,16 +30,15 @@ t_lexer_state	default_state(t_mshell *shell, t_lexer *l, char c)
 	{
 		if (l->buffer && *l->buffer)
 		{
-			if(add_token(shell, l, TOK_WORD) == LEXER_ERROR)
+			if (add_token(shell, l, TOK_WORD) == LEXER_ERROR)
 				return (LEXER_ERROR);
-				
 		}
 		return (LEXER_ENV);
 	}
 	return (append_char_to_buffer(shell, l, c));
 }
 
-t_lexer_state	s_quote_state(t_mshell *shell, t_lexer *l, char c)
+t_lexstate	s_quote_state(t_mshell *shell, t_lexer *l, char c)
 {
 	if (c == '\'')
 	{
@@ -49,7 +48,7 @@ t_lexer_state	s_quote_state(t_mshell *shell, t_lexer *l, char c)
 	return (append_char_to_buffer(shell, l, c));
 }
 
-t_lexer_state	d_quote_state(t_mshell *shell, t_lexer *l, char c)
+t_lexstate	d_quote_state(t_mshell *shell, t_lexer *l, char c)
 {
 	if (c == '"')
 	{
@@ -59,33 +58,29 @@ t_lexer_state	d_quote_state(t_mshell *shell, t_lexer *l, char c)
 	}
 	else if (c == '$')
 	{
-		if (l->buffer &&add_token(shell, l, TOK_QUOTED) == LEXER_ERROR)
+		if (l->buffer && add_token(shell, l, TOK_QUOTED) == LEXER_ERROR)
 			return (LEXER_ERROR);
 		return (LEXER_QUOTED_ENV);
 	}
 	return (append_char_to_buffer(shell, l, c));
 }
 
-t_lexer_state	env_state(t_mshell *shell, t_lexer *l, char c)
+t_lexstate	env_state(t_mshell *shell, t_lexer *l, char c)
 {
-	ft_printf("[DEBUG] env_state: buffer = \"%s\"\n", l->buffer ? l->buffer : "(null)");
 	if (!l->buffer && c == '?')
 		return (handle_exit_status(shell, l));
-
 	if (!ft_isalnum(c) && c != '_')
-		return (handle_invalid_env(shell, l, c));	
-		
+		return (handle_invalid_env(shell, l, c));
 	return (append_char_to_buffer(shell, l, c));
 }
 
-t_lexer_state	redir_state(t_mshell *shell, t_lexer *l, char c)
+t_lexstate	redir_state(t_mshell *shell, t_lexer *l, char c)
 {
 	t_toktype	t;
 
 	if ((l->state == LEXER_REDIR_IN && c == '<')
 		|| (l->state == LEXER_REDIR_OUT && c == '>'))
 		return (append_char_to_buffer(shell, l, c));
-
 	if (ft_strcmp(l->buffer, "<<") == 0)
 		t = TOK_HEREDOC;
 	else if (ft_strcmp(l->buffer, ">>") == 0)

@@ -6,13 +6,13 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 16:36:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/11 19:11:34 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/13 16:45:16 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-t_toktype	find_token_type(const char *buffer, t_lexer_state state)
+t_toktype	find_token_type(const char *buffer, t_lexstate state)
 {
 	if (ft_strcmp(buffer, "|") == 0)
 		return (TOK_PIPE);
@@ -82,7 +82,7 @@ void	free_tokens(t_token *tokens)
 	}
 }
 
-t_lexer_state	add_token(t_mshell *shell, t_lexer *l, t_toktype type)
+t_lexstate	add_token(t_mshell *shell, t_lexer *l, t_toktype type)
 {
 	t_token	*new;
 	t_token	*last;
@@ -92,7 +92,7 @@ t_lexer_state	add_token(t_mshell *shell, t_lexer *l, t_toktype type)
 	new = ft_malloc_s(shell, sizeof(t_token), MEM_TEMP);
 	if (!new)
 		return (LEXER_ERROR);
-	new->content = ft_strndup_s(shell, l->buffer, ft_strlen(l->buffer), MEM_TEMP);
+	new->content = ft_strdup_s(shell, l->buffer, MEM_TEMP);
 	if (!new->content)
 		return (LEXER_ERROR);
 	new->type = type;

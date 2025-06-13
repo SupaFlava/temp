@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/12 17:03:24 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/13 15:46:00 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,19 @@ void	process_input(t_mshell *shell)
 		ft_printf("no tokens found\n");
 		return ;
 	}
-	if (shell->tokens)
-	{
-		print_tokens(shell->tokens);
-		shell->commands = parser(shell);
-		if (!shell->commands)
-		{
-			ft_printf("no commands found\n");
-			return ;
-		}
-		else
-			print_commands(shell->commands);
-	}
+	print_tokens(shell->tokens);
+	// if (shell->tokens)
+	// {
+	// 	print_tokens(shell->tokens);
+	// 	shell->commands = parser(shell);
+	// 	if (!shell->commands)
+	// 	{
+	// 		ft_printf("no commands found\n");
+	// 		return ;
+	// 	}
+	// 	else
+	// 		print_commands(shell->commands);
+	// }
 }
 
 char	*read_input(void)

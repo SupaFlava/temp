@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/11 16:48:57 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/13 16:33:34 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft.h"
 // enums
-typedef enum e_lexer_state
+typedef enum e_lexstate
 {
 	LEXER_DEFAULT,
 	LEXER_SQUOTE,
@@ -25,7 +25,7 @@ typedef enum e_lexer_state
 	LEXER_REDIR_IN,
 	LEXER_REDIR_OUT,
 	LEXER_ERROR
-}	t_lexer_state;
+}	t_lexstate;
 
 typedef enum e_parse_state
 {
@@ -101,7 +101,7 @@ typedef struct s_parser
 
 typedef struct s_lexer
 {
-	t_lexer_state	state;
+	t_lexstate	state;
 	t_token			*tokens;
 	char 			*buffer;
 	size_t			index;
