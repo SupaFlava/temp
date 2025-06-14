@@ -40,17 +40,6 @@ t_command	*parse_tokens_to_cmds(t_mshell *shell)
 	return (head);
 }
 
-void	check_builtin(t_token *token, t_command *command)
-{
-	if (!ft_strcmp(token->content, "echo")
-		|| !ft_strcmp(token->content, "cd")
-		|| !ft_strcmp(token->content, "pwd")
-		|| !ft_strcmp(token->content, "export")
-		|| !ft_strcmp(token->content, "unset")
-		|| !ft_strcmp(token->content, "env")
-		|| !ft_strcmp(token->content, "exit"))
-		command->is_builtin = 1;
-}
 
 int		parse_nonredir_token(t_mshell *shell, t_token *token, t_command *command)
 {
@@ -102,7 +91,6 @@ t_command	*create_command(t_mshell *shell)
 	command->infile = NULL;
 	command->outfile = NULL;
 	command->append = 0;
-	command->is_builtin = 0;
 	command->next = NULL;
 	return (command);
 }

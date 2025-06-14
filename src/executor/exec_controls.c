@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/10 13:13:39 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/14 11:47:46 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,18 @@ static int execute_single_builtin(t_command *cmd, t_mshell *shell)
 	saved_stdout = dup(STDOUT_FILENO);
 	if(cmd->is_heredoc)
 		handle_heredoc(cmd, shell);
-	else if(handle_redir(cmd) < 0)
+ 	if (handle_redir(cmd) < 0)
 	{
 		restore_stdio(saved_stdin, saved_stdout);
 		return (1);
-	}		
+	}
 	ret = run_builtin(cmd, shell);
 	restore_stdio(saved_stdin, saved_stdout);
+	if (cmd->is_heredoc && cmd->heredoc_fd != -1)
+	{
+		close(cmd->heredoc_fd);
+		cmd->heredoc_fd = -1;
+	}
 	return (ret);
 }
 

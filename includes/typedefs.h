@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/13 11:27:17 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/13 11:55:57 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_command
 	int					append;
 	char				*delimiter;
 	bool				is_heredoc;
+	int					heredoc_fd;
 	struct s_command	*next;
 }	t_command;
 

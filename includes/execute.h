@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 12:22:05 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/10 11:33:13 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/13 12:11:23 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int is_executable(const char *path);
 // PIPE
 int execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx);
 
-
+//HEREDOC 
+void    handle_heredoc(t_command *cmd,t_mshell *shell);
 
 #endif
