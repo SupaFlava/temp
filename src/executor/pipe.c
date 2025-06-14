@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 11:21:26 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/10 12:01:02 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/13 15:06:55 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,12 @@ static pid_t run_child(t_command *cmd,t_exec_ctx ctx ,t_mshell *shell)
 
 	if (!cmd || !cmd->args || !cmd->args[0])
 		return(perror( "no args\n"), -1);
-	
 	pid = fork();
 	if (pid == -1)
 		return (perror("Fork"), -1);
 	if (pid == 0)
 	{
-	if(ctx.prev_fd != -1)
+			if(ctx.prev_fd != -1)
 				dup2(ctx.prev_fd, STDIN_FILENO);
 			if (cmd->next)
 				dup2(ctx.fds[1], STDOUT_FILENO);
@@ -77,13 +76,18 @@ int execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 
     while (cmd)
     {
+        if (cmd->is_heredoc)
+            handle_heredoc(cmd,shell);
         if (prep_pipe(cmd, ctx->fds) < 0)
-            return (1);
-            
+            return (1);      
         pid = run_child(cmd, *ctx, shell);
         if (pid < 0)
             return (1);
         ctx->child_pids[ctx->child_count++] = pid;
+		  if (cmd->is_heredoc && cmd->heredoc_fd != -1) {
+            close(cmd->heredoc_fd);
+            cmd->heredoc_fd = -1;
+        }
         close_parent_fds(cmd, &ctx->prev_fd, ctx->fds);
         cmd = cmd->next;
     }

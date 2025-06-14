@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   tester.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 15:42:35 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/08 14:22:38 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   tester.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 15:42:35 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/10 13:09:14 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	print_commands(t_command *cmd)
 		printf("  outfile: %s\n", cmd->outfile ? cmd->outfile : "(null)");
 		printf("  append: %d\n", cmd->append);
 		printf("  heredoc_delimiter: %s\n", cmd->delimiter ? cmd->delimiter : "(null)");
-		printf("  is_builtin: %d\n", cmd->is_builtin);
+		printf("  is_heredoc: %d\n", cmd->is_heredoc);
 		printf("--------------------------\n");
 		cmd = cmd->next;
 	}

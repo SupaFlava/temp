@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   execute.h                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/26 12:22:05 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/13 18:38:33 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   execute.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/26 12:22:05 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/14 12:05:17 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ char	*find_in_path(char *arg, t_env *env_lst);
 int		is_executable(const char *path);
 
 // PIPE
-int		execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx);
+int execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx);
+
+//HEREDOC 
+void    handle_heredoc(t_command *cmd,t_mshell *shell);
 
 #endif

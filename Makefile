@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/06/13 17:42:27 by jbaetsen      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
+#    Updated: 2025/06/14 12:05:23 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,8 @@ SRC_EXECUTOR =  $(SRC_DIR)/executor/exec_controls.c \
 				$(SRC_DIR)/executor/redirection.c \
 				$(SRC_DIR)/executor/exec.c\
 				$(SRC_DIR)/executor/exec_utils.c \
-				$(SRC_DIR)/executor/pipe.c
+				$(SRC_DIR)/executor/pipe.c\
+				$(SRC_DIR)/executor/heredoc.c
 
 SRC_BUILTINS = 	$(SRC_DIR)/builtins/pwd.c \
 				$(SRC_DIR)/builtins/cd.c \
