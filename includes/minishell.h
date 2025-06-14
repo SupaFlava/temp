@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:18:35 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/10 13:06:20 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:05:33 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@
 # include "execute.h"
 
 // function prototypes
-int	run_builtin(t_command *cmd, t_mshell *shell);
+int		run_builtin(t_command *cmd, t_mshell *shell);
 void	print_commands(t_command *cmd);
-
 
 #endif

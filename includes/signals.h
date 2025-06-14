@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 12:52:59 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/05/18 11:52:50 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   signals.h                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/08 12:52:59 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/13 18:38:43 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 // includes
 # include <signal.h>
-
 
 //function prototypes
 void	setup_signals(void);
