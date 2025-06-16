@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 12:12:21 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/08 15:24:13 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/16 23:26:15 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char *ft_substr_s(t_mshell *shell ,char const *s,unsigned b,size_t len)
 		size_t finish;
 
 	if(!s)
-		return (0);
+		return (NULL);
 	slen = ft_strlen(s);
 	if (b >= slen)
 		return (ft_strdup_s(shell,"",MEM_LONG));

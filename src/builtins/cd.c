@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 15:45:29 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/06 21:38:29 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cd.c                                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/06 15:45:29 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/16 23:27:11 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int change_dir(t_mshell *shell, char *path)
 	char *old_path;
 	char *buffer;
 
-	printf("path is in chdir %s",path);
+	printf("path is in chdir %s\n",path);
 	buffer = ft_malloc_s(shell ,512, MEM_TEMP);
 	old_path = getcwd(buffer, 512);
 	if (chdir(path) == 0)
