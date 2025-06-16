@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 22:42:46 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/14 12:06:10 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/15 11:29:40 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,5 @@ t_parser_state	parse_heredoc(t_mshell *shell, t_parser *p)
 		return (PARSE_ERROR);
 	p->current_cmd->delimiter = ft_strdup_s(shell, current->content, MEM_TEMP);
 	p->current_cmd->is_heredoc = true;
-	
 	return (PARSE_DEFAULT);
 }

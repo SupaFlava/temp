@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 18:15:06 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/14 12:00:32 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/15 15:27:29 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,20 @@ int redir_input(t_command *cmd)
 {
     int fd;
 
-    if (cmd->is_heredoc) {
-        if (cmd->heredoc_fd == -1) {
-            ft_printf("heredoc: no file descriptor\n");
-            return (-1);
-        }
-        if (dup2(cmd->heredoc_fd, STDIN_FILENO) == -1) {
-            perror("dup2");
-            return (-1);
-        }
-        return (0);
-    }
     if (!cmd->infile)
         return (0);
     fd = open(cmd->infile, O_RDONLY);
     if (fd < 0 )
+    {
+        perror(cmd->infile);
         return (-1);
-    dup2(fd, STDIN_FILENO);
+    }
+    if (dup2(fd, STDIN_FILENO) == -1)
+    {
+        perror("dup2");
+        close(fd);
+        return (-1);
+    }
     close(fd);
     return (0);
 }
@@ -65,6 +62,7 @@ int redir_out(t_command *cmd)
 
 int handle_redir(t_command *cmd)
 {
+    if(cmd->infile)
     if (redir_input(cmd) < 0)
         return (-1);
     if (redir_out(cmd) < 0)

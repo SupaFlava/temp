@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 11:21:26 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/13 15:06:55 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/15 14:17:57 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 
     while (cmd)
     {
-        if (cmd->is_heredoc)
-            handle_heredoc(cmd,shell);
         if (prep_pipe(cmd, ctx->fds) < 0)
             return (1);      
         pid = run_child(cmd, *ctx, shell);
