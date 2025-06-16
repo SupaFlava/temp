@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 11:21:26 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/15 14:17:57 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:34:48 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,13 @@ static int	prep_pipe(t_command *cmd, int *fds)
 	}
 	return (0);
 }
+
 static pid_t run_child(t_command *cmd,t_exec_ctx ctx ,t_mshell *shell)
 {
 	pid_t pid;
 
 	if (!cmd || !cmd->args || !cmd->args[0])
-		return(perror( "no args\n"), -1);
+		return(perror("no args\n"), -1);
 	pid = fork();
 	if (pid == -1)
 		return (perror("Fork"), -1);
@@ -63,13 +64,12 @@ static pid_t run_child(t_command *cmd,t_exec_ctx ctx ,t_mshell *shell)
 			if(is_builtin(cmd))
 				exit(run_builtin(cmd, shell));
 			else
-			{
 				check_exec(cmd, shell);
-			}
 			exit(0);
 	}
 	return (pid);
 }
+
 int execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 {
     pid_t pid;
@@ -92,3 +92,4 @@ int execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
     wait_for_pid(ctx->child_count, ctx->child_pids, shell);
     return (0);
 }
+

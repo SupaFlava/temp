@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:10:03 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/06 11:44:31 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:00:23 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_free(t_mshell *shell, t_mem_t type)
 		ft_lstclear(&shell->long_allocs, free);
 		shell->long_allocs = NULL;
 	}
+
 }
 
 void	*ft_malloc_s(t_mshell *shell, size_t size, t_mem_t type)
