@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:10:03 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/17 13:44:50 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:14:25 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void	free_arr(char **arr)
 }
 void	ft_free(t_mshell *shell, t_mem_t type)
 {
-	if (shell->commands->heredoc_temp)
-		unlink(shell->commands->heredoc_temp);
+
 	if (type == MEM_TEMP)
 	{
 		ft_lstclear(&shell->temp_allocs, free);
@@ -41,7 +40,6 @@ void	ft_free(t_mshell *shell, t_mem_t type)
 		ft_lstclear(&shell->long_allocs, free);
 		shell->long_allocs = NULL;
 	}
-
 }
 
 void	*ft_malloc_s(t_mshell *shell, size_t size, t_mem_t type)

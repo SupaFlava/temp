@@ -18,7 +18,6 @@ t_command	*parse_tokens_to_cmds(t_mshell *shell)
 			return (NULL);
 		if (parse_nonredir_token(shell, token, command))
 			return (NULL);
-
 		token = token->next;
 	}
 	if (token != NULL && token->type == TOK_PIPE)
@@ -32,10 +31,8 @@ t_command	*parse_tokens_to_cmds(t_mshell *shell)
 				return (NULL);
 			if (parse_nonredir_token(shell, token, command))
 				return (NULL);
-
 			token = token->next;
 		}
-
 	}
 	return (head);
 }
