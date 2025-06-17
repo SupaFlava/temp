@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 13:39:05 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/13 16:36:17 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/16 22:57:36 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_lexstate	flush_set_state(t_mshell *sh, t_lexer *l, t_lexstate new_state)
 {
 	if (l->buffer && *l->buffer)
 	{
-		if (!add_token(sh, l, TOK_WORD))
+		if (add_token(sh, l, TOK_WORD) == LEXER_ERROR)
 			return (LEXER_ERROR);
 	}
 	l->state = new_state;

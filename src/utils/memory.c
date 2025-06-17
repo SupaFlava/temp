@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:10:03 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/17 15:14:25 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:51:49 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ void	ft_free(t_mshell *shell, t_mem_t type)
 	{
 		ft_lstclear(&shell->temp_allocs, free);
 		shell->temp_allocs = NULL;
+		if (shell->tokens)
+			shell->tokens = NULL;
+		if (shell->commands)
+			shell->commands = NULL; //added this to  nullify pointers after freeingto prevent segfaults on 2nd interation
+
 	}
 	if (type == MEM_LONG)
 	{

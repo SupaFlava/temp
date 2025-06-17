@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 17:00:07 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/13 18:31:36 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/16 23:01:02 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_lexstate	handle_empty_buffer_env(t_mshell *shell, t_lexer *l, char c)
 {
 	if (append_char_to_buffer(shell, l, '$') == LEXER_ERROR)
 		return (LEXER_ERROR);
-	if (c == '"')
+	if (c == '"' || c == '\'')
 	{
 		if (l->state == LEXER_QUOTED_ENV)
 			l->state = LEXER_DQUOTE;

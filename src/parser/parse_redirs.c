@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse_redirs.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 22:42:46 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/15 11:29:40 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parse_redirs.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/06/04 22:42:46 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/17 14:59:51 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,20 @@
 t_parser_state	parse_redir(t_mshell *shell, t_parser *p)
 {
 	t_token	*current;
+	t_env	*expanded;
 
 	if (!p->current_cmd)
 		return (PARSE_ERROR);
 	current = p->current_token;
-	if (!current || (current->type != TOK_WORD && current->type != TOK_QUOTED))
+	if (!current)
 		return (PARSE_ERROR);
-	p->current_cmd->infile = ft_strdup_s(shell, current->content, MEM_TEMP);
+	if (current->type == TOK_WORD || current->type == TOK_QUOTED)
+		p->current_cmd->infile = ft_strdup_s(shell, current->content, MEM_TEMP);
+	else if (current->type == TOK_ENV_VAR)
+	{
+		expanded = expand_env(shell, current->content);
+		p->current_cmd->infile = expanded->value;
+	}
 	if (!p->current_cmd->infile)
 		return (PARSE_ERROR);
 	return (PARSE_DEFAULT);
@@ -31,13 +38,20 @@ t_parser_state	parse_redir(t_mshell *shell, t_parser *p)
 t_parser_state	parse_append(t_mshell *shell, t_parser *p)
 {
 	t_token	*current;
+	t_env	*expanded;
 
 	if (!p->current_cmd)
 		return (PARSE_ERROR);
 	current = p->current_token;
-	if (!current || (current->type != TOK_WORD && current->type != TOK_QUOTED))
+	if (!current)
 		return (PARSE_ERROR);
-	p->current_cmd->outfile = ft_strdup_s(shell, current->content, MEM_TEMP);
+	if (current->type == TOK_WORD || current->type == TOK_QUOTED)
+		p->current_cmd->infile = ft_strdup_s(shell, current->content, MEM_TEMP);
+	else if (current->type == TOK_ENV_VAR)
+	{
+		expanded = expand_env(shell, current->content);
+		p->current_cmd->outfile = expanded->value;
+	}
 	p->current_cmd->append = 1;
 	return (PARSE_DEFAULT);
 }
