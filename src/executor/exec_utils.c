@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:57:38 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/17 15:54:26 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:56:31 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char **env_to_envp(t_mshell *shell)
 	int count;
 	int i;
 	char **envp;
-	
+
 	temp = shell->env_list;
 	count =  count_env(temp);
 	envp = ft_malloc_s(shell,sizeof(char *)* (count + 1), MEM_TEMP);
