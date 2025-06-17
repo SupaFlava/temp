@@ -6,7 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/06/14 12:05:23 by rmhazres         ###   ########.fr        #
+#    Updated: 2025/06/16 16:15:28 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,9 @@ LIBFT_FLAGS = -L./libraries -lft
 
 UNAME := $(shell uname)
 
-# ifeq ($(UNAME), Linux)
-#     CFLAGS += -fsanitize=address
-# endif
+ifeq ($(UNAME), Linux)
+    CFLAGS += -fsanitize=address
+endif
 
 ifeq ($(UNAME), Darwin)  # macOS
     # Homebrew path for GNU readline on macOS
