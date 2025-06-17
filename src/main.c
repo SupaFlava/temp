@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/17 14:08:45 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/17 14:30:25 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	main(int argc, char **argv, char **envp)
 			if (shell.commands)
 			 	execute_cmd(&shell);
 		}
-		unlink(shell.commands->heredoc_temp);
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);
