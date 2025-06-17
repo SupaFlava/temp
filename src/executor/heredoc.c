@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:09:41 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/16 14:14:24 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:31:53 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ int    handle_heredoc(t_command *cmd,const char *filename)
     signal(SIGQUIT, SIG_IGN);
     fd = open(filename,O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd < 0)
-        return(perror("heredoc open fails"), 1);
+		return(perror("heredoc open fails"), 1);
+	unlink(filename);
     while(1)
     {
         line = readline("Heredoc > ");

@@ -1,0 +1,1 @@
+/home/rmhazres/.local/bin:/home/rmhazres/bin:/home/rmhazres/.local/bin:/home/rmhazres/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/rmhazres/.dotnet/tools

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:57:38 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/17 14:23:39 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:56:31 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char **env_to_envp(t_mshell *shell)
 	int count;
 	int i;
 	char **envp;
-	
+
 	temp = shell->env_list;
 	count =  count_env(temp);
 	envp = ft_malloc_s(shell,sizeof(char *)* (count + 1), MEM_TEMP);
@@ -41,7 +41,7 @@ char **env_to_envp(t_mshell *shell)
 	i = 0;
 	while(temp)
 	{
-		joined = ft_strdup(temp->key);
+		joined = ft_strjoin(temp->key, "=");
 		if (!joined)
 			return(free_arr(envp),NULL);
 		envp[i] = ft_join_and_free(joined, temp->value);
