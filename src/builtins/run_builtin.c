@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   run_builtin.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/01 15:44:20 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/14 15:16:39 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   run_builtin.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/06/01 15:44:20 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/17 14:08:23 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int is_builtin(t_command *cmd)
 		return(1);
 	else
 		return (0);
-} 
+}
 int run_builtin(t_command *cmd, t_mshell *shell)
 {
     if (ft_strcmp(cmd->args[0], "cd") == 0)
