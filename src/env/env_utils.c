@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env_utils.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 16:39:02 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/17 13:54:16 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   env_utils.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/03 16:39:02 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/17 15:34:26 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ void env_print(t_mshell *shell)
 	temp = shell->env_list;
 	while (temp != NULL)
 	{
-		if (temp->key != NULL)
+		if (temp->key != NULL && temp->value != NULL)
+		{
 			ft_putstr_fd(temp->key,STDOUT_FILENO);
-		if (temp->value != NULL)
+			ft_putstr_fd("=", STDOUT_FILENO);
 			ft_putstr_fd(temp->value,STDOUT_FILENO);
-		ft_putchar_fd('\n',STDOUT_FILENO);
+			ft_putchar_fd('\n',STDOUT_FILENO);
+		}
 		temp = temp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/17 14:09:07 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/17 14:42:48 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	process_input(t_mshell *shell)
 			ft_printf("no commands found\n");
 			return ;
 		}
+		else
+			print_commands(shell->commands);
 	}
 }
 

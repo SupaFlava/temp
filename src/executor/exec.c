@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 12:23:04 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/17 14:15:10 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   exec.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/06/04 12:23:04 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/17 14:41:45 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static int	run_direct_path_exec(t_command *cmd, char **envp)
 		check_access(cmd->args[0]);
 		return (1);
 	}
-	for (int i = 0; envp[i]; i++)
-    printf("envp[%d]: %s\n", i, envp[i]);
 	execve(cmd->args[0], cmd->args, envp);
 	ft_printf("bash: %s: %s\n", cmd->args[0], strerror(errno));
 	return (1);
@@ -45,8 +43,6 @@ static int	run_search_exec(t_command *cmd, t_env *envl, char **envp)
 		ft_printf("bash: %s: command not found\n", cmd->args[0]);
 		return (1);
 	}
-	for (int i = 0; envp[i]; i++)
-    printf("envp[%d]: %s\n", i, envp[i]);
 	execve(path, cmd->args, envp);
 	ft_printf("bash: %s: %s\n", path, strerror(errno));
 	free(path);
