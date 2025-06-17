@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/16 14:01:04 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/17 14:08:45 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,12 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(shell.line);
 			process_input(&shell);
+			if(prep_heredoc(&shell) != 0)
+				continue; // should clean up later
 			if (shell.commands)
 			 	execute_cmd(&shell);
 		}
+		unlink(shell.commands->heredoc_temp);
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);

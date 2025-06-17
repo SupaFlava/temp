@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 12:12:21 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/16 23:26:15 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/17 14:09:30 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,4 +140,31 @@ char	*ft_itoa_s(t_mshell *shell, int n, t_mem_t type)
 		len--;
 	}
 	return (string);
+}
+char	*ft_strjoin_s(char const *s1, char const *s2 , t_mshell *shell,t_mem_t t)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	str = ft_malloc_s(shell,
+	sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1),t);
+	if (!str)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	while (s2[j] != '\0')
+	{
+		str[i + j] = s2[j];
+		j++;
+	}
+	str[i + j] = '\0';
+	return (str);
 }

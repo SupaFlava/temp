@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:57:38 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/06 20:14:01 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:48:58 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int is_executable(const char *path)
 		return (0);
 	return (1);
 }
+
 char **env_to_envp(t_mshell *shell)
 {
 	t_env *temp;
@@ -52,6 +53,7 @@ char **env_to_envp(t_mshell *shell)
 	envp[i] = NULL;
 	return (envp);
 }
+
 char *find_in_path(char *arg, t_env *env_lst)
 {
 	t_env *temp;

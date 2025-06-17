@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/01 15:44:20 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/16 14:27:00 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/17 14:08:23 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int is_builtin(t_command *cmd)
 }
 int run_builtin(t_command *cmd, t_mshell *shell)
 {
-	printf("running builtins\n");
     if (ft_strcmp(cmd->args[0], "cd") == 0)
         return builtin_cd(shell, cmd->args);
     else if (ft_strcmp(cmd->args[0], "pwd") == 0)
