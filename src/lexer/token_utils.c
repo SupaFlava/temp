@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   token_utils.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/20 16:36:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/13 16:45:16 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/20 16:36:46 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/06/17 14:11:16 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ const char	*token_type_to_string(t_toktype type)
 
 void	print_tokens(t_token *tokens)
 {
-	ft_printf("registered tokens:\n");
 	while (tokens)
 	{
 		ft_printf("Token: %s | type %s\n",

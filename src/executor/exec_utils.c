@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:57:38 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/16 11:48:58 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/17 14:23:39 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char **env_to_envp(t_mshell *shell)
 	i = 0;
 	while(temp)
 	{
-		joined = ft_strjoin(temp->key, "=");
+		joined = ft_strdup(temp->key);
 		if (!joined)
 			return(free_arr(envp),NULL);
 		envp[i] = ft_join_and_free(joined, temp->value);
