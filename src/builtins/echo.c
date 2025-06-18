@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:07:34 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/06 21:39:17 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/18 10:32:16 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ int	builtin_echo(t_mshell *shell ,char **args)
 	flag = 0;
 	i = 1;
 	if(!args[1])
-	{
 		return(ft_putchar_fd('\n',STDOUT_FILENO), 0);
-	}
 	if (ft_strlen(args[1]) == 2 && ft_strncmp(args[1], "-n" ,2) == 0)
 	{
 		flag =1;
