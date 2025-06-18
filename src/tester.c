@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tester.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 15:42:35 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/16 16:30:33 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   tester.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/06 15:42:35 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/18 19:49:44 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	print_commands(t_command *cmd)
 		}
 		else
 			printf("  args: (null)\n");
-		printf("  infile: %s\n", cmd->infile ? cmd->infile : "(null)");
-		printf("  outfile: %s\n", cmd->outfile ? cmd->outfile : "(null)");
+		printf("  infile: %s\n", cmd->infile ? cmd->infile->file : "(null)");
+		printf("  outfile: %s\n", cmd->outfile ? cmd->outfile->file : "(null)");
 		printf("  append: %d\n", cmd->append);
 		printf("  heredoc_delimiter: %s\n", cmd->delimiter ? cmd->delimiter : "(null)");
 		printf("  is_heredoc: %d\n", cmd->is_heredoc);

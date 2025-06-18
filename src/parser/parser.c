@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/17 15:05:47 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/18 13:41:41 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,10 @@ t_parser_state	parse_token(t_mshell *shell, t_parser *p)
 	else if (tok == TOK_REDIR_OUT)
 		return (PARSE_APPEND);
 	else if (tok == TOK_APPEND)
+	{
+		p->current_cmd->append = 1;
 		return (PARSE_APPEND);
+	}
 	else if (tok == TOK_HEREDOC)
 		return (PARSE_HEREDOC);
 	else
@@ -114,9 +117,9 @@ t_command	*parser(t_mshell *shell)
 	while (p->current_token)
 	{
 		if (p->state == PARSE_REDIR)
-			p->state = parse_redir(shell, p);
+			p->state = parse_infile(shell, p);
 		else if (p->state == PARSE_APPEND)
-			p->state = parse_append(shell, p);
+			p->state = parse_outfile(shell, p);
 		else if (p->state == PARSE_HEREDOC)
 			p->state = parse_heredoc(shell, p);
 		else
