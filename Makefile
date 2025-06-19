@@ -6,7 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/06/19 20:14:12 by jbaetsen      ########   odam.nl          #
+#    Updated: 2025/06/19 21:36:12 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,7 +103,8 @@ SRC_LEXER = 	$(SRC_DIR)/lexer/lexer_utils.c \
 
 SRC_PARSER = 	$(SRC_DIR)/parser/parser.c \
 				$(SRC_DIR)/parser/parser_utils.c \
-				$(SRC_DIR)/parser/parse_redirs.c \
+				$(SRC_DIR)/parser/parser_redirs.c \
+				$(SRC_DIR)/parser/parser_redir_utils.c \
 				$(SRC_DIR)/parser/parser_init.c
 
 SRC = 	$(SRC_MAIN) $(SRC_SIGNALS) $(SRC_ENV) $(SRC_BUILTINS) \

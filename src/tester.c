@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 15:42:35 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/18 19:49:44 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/19 20:42:04 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@
 
 void	print_commands(t_command *cmd)
 {
-	int	i;
+	int		i;
+	t_redir	*redir;
 
 	while (cmd)
 	{
@@ -52,8 +53,37 @@ void	print_commands(t_command *cmd)
 		}
 		else
 			printf("  args: (null)\n");
-		printf("  infile: %s\n", cmd->infile ? cmd->infile->file : "(null)");
-		printf("  outfile: %s\n", cmd->outfile ? cmd->outfile->file : "(null)");
+
+		// Print all infiles
+		printf("  infile(s): ");
+		if (!cmd->infile)
+			printf("(null)\n");
+		else
+		{
+			redir = cmd->infile;
+			while (redir)
+			{
+				printf("%s ", redir->file);
+				redir = redir->next;
+			}
+			printf("\n");
+		}
+
+		// Print all outfiles
+		printf("  outfile(s): ");
+		if (!cmd->outfile)
+			printf("(null)\n");
+		else
+		{
+			redir = cmd->outfile;
+			while (redir)
+			{
+				printf("%s%s ", redir->file, redir->append ? " (append)" : "");
+				redir = redir->next;
+			}
+			printf("\n");
+		}
+
 		printf("  append: %d\n", cmd->append);
 		printf("  heredoc_delimiter: %s\n", cmd->delimiter ? cmd->delimiter : "(null)");
 		printf("  is_heredoc: %d\n", cmd->is_heredoc);

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/19 20:12:35 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/19 21:18:25 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_env	*expand_env(t_mshell *shell, char *key)
 {
-	t_env *expanded;
+	t_env	*expanded;
 
 	expanded = get_env(shell->env_list, key);
 	if (!expanded)

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/10 13:09:41 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/18 20:02:02 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/19 22:11:45 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	prep_heredoc(t_mshell *shell)
 {
-	t_command *cmd;
-	int i;
+	t_command	*cmd;
+	int			i;
 
 	cmd = shell->commands;
 	i = 0;
-	while(cmd)
+	while (cmd)
 	{
 		if (cmd->is_heredoc)
 		{
@@ -32,29 +32,29 @@ int	prep_heredoc(t_mshell *shell)
 	return (0);
 }
 
-static char	*generate_heredoc_file(int index ,t_mshell *shell)
+static char	*generate_heredoc_file(int index, t_mshell *shell)
 {
-	char *base;
-	char *suffix;
-	char *full;
+	char	*base;
+	char	*suffix;
+	char	*full;
 
-	base = ft_strdup_s(shell, ".heredoc_temp",MEM_TEMP);
+	base = ft_strdup_s(shell, ".heredoc_temp", MEM_TEMP);
 	if (!base)
-		return(NULL);
-	suffix = ft_itoa_s(shell,index, MEM_TEMP);
+		return (NULL);
+	suffix = ft_itoa_s(shell, index, MEM_TEMP);
 	if (!suffix)
-		return(NULL);
+		return (NULL);
 	full = ft_strjoin_s(base, suffix, shell, MEM_TEMP);
-	if(!full)
-		return(NULL);
+	if (!full)
+		return (NULL);
 	return (full);
 }
 
-int	fork_heredoc(t_command *cmd , t_mshell *shell, int index)
+int	fork_heredoc(t_command *cmd, t_mshell *shell, int index)
 {
-	int pid;
-	int status;
-	char *filename;
+	int		pid;
+	int		status;
+	char	*filename;
 
 	filename = generate_heredoc_file(index, shell);
 	if (!filename)
@@ -62,7 +62,7 @@ int	fork_heredoc(t_command *cmd , t_mshell *shell, int index)
 	cmd->heredoc_temp = filename;
 	pid = fork();
 	if (pid == -1)
-		return (perror("heredoc fork fail"),1);
+		return (perror("heredoc fork fail"), 1);
 	if (pid == 0)
 		exit(handle_heredoc(cmd, filename));
 	waitpid(pid, &status, 0);
@@ -76,43 +76,44 @@ int	fork_heredoc(t_command *cmd , t_mshell *shell, int index)
 		shell->exit_status = 130;
 	return (1);
 }
+
 static int	check_line(char *line, t_command *cmd)
 {
 	if (!line)
 	{
 		ft_putstr_fd("warning: heredoc delimited by EOF (wanted `", 2);
-		ft_putstr_fd(cmd->delimiter,2);
-		ft_putstr_fd("`)\n",2);
+		ft_putstr_fd(cmd->delimiter, 2);
+		ft_putstr_fd("`)\n", 2);
 		return (0);
 	}
 	return (1);
 }
 
-int	handle_heredoc(t_command *cmd,const char *filename)
+int	handle_heredoc(t_command *cmd, const char *filename)
 {
-	int fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	signal(SIGINT, sigint_heredoc);
 	signal(SIGQUIT, SIG_IGN);
-	fd = open(filename,O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
-		return(perror("heredoc open fails"), 1);
+		return (perror("heredoc open fails"), 1);
 	unlink(filename);
-	while(1)
+	while (1)
 	{
 		line = readline("Heredoc > ");
 		if (!check_line(line, cmd))
-			break;
+			break ;
 		if (ft_strcmp(line, cmd->delimiter) == 0)
 		{
 			free(line);
-			break;
+			break ;
 		}
-		ft_putstr_fd(line , fd);
-		ft_putstr_fd("\n" , fd);
+		ft_putstr_fd(line, fd);
+		ft_putstr_fd("\n", fd);
 		free(line);
 	}
 	close(fd);
-	return(0);
+	return (0);
 }

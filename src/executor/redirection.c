@@ -6,22 +6,22 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/26 18:15:06 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/18 19:47:50 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/19 22:22:32 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int redir_input(t_command *cmd)
+int	redir_input(t_command *cmd)
 {
 	t_redir	*node;
-	int 	fd;
+	int		fd;
 
 	node = cmd->infile;
 	while (node)
 	{
 		fd = open(node->file, O_RDONLY);
-		if (fd < 0 )
+		if (fd < 0)
 		{
 			perror(node->file);
 			return (-1);
@@ -41,7 +41,7 @@ int redir_input(t_command *cmd)
 	return (0);
 }
 
-int redir_out(t_command *cmd)
+int	redir_out(t_command *cmd)
 {
 	t_redir	*node;
 	int		fd;
@@ -75,12 +75,14 @@ int redir_out(t_command *cmd)
 	return (0);
 }
 
-int handle_redir(t_command *cmd)
+int	handle_redir(t_command *cmd)
 {
 	if (cmd->infile)
-	if (redir_input(cmd) < 0)
-		return (-1);
-	if (redir_out(cmd) < 0)
-		return (-1);
+	{
+		if (redir_input(cmd) < 0)
+			return (-1);
+		if (redir_out(cmd) < 0)
+			return (-1);
+	}
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parse_redirs.c                                     :+:    :+:            */
+/*   parser_redirs.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/04 22:42:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/19 20:04:48 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/19 21:33:25 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_parser_state	parse_infile(t_mshell *shell, t_parser *p)
 	t_env	*expanded;
 	char	*file;
 
+	if (!ensure_current_cmd(shell, p))
+		return (PARSE_ERROR);
 	current = p->current_token;
 	if (!p->current_cmd || !current)
 		return (PARSE_ERROR);
@@ -86,6 +88,8 @@ t_parser_state	parse_outfile(t_mshell *shell, t_parser *p)
 	t_env	*expanded;
 	char	*file;
 
+	if (!ensure_current_cmd(shell, p))
+		return (PARSE_ERROR);
 	current = p->current_token;
 	if (!p->current_cmd || !current)
 		return (PARSE_ERROR);

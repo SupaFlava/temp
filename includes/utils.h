@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 11:22:37 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/15 12:43:28 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   utils.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/06 11:22:37 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/19 22:02:27 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ char	*ft_strcpy(char *dst, const char *src);
 int		ft_strcmp(const char *str1, const char *str2);
 char	*ft_substr_s(t_mshell *shell, char const *s, unsigned b, size_t len);
 char	*ft_itoa_s(t_mshell *shell, int n, t_mem_t type);
-char	*ft_strjoin_s(char const *s1, char const *s2 , t_mshell *shell,t_mem_t t);
-
+char	*ft_strjoin_s(char const *s1, char const *s2, t_mshell *sh, t_mem_t t);
 
 // list_utils.c
 
