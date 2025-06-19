@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/18 13:41:41 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/19 20:00:07 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_parser_state	parse_env(t_mshell *shell, t_parser *p)
 	tok = p->current_token;
 	if (!p->current_cmd)
 	{
+		fprintf(stderr, "Creating new command\n");
 		p->current_cmd = init_command(shell, p);
 		if (!p->current_cmd)
 			return (PARSE_ERROR);
@@ -58,6 +59,7 @@ t_parser_state	parse_pipe(t_mshell *shell, t_parser *p)
 		if (last != p->current_cmd)
 			last->next = p->current_cmd;
 	}
+	fprintf(stderr, "Creating new command\n");
 	new_cmd = init_command(shell, p);
 	if (!new_cmd)
 		return (PARSE_ERROR);
@@ -69,6 +71,7 @@ t_parser_state	parse_word(t_mshell *shell, t_parser *p)
 {
 	if (!p->current_cmd)
 	{
+		fprintf(stderr, "Creating new command\n");
 		p->current_cmd = init_command(shell, p);
 		if (!p->current_cmd)
 			return (PARSE_ERROR);
@@ -116,6 +119,7 @@ t_command	*parser(t_mshell *shell)
 	init_parser(shell, p);
 	while (p->current_token)
 	{
+		ft_printf("processing token: %s\n", p->current_token->content);
 		if (p->state == PARSE_REDIR)
 			p->state = parse_infile(shell, p);
 		else if (p->state == PARSE_APPEND)

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/04 22:42:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/18 20:18:04 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/19 20:04:48 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	add_outfile(t_mshell *shell, t_command *cmd, char *file, bool append)
 	t_redir	*current;
 	t_redir	*node;
 
-	current = cmd->infile;
+	current = cmd->outfile;
 	node = ft_malloc_s(shell, sizeof(t_redir), MEM_TEMP);
 	node->file = ft_strdup_s(shell, file, MEM_TEMP);
 	node->append = append;

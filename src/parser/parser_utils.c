@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/17 15:51:01 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/19 20:12:35 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*read_input(void)
 {
 	char	*line;
 
-	line = readline("super mini shell > ");
+	line = readline("8===D ");
 	if (!line)
 	{
 		ft_printf("exiting minishell\n");
