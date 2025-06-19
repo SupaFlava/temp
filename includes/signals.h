@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 12:52:59 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/15 15:45:54 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   signals.h                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/08 12:52:59 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/19 21:59:37 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@
 
 //function prototypes
 void	setup_signals(void);
-void    sigint_heredoc(int sig);
+void	sigint_heredoc(int sig);
 
 #endif

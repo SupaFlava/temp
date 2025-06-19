@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   typedefs.h                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/16 16:15:16 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   typedefs.h                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/18 19:07:13 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,19 @@ typedef struct s_token
 	struct s_token		*next;
 }	t_token;
 
+typedef struct s_redir
+{
+	char				*file;
+	bool				append;
+	struct s_redir		*next;
+}	t_redir;
+
 typedef struct s_command
 {
 	char				**args;
-	char				*infile;
-	char				*outfile;
-	int					append;
+	t_redir				*infile;
+	t_redir				*outfile;
+	bool				append;
 	char				*delimiter;
 	bool				is_heredoc;
 	int					heredoc_fd;

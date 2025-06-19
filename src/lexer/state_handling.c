@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/13 16:35:35 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/17 16:31:24 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,5 @@ t_lexstate	redir_state(t_mshell *shell, t_lexer *l, char c)
 	l->state = LEXER_DEFAULT;
 	if ((t == TOK_REDIR_IN && c != '<') || (t == TOK_REDIR_OUT && c != '>'))
 		return (handle_char(shell, l, c));
-	return (LEXER_DEFAULT);
+	return (handle_char(shell, l, c));
 }
