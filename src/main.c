@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/17 16:18:10 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/24 19:20:20 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 
 	shell_init(&shell);
-    setup_signals();
+	setup_signals();
 	init_env(&shell ,envp);
 	while (1)
 	{

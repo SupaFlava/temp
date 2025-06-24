@@ -6,7 +6,7 @@
 #    By: w0ffel <w0ffel@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/11/15 15:06:19 by w0ffel        #+#    #+#                  #
-#    Updated: 2025/03/12 19:59:22 by jbaetsen      ########   odam.nl          #
+#    Updated: 2025/06/24 16:39:56 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CYAN='\033[0;36m'
 RESET='\033[0m'
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g -I.
+CFLAGS = -Wall -Werror -Wextra -I.
 OBJ_DIR = obj/
 SRC_DIR = ./src
 
