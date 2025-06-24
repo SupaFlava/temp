@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   run_builtin.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/06/01 15:44:20 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/19 21:50:55 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   run_builtin.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/01 15:44:20 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/24 18:47:32 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ int	is_builtin(t_command *cmd)
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
 		return (1);
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
-		return (1);
+		return(1);
+	else if (ft_strcmp(cmd->args[0], "export") == 0)
+		return(1);
 	else
 		return (0);
 }
@@ -45,7 +47,9 @@ int	run_builtin(t_command *cmd, t_mshell *shell)
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
 		return (builtin_exit(shell, cmd->args));
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
-		return (builtin_unset(shell, cmd->args));
+		return(builtin_unset(shell, cmd->args));
+	else if (ft_strcmp(cmd->args[0], "export") == 0)
+		return(builtin_export(shell, cmd->args));
 	else
 		return (0);
 }
