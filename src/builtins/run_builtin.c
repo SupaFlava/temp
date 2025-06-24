@@ -6,26 +6,26 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 15:44:20 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/18 11:19:43 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/24 18:47:32 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_builtin(t_command *cmd)
+int	is_builtin(t_command *cmd)
 {
-	if(!cmd)
+	if (!cmd)
 		return (0);
-    if (ft_strcmp(cmd->args[0], "cd") == 0)
-        return (1);
-    else if (ft_strcmp(cmd->args[0], "pwd") == 0)
-        return (1);
+	if (ft_strcmp(cmd->args[0], "cd") == 0)
+		return (1);
+	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
+		return (1);
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)
-		return(1);
+		return (1);
 	else if (ft_strcmp(cmd->args[0], "env") == 0)
-		return(1);
+		return (1);
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
-		return(1);
+		return (1);
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
 		return(1);
 	else if (ft_strcmp(cmd->args[0], "export") == 0)
@@ -33,18 +33,19 @@ int is_builtin(t_command *cmd)
 	else
 		return (0);
 }
-int run_builtin(t_command *cmd, t_mshell *shell)
+
+int	run_builtin(t_command *cmd, t_mshell *shell)
 {
-    if (ft_strcmp(cmd->args[0], "cd") == 0)
-        return builtin_cd(shell, cmd->args);
-    else if (ft_strcmp(cmd->args[0], "pwd") == 0)
-        return builtin_pwd(shell);
+	if (ft_strcmp(cmd->args[0], "cd") == 0)
+		return (builtin_cd(shell, cmd->args));
+	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
+		return (builtin_pwd(shell));
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)
-		return(builtin_echo(shell, cmd->args));
+		return (builtin_echo(shell, cmd->args));
 	else if (ft_strcmp(cmd->args[0], "env") == 0)
-		return(builtin_env(shell, cmd->args));
+		return (builtin_env(shell, cmd->args));
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
-		return(builtin_exit(shell, cmd->args));
+		return (builtin_exit(shell, cmd->args));
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
 		return(builtin_unset(shell, cmd->args));
 	else if (ft_strcmp(cmd->args[0], "export") == 0)

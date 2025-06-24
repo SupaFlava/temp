@@ -1,52 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/06 13:57:38 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/17 15:56:31 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   exec_utils.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/06/06 13:57:38 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/19 22:22:04 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_executable(const char *path)
+int	is_executable(const char *path)
 {
-	struct stat st;
-	
+	struct stat	st;
+
 	if (stat(path, &st) < 0)
-		return 0;
+		return (0);
 	if (!S_ISREG(st.st_mode))
 		return (0);
-	if (access(path,X_OK) < 0)
+	if (access(path, X_OK) < 0)
 		return (0);
 	return (1);
 }
 
-char **env_to_envp(t_mshell *shell)
+char	**env_to_envp(t_mshell *shell)
 {
-	t_env *temp;
-	char *joined;
-	int count;
-	int i;
-	char **envp;
+	t_env	*temp;
+	char	*joined;
+	int		count;
+	int		i;
+	char	**envp;
 
 	temp = shell->env_list;
-	count =  count_env(temp);
-	envp = ft_malloc_s(shell,sizeof(char *)* (count + 1), MEM_TEMP);
-	if(!envp)
+	count = count_env(temp);
+	envp = ft_malloc_s(shell, sizeof(char *) * (count + 1), MEM_TEMP);
+	if (!envp)
 		return (NULL);
 	i = 0;
-	while(temp)
+	while (temp)
 	{
 		joined = ft_strjoin(temp->key, "=");
 		if (!joined)
-			return(free_arr(envp),NULL);
+			return (free_arr(envp), NULL);
 		envp[i] = ft_join_and_free(joined, temp->value);
-		if(!envp[i])
-			return (free_arr(envp),NULL);
+		if (!envp[i])
+			return (free_arr(envp), NULL);
 		i++;
 		temp = temp->next;
 	}
@@ -54,27 +54,27 @@ char **env_to_envp(t_mshell *shell)
 	return (envp);
 }
 
-char *find_in_path(char *arg, t_env *env_lst)
+char	*find_in_path(char *arg, t_env *env_lst)
 {
-	t_env *temp;
-	char **env_arr;
-	char *joined;
-	char *path;
-	int	i;
-	
-	temp = get_env(env_lst,"PATH");
+	t_env	*temp;
+	char	**env_arr;
+	char	*joined;
+	char	*path;
+	int		i;
+
+	temp = get_env(env_lst, "PATH");
 	if (!temp)
 		return (ft_printf("bash: %s: PATH not set\n", arg), NULL);
-	env_arr = ft_split(temp->value,':');
-	if(!env_arr)
+	env_arr = ft_split(temp->value, ':');
+	if (!env_arr)
 		return (NULL);
 	i = 0;
-	while(env_arr[i])
+	while (env_arr[i])
 	{
-		joined = ft_strjoin(env_arr[i],"/");
+		joined = ft_strjoin(env_arr[i], "/");
 		path = ft_join_and_free(joined, arg);
-		if(is_executable(path))
-			return (free_arr(env_arr),path);
+		if (is_executable(path))
+			return (free_arr(env_arr), path);
 		free(path);
 		i++;
 	}

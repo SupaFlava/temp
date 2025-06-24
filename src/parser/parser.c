@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/17 15:05:47 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/19 21:36:51 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,8 @@ t_parser_state	parse_env(t_mshell *shell, t_parser *p)
 	t_env	*expanded;
 
 	tok = p->current_token;
-	if (!p->current_cmd)
-	{
-		p->current_cmd = init_command(shell, p);
-		if (!p->current_cmd)
-			return (PARSE_ERROR);
-	}
+	if (!ensure_current_cmd(shell, p))
+		return (PARSE_ERROR);
 	if (tok->type == TOK_ENV_VAR)
 	{
 		expanded = expand_env(shell, tok->content);
@@ -67,12 +63,8 @@ t_parser_state	parse_pipe(t_mshell *shell, t_parser *p)
 
 t_parser_state	parse_word(t_mshell *shell, t_parser *p)
 {
-	if (!p->current_cmd)
-	{
-		p->current_cmd = init_command(shell, p);
-		if (!p->current_cmd)
-			return (PARSE_ERROR);
-	}
+	if (!ensure_current_cmd(shell, p))
+		return (PARSE_ERROR);
 	add_arg_to_cmd(shell, p->current_cmd, p->current_token->content);
 	return (PARSE_DEFAULT);
 }
@@ -93,7 +85,10 @@ t_parser_state	parse_token(t_mshell *shell, t_parser *p)
 	else if (tok == TOK_REDIR_OUT)
 		return (PARSE_APPEND);
 	else if (tok == TOK_APPEND)
+	{
+		p->current_cmd->append = 1;
 		return (PARSE_APPEND);
+	}
 	else if (tok == TOK_HEREDOC)
 		return (PARSE_HEREDOC);
 	else
@@ -114,9 +109,9 @@ t_command	*parser(t_mshell *shell)
 	while (p->current_token)
 	{
 		if (p->state == PARSE_REDIR)
-			p->state = parse_redir(shell, p);
+			p->state = parse_infile(shell, p);
 		else if (p->state == PARSE_APPEND)
-			p->state = parse_append(shell, p);
+			p->state = parse_outfile(shell, p);
 		else if (p->state == PARSE_HEREDOC)
 			p->state = parse_heredoc(shell, p);
 		else
@@ -125,6 +120,8 @@ t_command	*parser(t_mshell *shell)
 			return (NULL);
 		p->current_token = p->current_token->next;
 	}
+	if (check_redir_state(p))
+		return (NULL);
 	finalize_command(p);
 	return (p->cmd_list);
 }

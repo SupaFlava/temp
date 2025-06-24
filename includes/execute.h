@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execute.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 12:22:05 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/16 11:50:33 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   execute.h                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/26 12:22:05 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/19 22:01:42 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ char	*find_in_path(char *arg, t_env *env_lst);
 int		is_executable(const char *path);
 
 // PIPE
-int execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx);
+int		execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx);
 
-//HEREDOC 
-int     handle_heredoc(t_command *cmd,const char *filename);
-int     fork_heredoc(t_command *cmd, t_mshell *shell,int index);
-int     prep_heredoc(t_mshell *shell);
+//HEREDOC
+int		handle_heredoc(t_command *cmd, const char *filename);
+int		fork_heredoc(t_command *cmd, t_mshell *shell, int index);
+int		prep_heredoc(t_mshell *shell);
 
 #endif
