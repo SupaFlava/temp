@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 14:10:03 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/17 16:06:30 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/25 20:33:04 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	ft_free(t_mshell *shell, t_mem_t type)
 		ft_lstclear(&shell->temp_allocs, free);
 		shell->temp_allocs = NULL;
 		shell->tokens = NULL;
-		shell->commands = NULL; //added this to  nullify pointers after freeingto prevent segfaults on 2nd interation
-
+		shell->commands = NULL;
 	}
 	if (type == MEM_LONG)
 	{
@@ -67,9 +66,8 @@ void	*ft_malloc_s(t_mshell *shell, size_t size, t_mem_t type)
 	return (ptr);
 }
 
-void free_env(t_env *node)
+void	free_env(t_env *node)
 {
 	ft_printf("deleting %s \n", node->key);
-
 	(void)node;
 }

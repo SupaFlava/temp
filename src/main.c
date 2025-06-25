@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/24 19:20:20 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/25 20:18:22 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,17 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 
 	shell_init(&shell);
-	setup_signals();
 	init_env(&shell ,envp);
 	while (1)
 	{
+		setup_signals();
 		shell.line = read_input();
+		if (g_signal == SIGINT)
+		{
+			shell.exit_status = 130;
+			g_signal = 0;
+			continue;
+		}
 		if (shell.line && *shell.line)
 		{
 			add_history(shell.line);

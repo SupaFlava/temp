@@ -1,2 +1,2 @@
 #!/bin/bash
-echo yomama
+echo "hello world"
