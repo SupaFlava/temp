@@ -6,13 +6,35 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 16:07:34 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/24 18:47:09 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/26 13:48:50 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// builtin_echo(shell, (char *[]){"echo", "-n", "hello", "world", NULL});
+static int check_flag(char *arg)
+{
+	size_t i;
+	size_t len;
+
+	i = 1;
+	len = ft_strlen(arg);
+	if (arg[0] == '-')
+	{
+		while(arg[i])
+		{
+			if(arg[i] == 'n')
+				i++;								
+			else
+			break ;
+		} 
+		if (i != len)
+			return (0);
+		else
+		return (1);
+	}
+	return (0);
+}
 
 int	builtin_echo(t_mshell *shell, char **args)
 {
@@ -23,10 +45,8 @@ int	builtin_echo(t_mshell *shell, char **args)
 	flag = 0;
 	i = 1;
 	if (!args[1])
-	{
 		return (ft_putchar_fd('\n', STDOUT_FILENO), 0);
-	}
-	if (ft_strlen(args[1]) == 2 && ft_strncmp(args[1], "-n", 2) == 0)
+	while (args[i] && check_flag(args[i]))
 	{
 		flag = 1;
 		i++;
@@ -34,13 +54,11 @@ int	builtin_echo(t_mshell *shell, char **args)
 	while (args[i] != NULL)
 	{
 		ft_putstr_fd(args[i], STDOUT_FILENO);
-		i++;
-		if (args[i] == NULL && flag == 0)
-			ft_putchar_fd('\n', STDOUT_FILENO);
-		else if (args[i] == NULL && flag == 0)
-			break ;
-		else if (args[i] != NULL)
+		if (args[i + 1])
 			ft_putchar_fd(' ', STDOUT_FILENO);
+		i++;
 	}
+	if (!flag)
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }

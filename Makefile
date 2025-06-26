@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/06/24 19:46:54 by jbaetsen      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
+#    Updated: 2025/06/26 13:33:06 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,11 +38,11 @@ UNAME := $(shell uname)
 #    CFLAGS += -fsanitize=address
 #endif
 #
-#ifeq ($(UNAME), Darwin)  # macOS
-#    # Homebrew path for GNU readline on macOS
-#    CFLAGS  += -I/opt/homebrew/opt/readline/include
-#    LDFLAGS += -L/opt/homebrew/opt/readline/lib
-#endif
+ifeq ($(UNAME), Darwin)  # macOS
+   # Homebrew path for GNU readline on macOS
+   CFLAGS  += -I/opt/homebrew/opt/readline/include
+   LDFLAGS += -L/opt/homebrew/opt/readline/lib
+endif
 
 
 # ===================== #
@@ -118,7 +118,7 @@ OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT_FLAGS) -lreadline
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT_FLAGS) $(LDFLAGS) -lreadline
 	@echo $(GREEN)"Compiled $(NAME)"$(RESET)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
