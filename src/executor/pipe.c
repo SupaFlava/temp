@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/10 11:21:26 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/25 19:58:08 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/26 17:02:53 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,20 @@ static void	wait_for_pid(int amount, int pids[], t_mshell *shell)
 	while (i < amount)
 	{
 		waitpid(pids[i], &status, 0);
-		if (i == amount -1)
+		if (i == amount - 1)
 		{
-			if (WEXITSTATUS(status))
+			if (WIFSIGNALED(status))
+			{
+				int sig = WTERMSIG(status);
+				shell->exit_status = 128 + sig;
+				g_signal = sig;
+				if (sig == SIGINT)
+					write(1, "\n", 1);
+				else if (sig == SIGQUIT)
+					write(1, "Quit: 3\n", 8);
+			}
+			else if (WIFEXITED(status))
 				shell->exit_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				shell->exit_status = 128 + WTERMSIG(status);
 		}
 		i++;
 	}
@@ -95,5 +103,6 @@ int	execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	wait_for_pid(ctx->child_count, ctx->child_pids, shell);
+	setup_signals();
 	return (0);
 }

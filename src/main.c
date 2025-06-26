@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/25 20:18:22 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/26 17:21:27 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		setup_signals();
 		shell.line = read_input();
-		if (g_signal == SIGINT)
-		{
-			shell.exit_status = 130;
-			g_signal = 0;
-			continue;
-		}
 		if (shell.line && *shell.line)
 		{
 			add_history(shell.line);
@@ -40,6 +34,13 @@ int	main(int argc, char **argv, char **envp)
 			if (shell.commands)
 			 	execute_cmd(&shell);
 		}
+		if (g_signal == SIGINT)
+		{
+			//shell.exit_status = 130;
+			g_signal = 0;
+			continue;
+		}
+		g_signal = 0;
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);
