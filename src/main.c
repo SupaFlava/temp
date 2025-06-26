@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/26 17:21:27 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/26 21:13:22 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		setup_signals();
+		g_signal = 0;
 		shell.line = read_input();
 		if (shell.line && *shell.line)
 		{
@@ -32,15 +33,15 @@ int	main(int argc, char **argv, char **envp)
 			if(prep_heredoc(&shell) != 0)
 				continue; // should clean up later
 			if (shell.commands)
-			 	execute_cmd(&shell);
+				shell.exit_status = execute_cmd(&shell);
 		}
 		if (g_signal == SIGINT)
 		{
-			//shell.exit_status = 130;
+			shell.exit_status = 130;
 			g_signal = 0;
 			continue;
 		}
-		g_signal = 0;
+
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);

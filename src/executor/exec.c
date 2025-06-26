@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/04 12:23:04 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/19 22:13:53 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/26 21:15:50 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	run_search_exec(t_command *cmd, t_env *envl, char **envp)
 	if (!path)
 	{
 		ft_printf("bash: %s: command not found\n", cmd->args[0]);
-		return (1);
+		return (127);
 	}
 	execve(path, cmd->args, envp);
 	ft_printf("bash: %s: %s\n", path, strerror(errno));
