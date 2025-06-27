@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/10 13:09:41 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/24 18:46:28 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   heredoc.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/06/10 13:09:41 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/27 17:37:14 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	fork_heredoc(t_command *cmd, t_mshell *shell, int index)
 
 	filename = generate_heredoc_file(index, shell);
 	if (!filename)
-		return (perror("genereating filename"), 1);
+		return (perror("generating filename"), 1);
 	cmd->heredoc_temp = filename;
 	pid = fork();
 	if (pid == -1)

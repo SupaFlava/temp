@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/24 19:20:20 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/27 17:58:11 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 
 	shell_init(&shell);
-	setup_signals();
 	init_env(&shell ,envp);
 	while (1)
 	{
+
+		setup_signals();
 		shell.line = read_input();
+		check_global(&shell);
 		if (shell.line && *shell.line)
 		{
 			add_history(shell.line);
@@ -32,13 +34,14 @@ int	main(int argc, char **argv, char **envp)
 			if(prep_heredoc(&shell) != 0)
 				continue; // should clean up later
 			if (shell.commands)
-			 	execute_cmd(&shell);
+				shell.exit_status = execute_cmd(&shell);
 		}
 		free(shell.line);
 		shell.line = NULL;
 		ft_free(&shell, MEM_TEMP);
 	}
 	rl_clear_history();
+	ft_free(&shell, MEM_LONG);
 	//clear_history(); // this for mac
 	return (0);
 }

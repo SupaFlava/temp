@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/26 18:15:06 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/24 20:22:07 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/25 20:31:52 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	handle_redir(t_command *cmd)
 	{
 		if (redir_input(cmd) < 0)
 			return (-1);
-
 	}
 	if (cmd->outfile)
 	{

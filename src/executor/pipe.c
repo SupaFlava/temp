@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/10 11:21:26 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/19 22:18:45 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/27 18:14:23 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,19 @@ static void	wait_for_pid(int amount, int pids[], t_mshell *shell)
 	while (i < amount)
 	{
 		waitpid(pids[i], &status, 0);
-		if (i == amount -1)
+		if (i == amount - 1)
 		{
-			if (WEXITSTATUS(status))
+			if (WIFSIGNALED(status))
+			{
+				int sig = WTERMSIG(status);
+				g_signal = sig;
+				if (sig == SIGINT)
+					write(1, "\n", 1);
+				else if (sig == SIGQUIT)
+					write(1, "Quit: 3\n", 8);
+			}
+			else if (WIFEXITED(status))
 				shell->exit_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				shell->exit_status = 128 + WTERMSIG(status);
 		}
 		i++;
 	}
@@ -55,6 +62,8 @@ static pid_t	run_child(t_command *cmd, t_exec_ctx ctx, t_mshell *shell)
 		return (perror("Fork"), -1);
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (ctx.prev_fd != -1)
 			dup2(ctx.prev_fd, STDIN_FILENO);
 		if (cmd->next)
@@ -90,6 +99,9 @@ int	execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 		close_parent_fds(cmd, &ctx->prev_fd, ctx->fds);
 		cmd = cmd->next;
 	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	wait_for_pid(ctx->child_count, ctx->child_pids, shell);
+	setup_signals();
 	return (0);
 }
