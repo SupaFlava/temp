@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 12:52:59 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/26 21:12:59 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/27 16:55:56 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ extern volatile sig_atomic_t g_signal;
 void	setup_signals(void);
 void	sigint_heredoc(int sig);
 void	handle_sigint(int sig);
+void	check_global(t_mshell *shell);
 
 #endif

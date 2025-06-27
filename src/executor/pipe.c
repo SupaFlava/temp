@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/10 11:21:26 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/26 21:27:52 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/27 18:14:23 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	wait_for_pid(int amount, int pids[], t_mshell *shell)
 			if (WIFSIGNALED(status))
 			{
 				int sig = WTERMSIG(status);
-				shell->exit_status = 128 + sig;
 				g_signal = sig;
 				if (sig == SIGINT)
 					write(1, "\n", 1);

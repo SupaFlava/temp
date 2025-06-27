@@ -6,13 +6,22 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 13:30:25 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/25 20:32:03 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/27 17:03:01 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 volatile sig_atomic_t	g_signal = 0;
+
+void	check_global(t_mshell *shell)
+{
+	if (g_signal == SIGINT)
+		shell->exit_status = 130;
+	else if (g_signal == SIGQUIT)
+		shell->exit_status = 131;
+	g_signal = 0;
+}
 
 void	handle_sigint(int sig)
 {
