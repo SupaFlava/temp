@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   pipe.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/06/10 11:21:26 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/27 18:14:23 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/10 11:21:26 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/26 15:43:52 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	prep_pipe(t_command *cmd, int *fds)
 	return (0);
 }
 
-static pid_t	run_child(t_command *cmd, t_exec_ctx ctx, t_mshell *shell)
+static pid_t	run_child(t_command *cmd, t_exec_ctx *ctx, t_mshell *shell)
 {
 	pid_t	pid;
 
@@ -64,11 +64,11 @@ static pid_t	run_child(t_command *cmd, t_exec_ctx ctx, t_mshell *shell)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		if (ctx.prev_fd != -1)
-			dup2(ctx.prev_fd, STDIN_FILENO);
+		if (ctx->prev_fd != -1)
+			dup2(ctx->prev_fd, STDIN_FILENO);
 		if (cmd->next)
-			dup2(ctx.fds[1], STDOUT_FILENO);
-		close_fds(ctx.prev_fd, ctx.fds[0], ctx.fds[1]);
+			dup2(ctx->fds[1], STDOUT_FILENO);
+		close_fds(ctx->prev_fd, ctx->fds[0], ctx->fds[1]);
 		handle_redir(cmd);
 		if (is_builtin(cmd))
 			exit(run_builtin(cmd, shell));
@@ -87,9 +87,12 @@ int	execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 	{
 		if (prep_pipe(cmd, ctx->fds) < 0)
 			return (1);
-		pid = run_child(cmd, *ctx, shell);
+		if(ctx->child_count >= MAX_CHILDREN)
+			return (ft_putstr_fd("minishell: too many child processes\n", STDERR_FILENO), 1);
+		pid = run_child(cmd, ctx, shell);
 		if (pid < 0)
 			return (1);
+		printf("hellooooo , %i \n", ctx->child_count);
 		ctx->child_pids[ctx->child_count++] = pid;
 		if (cmd->is_heredoc && cmd->heredoc_fd != -1)
 		{

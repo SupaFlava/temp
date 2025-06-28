@@ -89,6 +89,7 @@ void	process_input(t_mshell *shell)
 		}
 		// else
 		// 	print_commands(shell->commands);
+
 	}
 }
 

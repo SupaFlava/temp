@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   typedefs.h                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/18 19:07:13 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   typedefs.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/26 15:47:35 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "stdbool.h"
+# define MAX_CHILDREN 2
 // enums
 typedef enum e_lexstate
 {
@@ -122,7 +123,7 @@ typedef struct s_exec_ctx
 {
 	int					prev_fd;
 	int					fds[2];
-	int					child_pids[100];
+	int					child_pids[MAX_CHILDREN];
 	int					child_count;
 	int					last_exit_status;
 }	t_exec_ctx;
