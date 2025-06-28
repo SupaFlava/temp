@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   state_handling.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/17 16:31:24 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   state_handling.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 12:59:46 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/06/28 10:26:45 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,18 @@
 t_lexstate	default_state(t_mshell *shell, t_lexer *l, char c)
 {
 	if (c == ' ')
-		return (add_token(shell, l, TOK_WORD));
+	{
+		if(l->buffer && *l->buffer)
+		{
+			if (add_token(shell, l, TOK_WORD) == LEXER_ERROR)
+				return (LEXER_ERROR);
+		}
+		return (LEXER_DEFAULT);
+	}
 	else if (c == '\'')
-		return (flush_set_state(shell, l, LEXER_SQUOTE));
+		return (LEXER_SQUOTE);
 	else if (c == '\"')
-		return (flush_set_state(shell, l, LEXER_DQUOTE));
+		return (LEXER_DQUOTE);
 	else if (c == '|')
 		return (flush_set_buf(shell, l, "|", TOK_PIPE));
 	else if (c == '<')
