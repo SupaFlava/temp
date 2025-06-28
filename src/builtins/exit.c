@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 16:38:28 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/19 21:43:37 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/27 17:43:25 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ long	builtin_exit(t_mshell *shell, char **args)
 	if (count_args(args) > 2)
 	{
 		ft_printf("exit\n");
-		ft_printf("bash: exit: too many arguments\n");
+		ft_printf("minishell: exit: too many arguments\n");
 		return (0);
 	}
 	else if (count_args(args) == 2)
