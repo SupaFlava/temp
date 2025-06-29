@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/06/26 13:33:06 by rmhazres         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
+#    Updated: 2025/06/29 21:03:47 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,8 @@ SRC_UTILS = 	$(SRC_DIR)/utils/shell_init.c \
 				$(SRC_DIR)/utils/args_utils.c \
 				$(SRC_DIR)/utils/memory.c \
 				$(SRC_DIR)/utils/free.c \
-				$(SRC_DIR)/utils/fds.c
+				$(SRC_DIR)/utils/fds.c \
+				$(SRC_DIR)/utils/error.c
 
 SRC_LEXER = 	$(SRC_DIR)/lexer/lexer_utils.c \
 				$(SRC_DIR)/lexer/lexer.c \

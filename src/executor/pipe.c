@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/10 11:21:26 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/29 20:20:32 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 22:03:40 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ static void	wait_for_pid(int amount, int pids[], t_mshell *shell)
 		{
 			if (WIFSIGNALED(status))
 			{
-				int sig = WTERMSIG(status);
-				g_signal = sig;
-				if (sig == SIGINT)
+				g_signal = WTERMSIG(status);
+				if (g_signal == SIGINT)
 					write(1, "\n", 1);
-				else if (sig == SIGQUIT)
+				else if (g_signal == SIGQUIT)
 					write(1, "Quit: 3\n", 8);
 			}
 			else if (WIFEXITED(status))
@@ -46,7 +45,10 @@ static int	prep_pipe(t_command *cmd, int *fds)
 	if (cmd->next)
 	{
 		if (pipe(fds) == -1)
-			return (ft_printf("error"), -1);
+		{
+			ft_putstr_fd("error\n", STDERR_FILENO);
+			return (-1);
+		}
 	}
 	return (0);
 }
@@ -87,12 +89,11 @@ int	execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 	{
 		if (prep_pipe(cmd, ctx->fds) < 0)
 			return (1);
-		if(ctx->child_count >= MAX_CHILDREN)
+		if (ctx->child_count >= MAX_CHILDREN)
 			return (ft_putstr_fd("minishell: too many child processes\n", STDERR_FILENO), 1);
 		pid = run_child(cmd, ctx, shell);
 		if (pid < 0)
 			return (1);
-		//printf("hellooooo , %i \n", ctx->child_count);
 		ctx->child_pids[ctx->child_count++] = pid;
 		if (cmd->is_heredoc && cmd->heredoc_fd != -1)
 		{

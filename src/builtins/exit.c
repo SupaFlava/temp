@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 16:38:28 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/29 20:43:22 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 21:57:30 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,16 @@ long	builtin_exit(t_mshell *shell, char **args)
 	{
 		if (!is_numeric(args[1]))
 		{
-			ft_putstr_fd("exit\nexit: ", STDERR_FILENO);
-			ft_putstr_fd(args[1], STDERR_FILENO);
-			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+			print_err("exit\nminishell", args[1], "numeric argument required");
 			status = 2;
 		}
 		else
 		{
-			status = ft_atoi(args[1]);
+			status = ft_atoi(args[1]) % 255;
 			ft_printf("exit\n");
 		}
 	}
 	ft_free(shell, MEM_TEMP);
 	ft_free(shell, MEM_LONG);
-	if (status > 255)
-		status = status % 255;
 	exit(status);
 }

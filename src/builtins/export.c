@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 13:19:39 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/29 19:49:54 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 21:57:30 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	print_export_env(t_mshell *shell)
 	i = 0;
 	while (envp[i])
 	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putstr_fd(envp[i], STDOUT_FILENO);
-		ft_putstr_fd("\n", STDOUT_FILENO);
+		ft_putstr_fd("declare -x ", STDERR_FILENO);
+		ft_putstr_fd(envp[i], STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
 		i++;
 	}
 }
@@ -87,9 +87,7 @@ int	builtin_export(t_mshell *shell, char **args)
 	{
 		if (!is_valid_export(args[i]))
 		{
-			ft_putstr_fd("bash: export: '", STDOUT_FILENO);
-			ft_putstr_fd(args[i], STDOUT_FILENO);
-			ft_putstr_fd("': not a valid identifier\n", STDOUT_FILENO);
+			print_err("bash: export", args[i], "not a valid identifier");
 			return (EXIT_FAILURE);
 		}
 		init_env(shell, &args[i]);

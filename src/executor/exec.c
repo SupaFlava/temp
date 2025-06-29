@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/04 12:23:04 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/29 20:25:27 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 21:57:30 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static void	check_access(char *path)
 {
 	if (access(path, F_OK) < 0)
-		ft_printf("minishell: %s No such file or directory\n", path);
+		print_err("minishell: ", path, "No such file or directory");
 	else if (errno == EACCES)
-		ft_printf("minishell: %s Permission denied\n", path);
+		print_err("minishell: ", path, "Permission denied");
 	else
-		ft_printf("command: %s not found \n", path);
+		print_err("minishell: ", path, "not found");
 }
 
 static int	run_direct_path_exec(t_command *cmd, char **envp)
@@ -30,7 +30,7 @@ static int	run_direct_path_exec(t_command *cmd, char **envp)
 		return (1);
 	}
 	execve(cmd->args[0], cmd->args, envp);
-	ft_printf("minishell: %s: %s\n", cmd->args[0], strerror(errno));
+	print_err("minishell", cmd->args[0], strerror(errno));
 	return (1);
 }
 
@@ -41,11 +41,11 @@ static int	run_search_exec(t_command *cmd, t_env *envl, char **envp)
 	path = find_in_path(cmd->args[0], envl);
 	if (!path)
 	{
-		ft_printf("minishell: %s: command not found\n", cmd->args[0]);
+		print_err("minishell", cmd->args[0], "command not found");
 		return (CMD_NOT_FOUND);
 	}
 	execve(path, cmd->args, envp);
-	ft_printf("minishell: %s: %s\n", path, strerror(errno));
+	print_err("minishell", path, strerror(errno));
 	free(path);
 	return (EXIT_FAILURE);
 }

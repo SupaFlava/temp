@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 12:12:21 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/29 13:40:26 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 22:13:35 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,19 @@ int	ft_strcmp(const char *str1, const char *str2)
 	return ((unsigned char)str1[i] - (unsigned char) str2[i]);
 }
 
-char *ft_substr_s(t_mshell *shell ,char const *s,unsigned b,size_t len)
+char	*ft_substr_s(t_mshell *shell, char const *s, unsigned b, size_t len)
 {
-		char *new;
-		size_t slen;
-		size_t finish;
+	char	*new;
+	size_t	slen;
+	size_t	finish;
 
-	if(!s)
+	if (!s)
 		return (NULL);
 	slen = ft_strlen(s);
 	if (b >= slen)
-		return (ft_strdup_s(shell,"",MEM_LONG));
+		return (ft_strdup_s(shell, "", MEM_LONG));
 	finish = slen - b;
-	if (b <slen)
+	if (b < slen)
 		finish = slen - b;
 	if (finish > len)
 		finish = len;
@@ -111,7 +111,6 @@ static unsigned int	ft_numberlength(int num)
 	}
 	return (len);
 }
-
 
 char	*ft_itoa_s(t_mshell *shell, int n, t_mem_t type)
 {
@@ -141,7 +140,8 @@ char	*ft_itoa_s(t_mshell *shell, int n, t_mem_t type)
 	}
 	return (string);
 }
-char	*ft_strjoin_s(char const *s1, char const *s2 , t_mshell *shell,t_mem_t t)
+
+char	*ft_strjoin_s(char const *s1, char const *s2, t_mshell *sh, t_mem_t t)
 {
 	int		i;
 	int		j;
@@ -151,8 +151,8 @@ char	*ft_strjoin_s(char const *s1, char const *s2 , t_mshell *shell,t_mem_t t)
 	j = 0;
 	if (!s1 || !s2)
 		return (NULL);
-	str = ft_malloc_s(shell,
-	sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1),t);
+	str = ft_malloc_s(sh,
+			sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1), t);
 	if (!str)
 		return (NULL);
 	while (s1[i] != '\0')

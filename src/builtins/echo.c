@@ -6,32 +6,32 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 16:07:34 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/29 20:01:38 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 21:58:32 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int check_flag(char *arg)
+static int	check_flag(char *arg)
 {
-	size_t i;
-	size_t len;
+	size_t	i;
+	size_t	len;
 
 	i = 1;
 	len = ft_strlen(arg);
 	if (arg[0] == '-')
 	{
-		while(arg[i])
+		while (arg[i])
 		{
-			if(arg[i] == 'n')
+			if (arg[i] == 'n')
 				i++;
 			else
-			break ;
+				break ;
 		}
 		if (i != len)
 			return (0);
 		else
-		return (1);
+			return (1);
 	}
 	return (0);
 }
