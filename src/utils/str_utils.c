@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   str_utils.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 12:12:21 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/28 10:37:20 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   str_utils.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/08 12:12:21 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/29 13:40:26 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
- #include <stdio.h>
+
 char	*ft_strdup_s(t_mshell *shell, const char *src, t_mem_t type)
 {
 	size_t	len;
