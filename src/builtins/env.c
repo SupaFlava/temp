@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:16:01 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/19 21:41:51 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 21:57:30 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 int	builtin_env(t_mshell *shell, char **args)
 {
-	int	argc;
+	int		argc;
 
 	argc = count_args(args);
-	ft_printf("argc is %i\n", argc);
 	if (argc == 1)
 	{
 		env_print(shell);
 		return (EXIT_SUCCESS);
 	}
-	ft_printf("Should not have args\n");
-	return (EXIT_FAILURE);
+	print_err("env", args[1], "No such file or directory");
+	return (CMD_NOT_FOUND);
 }

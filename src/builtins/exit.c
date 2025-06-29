@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 16:38:28 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/27 17:43:25 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 21:57:30 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,23 @@ long	builtin_exit(t_mshell *shell, char **args)
 	status = 0;
 	if (count_args(args) > 2)
 	{
-		ft_printf("exit\n");
-		ft_printf("minishell: exit: too many arguments\n");
-		return (0);
+		ft_putstr_fd("exit\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
+		return (EXIT_FAILURE);
 	}
 	else if (count_args(args) == 2)
 	{
 		if (!is_numeric(args[1]))
 		{
-			ft_printf("exit\n");
-			ft_printf("exit: %s: numeric argument required\n", args[1]);
-			status = 255;
+			print_err("exit\nminishell", args[1], "numeric argument required");
+			status = 2;
 		}
 		else
-			status = ft_atoi(args[1]);
+		{
+			status = ft_atoi(args[1]) % 255;
+			ft_printf("exit\n");
+		}
 	}
-	ft_printf("exit\n");
 	ft_free(shell, MEM_TEMP);
 	ft_free(shell, MEM_LONG);
 	exit(status);

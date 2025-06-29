@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser_redir_utils.c                               :+:    :+:            */
+/*   error.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/06/19 21:26:00 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/29 22:06:03 by jbaetsen      ########   odam.nl         */
+/*   Created: 2025/06/29 20:56:22 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/29 22:15:15 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "utils.h"
 
-int	check_redir_state(t_parser *p)
+void	print_err(char *prefix, char *arg, char *msg)
 {
-	if (p->state == PARSE_REDIR
-		|| p->state == PARSE_APPEND
-		|| p->state == PARSE_HEREDOC)
+	if (prefix)
 	{
-		print_err("minishell", NULL,
-			"syntax error near unexpected token `newline'");
-		return (1);
+		ft_putstr_fd(prefix, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
 	}
-	return (0);
-}
-
-int	ensure_current_cmd(t_mshell *shell, t_parser *p)
-{
-	if (!p->current_cmd)
-		p->current_cmd = init_command(shell, p);
-	return (p->current_cmd != NULL);
+	if (arg)
+	{
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+	}
+	if (msg)
+		ft_putstr_fd(msg, STDERR_FILENO);
+	ft_putchar_fd('\n', STDERR_FILENO);
 }
