@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 16:07:34 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/26 13:48:50 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   echo.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/06 16:07:34 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/29 20:01:38 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static int check_flag(char *arg)
 		while(arg[i])
 		{
 			if(arg[i] == 'n')
-				i++;								
+				i++;
 			else
 			break ;
-		} 
+		}
 		if (i != len)
 			return (0);
 		else
@@ -60,5 +60,5 @@ int	builtin_echo(t_mshell *shell, char **args)
 	}
 	if (!flag)
 		ft_putchar_fd('\n', STDOUT_FILENO);
-	return (0);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/10 11:21:26 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/29 13:45:22 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 20:20:32 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 		pid = run_child(cmd, ctx, shell);
 		if (pid < 0)
 			return (1);
-		printf("hellooooo , %i \n", ctx->child_count); // what is this? lol
+		//printf("hellooooo , %i \n", ctx->child_count);
 		ctx->child_pids[ctx->child_count++] = pid;
 		if (cmd->is_heredoc && cmd->heredoc_fd != -1)
 		{
@@ -106,5 +106,5 @@ int	execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 	signal(SIGQUIT, SIG_IGN);
 	wait_for_pid(ctx->child_count, ctx->child_pids, shell);
 	setup_signals();
-	return (0);
+	return (shell->exit_status);
 }

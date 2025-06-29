@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/04 12:23:04 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/27 18:16:59 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 20:25:27 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static int	run_search_exec(t_command *cmd, t_env *envl, char **envp)
 	if (!path)
 	{
 		ft_printf("minishell: %s: command not found\n", cmd->args[0]);
-		return (127);
+		return (CMD_NOT_FOUND);
 	}
 	execve(path, cmd->args, envp);
 	ft_printf("minishell: %s: %s\n", path, strerror(errno));
 	free(path);
-	return (1);
+	return (EXIT_FAILURE);
 }
 
 int	check_exec(t_command *cmd, t_mshell *shell)
@@ -56,7 +56,7 @@ int	check_exec(t_command *cmd, t_mshell *shell)
 	int		ret;
 
 	if (!cmd || !cmd->args || !cmd->args[0])
-		return (1);
+		return (EXIT_FAILURE);
 	envp = env_to_envp(shell);
 	if (!envp)
 		return (-1);

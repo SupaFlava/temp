@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/27 18:02:56 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 20:19:55 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	process_input(t_mshell *shell)
 	}
 	if (shell->tokens)
 	{
-		// print_tokens(shell->tokens);
+		//print_tokens(shell->tokens);
 		shell->commands = parser(shell);
 		if (!shell->commands)
 		{

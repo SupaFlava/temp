@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 13:19:39 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/28 10:36:47 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   export.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/22 13:19:39 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/29 19:49:54 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,10 @@ int	builtin_export(t_mshell *shell, char **args)
 			ft_putstr_fd("bash: export: '", STDOUT_FILENO);
 			ft_putstr_fd(args[i], STDOUT_FILENO);
 			ft_putstr_fd("': not a valid identifier\n", STDOUT_FILENO);
+			return (EXIT_FAILURE);
 		}
 		init_env(shell, &args[i]);
 		i++;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
