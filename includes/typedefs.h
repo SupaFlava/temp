@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/26 15:47:35 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/29 18:17:30 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include "libft.h"
 # include "stdbool.h"
-# define MAX_CHILDREN 2
+# define MAX_CHILDREN 200
+# define SUCCESS 0
+# define ERROR 1
 // enums
 typedef enum e_lexstate
 {

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:34:16 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/18 11:18:36 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/29 19:06:56 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		builtin_pwd(t_mshell *shell);
 int		builtin_cd(t_mshell *shell, char **args);
 int		builtin_echo(t_mshell *shell, char **args);
 int		builtin_env(t_mshell *shell, char **args);
-long	builtin_exit(t_mshell *shell, char **args);
+void	builtin_exit(t_mshell *shell, char **args);
 int		builtin_unset(t_mshell *shell, char **args);
 int		is_builtin(t_command *cmd);
 int		run_builtin(t_command *cmd, t_mshell *shell);

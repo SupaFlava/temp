@@ -6,7 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/06/26 13:33:06 by rmhazres         ###   ########.fr        #
+#    Updated: 2025/06/29 19:07:49 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,8 @@ SRC_UTILS = 	$(SRC_DIR)/utils/shell_init.c \
 				$(SRC_DIR)/utils/args_utils.c \
 				$(SRC_DIR)/utils/memory.c \
 				$(SRC_DIR)/utils/free.c \
-				$(SRC_DIR)/utils/fds.c
+				$(SRC_DIR)/utils/fds.c\
+				$(SRC_DIR)/utils/shell_exit.c
 
 SRC_LEXER = 	$(SRC_DIR)/lexer/lexer_utils.c \
 				$(SRC_DIR)/lexer/lexer.c \

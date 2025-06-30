@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:19:39 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/28 10:36:47 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:53:31 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	builtin_export(t_mshell *shell, char **args)
 	i = 1;
 	while (args[i])
 	{
+		
 		if (!is_valid_export(args[i]))
 		{
 			ft_putstr_fd("bash: export: '", STDOUT_FILENO);
