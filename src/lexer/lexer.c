@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/19 19:08:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/13 16:44:45 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/30 14:23:07 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_lexstate	handle_char(t_mshell *shell, t_lexer *l, char c)
 {
 	if (l->state == LEXER_DEFAULT)
 		return (default_state(shell, l, c));
+	else if (l->state == LEXER_ASSIGN)
+		return (assign_state(shell, l, c));
 	else if (l->state == LEXER_SQUOTE)
 		return (s_quote_state(shell, l, c));
 	else if (l->state == LEXER_DQUOTE)

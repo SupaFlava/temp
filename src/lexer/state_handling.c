@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/29 14:50:51 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:37:44 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_lexstate	default_state(t_mshell *shell, t_lexer *l, char c)
 		return (handle_redir_in(shell, l));
 	else if (c == '>')
 		return (handle_redir_out(shell, l));
+	else if (c == '=' && l->buffer)
+		return (handle_assign_state(shell, l, c));
 	else if (c == '$')
 	{
 		if (l->buffer && *l->buffer)

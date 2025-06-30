@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:19:39 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 13:44:10 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:37:28 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_valid_export(char *str)
 			return (0);
 		i++;
 	}
-	return (1);
+	return (str[i] == '=');
 }
 
 char	**sort_env(char **envp)
