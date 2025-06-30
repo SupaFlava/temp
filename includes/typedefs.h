@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 15:36:50 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:23:26 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef enum e_token_type
 	TOK_APPEND,			// >>
 	TOK_ENV_VAR,		// $PATH
 	TOK_ASSIGN,			// tokens for export "VAR=content"
-	TOK_EXIT_STATUS,	// $?
+	TOK_EXIT_STATUS,		// $?
 }	t_toktype;
 
 typedef enum e_mem_t

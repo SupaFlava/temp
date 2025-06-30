@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:20:30 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/29 16:12:49 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:22:38 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	env_add(t_mshell *shell, char *key, char *value)
 		return (EXIT_SUCCESS);
 	}
 	if (get_env(shell->env_list, key))
-		set_env(shell->env_list, key, value);
+		set_env(shell, key, value);
 	else
 		env_add_back(&shell->env_list, new_node);
 	return (EXIT_SUCCESS);
