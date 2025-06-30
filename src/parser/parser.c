@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/19 21:36:51 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/30 14:19:41 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_parser_state	parse_token(t_mshell *shell, t_parser *p)
 	t_toktype	tok;
 
 	tok = p->current_token->type;
-	if (tok == TOK_WORD || tok == TOK_QUOTED)
+	if (tok == TOK_WORD || tok == TOK_QUOTED || tok == TOK_ASSIGN)
 		return (parse_word(shell, p));
 	else if (tok == TOK_ENV_VAR || tok == TOK_EXIT_STATUS)
 		return (parse_env(shell, p));

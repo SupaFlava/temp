@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:42:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/13 18:34:54 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/30 13:54:11 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "typedefs.h"
 # include "utils.h"
+# include "builtins.h"
 
 // function prototypes
 // lexer.c
@@ -54,5 +55,9 @@ t_lexstate	handle_redir_out(t_mshell *shell, t_lexer *l);
 t_lexstate	handle_exit_status(t_mshell *shell, t_lexer *l);
 t_lexstate	handle_invalid_env(t_mshell *shell, t_lexer *l, char c);
 t_lexstate	handle_empty_buffer_env(t_mshell *shell, t_lexer *l, char c);
+
+// assign.c
+t_lexstate	assign_state(t_mshell *shell, t_lexer *l, char c);
+t_lexstate handle_assign_state(t_mshell *shell, t_lexer *l, char c);
 
 #endif /*LEXER_H*/
