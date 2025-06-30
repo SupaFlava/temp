@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:19:39 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 11:02:33 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:44:10 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	builtin_export(t_mshell *shell, char **args)
 	i = 1;
 	while (args[i])
 	{
-		
 		if (!is_valid_export(args[i]))
 		{
 			print_err("bash: export", args[i], "not a valid identifier");

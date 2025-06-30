@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   env_utils.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/03 16:39:02 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/19 21:58:31 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/03 16:39:02 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/30 13:00:59 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,16 @@ t_env	*get_env(t_env *env, char *key)
 	return (NULL);
 }
 
-int	set_env(t_env *env, char *key, char *value)
+int	set_env(t_mshell *shell, char *key, char *value)
 {
 	t_env	*temp;
 
-	temp = env;
+	temp = shell->env_list;
 	while (temp)
 	{
 		if (ft_strcmp(temp->key, key) == 0)
 		{
-			temp->value = value;
+			temp->value = ft_strdup_s(shell ,value, MEM_LONG);
 			return (EXIT_SUCCESS);
 		}
 		temp = temp->next;

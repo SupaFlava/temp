@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   heredoc.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/06/10 13:09:41 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/27 17:37:14 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/10 13:09:41 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/30 12:19:36 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	prep_heredoc(t_mshell *shell)
 		if (cmd->is_heredoc)
 		{
 			if (fork_heredoc(cmd, shell, i) != 0)
-				return (1);
+				return (EXIT_FAILURE);
 		}
 		cmd = cmd->next;
 		i++;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 static char	*generate_heredoc_file(int index, t_mshell *shell)
@@ -58,11 +58,11 @@ int	fork_heredoc(t_command *cmd, t_mshell *shell, int index)
 
 	filename = generate_heredoc_file(index, shell);
 	if (!filename)
-		return (perror("generating filename"), 1);
+		return (perror("generating filename"), EXIT_FAILURE);
 	cmd->heredoc_temp = filename;
 	pid = fork();
 	if (pid == -1)
-		return (perror("heredoc fork fail"), 1);
+		return (perror("heredoc fork fail"), EXIT_FAILURE);
 	if (pid == 0)
 		exit(handle_heredoc(cmd, filename));
 	waitpid(pid, &status, 0);
@@ -70,11 +70,11 @@ int	fork_heredoc(t_command *cmd, t_mshell *shell, int index)
 	{
 		add_infile(shell, cmd, cmd->heredoc_temp);
 		cmd->heredoc_fd = -2;
-		return (0);
+		return (EXIT_SUCCESS);
 	}
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 		shell->exit_status = 130;
-	return (1);
+	return (EXIT_FAILURE);
 }
 
 static int	check_line(char *line, t_command *cmd)
@@ -98,8 +98,7 @@ int	handle_heredoc(t_command *cmd, const char *filename)
 	signal(SIGQUIT, SIG_IGN);
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
-		return (perror("heredoc open fails"), 1);
-	unlink(filename);
+		return (perror("heredoc open fails"), EXIT_FAILURE);
 	while (1)
 	{
 		line = readline("Heredoc > ");

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/30 11:02:06 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/30 12:17:40 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ void	run_shell(t_mshell *shell)
 		free(shell->line);
 		shell->line = NULL;
 		ft_free(shell, MEM_TEMP);
-		return;
+		return ;
 	}
 	if (shell->commands)
 		shell->exit_status = execute_cmd(shell);
 }
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_mshell	shell;
@@ -34,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	shell_init(&shell);
 	if (init_env(&shell ,envp) == ERROR)
-		return(ft_free(&shell, MEM_LONG), EXIT_FAILURE);
+		return (ft_free(&shell, MEM_LONG), EXIT_FAILURE);
 	while (1)
 	{
 		setup_signals();
