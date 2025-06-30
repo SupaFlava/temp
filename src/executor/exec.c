@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/04 12:23:04 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/29 21:57:30 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/30 15:10:14 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	check_exec(t_command *cmd, t_mshell *shell)
 	char	**envp;
 	int		ret;
 
-	if (!cmd || !cmd->args || !cmd->args[0])
-		return (EXIT_FAILURE);
+	if (!cmd || !cmd->args[0] || ft_strlen(cmd->args[0]) == 0)
+		return (0);
 	envp = env_to_envp(shell);
 	if (!envp)
 		return (-1);
