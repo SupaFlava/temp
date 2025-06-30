@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 13:39:05 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/16 22:57:36 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 22:06:57 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_lexstate	check_quote_state(t_lexstate state)
 		|| state == LEXER_SQUOTE
 		|| state == LEXER_QUOTED_ENV)
 	{
-		ft_printf("no closing quote found, SYNTAX ERROR\n");
+		print_err("no closing quote found", NULL, "SYNTAX ERROR");
 		return (LEXER_ERROR);
 	}
 	return (LEXER_DEFAULT);

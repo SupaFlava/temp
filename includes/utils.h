@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:22:37 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/29 18:49:39 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/30 11:01:59 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ void	close_parent_fds(t_command *cmd, int *prev_fd, int fds[2]);
 int		count_args(char **args);
 int		is_numeric(char *arg);
 
+// error.c
+void	print_err(char *prefix, char *arg, char *msg);
 
 #endif

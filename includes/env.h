@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 14:39:22 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/28 09:44:38 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   env.h                                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/03 14:39:22 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/06/29 22:15:29 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int		init_env(t_mshell *shell, char **envp);
 void	env_add_back(t_env **shell, t_env *new_node);
-int     env_add(t_mshell *shell, char *key, char *value);
+int		env_add(t_mshell *shell, char *key, char *value);
 
 void	env_print(t_mshell *shell);
 t_env	*get_env(t_env *env, char *key);

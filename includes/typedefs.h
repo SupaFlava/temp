@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/29 18:17:30 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/06/30 11:01:42 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define MAX_CHILDREN 200
 # define SUCCESS 0
 # define ERROR 1
+# define CMD_NOT_FOUND 127
+
 // enums
 typedef enum e_lexstate
 {

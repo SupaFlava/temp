@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/06 13:57:38 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/27 17:43:32 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/29 21:57:30 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ char	*find_in_path(char *arg, t_env *env_lst)
 
 	temp = get_env(env_lst, "PATH");
 	if (!temp)
-		return (ft_printf("minishell: %s: PATH not set\n", arg), NULL);
+	{
+		print_err("minishell", arg, "PATH not set\n");
+		return (NULL);
+	}
 	env_arr = ft_split(temp->value, ':');
 	if (!env_arr)
 		return (NULL);
