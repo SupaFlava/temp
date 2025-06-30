@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   token_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/20 16:36:46 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/17 14:11:16 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   token_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/20 16:36:46 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/06/30 14:23:47 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_toktype	find_token_type(const char *buffer, t_lexstate state)
 		return (TOK_ENV_VAR);
 	else if (state == LEXER_SQUOTE || state == LEXER_DQUOTE)
 		return (TOK_QUOTED);
+	else if (state == LEXER_ASSIGN)
+		return (TOK_ASSIGN);
 	else
 		return (TOK_WORD);
 }
@@ -54,6 +56,8 @@ const char	*token_type_to_string(t_toktype type)
 		return ("ENV_VAR");
 	if (type == TOK_EXIT_STATUS)
 		return ("EXIT_STATUS");
+	if (type == TOK_ASSIGN)
+		return ("ASSIGN");
 	return ("UNKNOWN");
 }
 

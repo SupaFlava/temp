@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 13:19:39 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/29 21:57:30 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/06/30 14:07:45 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_valid_export(char *str)
 			return (0);
 		i++;
 	}
-	return (1);
+	return (str[i] == '=');
 }
 
 char	**sort_env(char **envp)
