@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 13:39:05 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/29 22:06:57 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/02 13:27:07 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_lexstate	check_quote_state(t_lexstate state)
 		|| state == LEXER_SQUOTE
 		|| state == LEXER_QUOTED_ENV)
 	{
-		print_err("no closing quote found", NULL, "SYNTAX ERROR");
+		print_err("minishell", "syntax error", "no closing quote found");
 		return (LEXER_ERROR);
 	}
 	return (LEXER_DEFAULT);

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/30 15:26:16 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/02 12:42:33 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	process_input(t_mshell *shell)
 			return ;
 	}
 }
-
 
 char	*read_input(void)
 {

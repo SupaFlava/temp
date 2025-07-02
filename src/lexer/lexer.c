@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/19 19:08:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/30 14:23:07 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/02 13:33:10 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,6 @@ t_lexstate	handle_char(t_mshell *shell, t_lexer *l, char c)
 	else if (l->state == LEXER_REDIR_IN || l->state == LEXER_REDIR_OUT)
 		return (redir_state(shell, l, c));
 	return (LEXER_ERROR);
-}
-
-int	finalize_tokens(t_mshell *shell, t_lexer *l)
-{
-	t_toktype	type;
-
-	type = TOK_WORD;
-	if (check_quote_state(l->state) == LEXER_ERROR)
-		return (0);
-	if ((l->state == LEXER_ENV || l->state == LEXER_QUOTED_ENV) && !l->buffer)
-	{
-		if (append_char_to_buffer(shell, l, '$') == LEXER_ERROR)
-			return (0);
-		if (l->state == LEXER_QUOTED_ENV)
-			l->state = LEXER_DQUOTE;
-		else
-			l->state = LEXER_DEFAULT;
-	}
-	if (l->buffer)
-	{
-		type = find_token_type(l->buffer, l->state);
-		if (add_token(shell, l, type) == LEXER_ERROR)
-			return (0);
-	}
-	return (1);
 }
 
 void	init_lexer(t_mshell *shell, t_lexer *l)
@@ -76,6 +51,11 @@ int	process_line_loop(t_mshell *shell, t_lexer *l)
 		if (l->state == LEXER_ERROR)
 			return (0);
 		l->index++;
+	}
+	if (!validate_tokens(l))
+	{
+		print_err("minishell", "syntax error: unexpected end after", "'|'");
+		return (0);
 	}
 	return (1);
 }

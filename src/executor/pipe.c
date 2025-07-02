@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/10 11:21:26 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/30 11:01:05 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/02 12:52:16 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 		if (prep_pipe(cmd, ctx->fds) < 0)
 			return (1);
 		if (ctx->child_count >= MAX_CHILDREN)
-			return (ft_putstr_fd("minishell: too many child processes\n", STDERR_FILENO), 1);
+			return (ft_putstr_fd("too many processes\n", STDERR_FILENO), 1);
 		pid = run_child(cmd, ctx, shell);
 		if (pid < 0)
 			return (1);

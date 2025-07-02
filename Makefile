@@ -6,7 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/06/30 15:43:26 by jbaetsen      ########   odam.nl          #
+#    Updated: 2025/07/02 13:21:01 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,8 @@ SRC_LEXER = 	$(SRC_DIR)/lexer/lexer_utils.c \
 				$(SRC_DIR)/lexer/redir_state_utils.c \
 				$(SRC_DIR)/lexer/token_utils.c \
 				$(SRC_DIR)/lexer/env_state_utils.c \
-				$(SRC_DIR)/lexer/assign.c 
+				$(SRC_DIR)/lexer/assign.c \
+				$(SRC_DIR)/lexer/validate.c
 
 SRC_PARSER = 	$(SRC_DIR)/parser/parser.c \
 				$(SRC_DIR)/parser/parser_utils.c \

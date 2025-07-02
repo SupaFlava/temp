@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:42:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/30 13:54:11 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/02 13:22:07 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 t_lexstate	handle_char(t_mshell *shell, t_lexer *l, char c);
 int			process_line_loop(t_mshell *shell, t_lexer *l);
 void		init_lexer(t_mshell *shell, t_lexer *l);
-int			finalize_tokens(t_mshell *shell, t_lexer *l);
 t_token		*lexer(t_mshell *shell);
 
 // state_handling.c
@@ -59,5 +58,9 @@ t_lexstate	handle_empty_buffer_env(t_mshell *shell, t_lexer *l, char c);
 // assign.c
 t_lexstate	assign_state(t_mshell *shell, t_lexer *l, char c);
 t_lexstate handle_assign_state(t_mshell *shell, t_lexer *l, char c);
+
+// validate.c
+int	validate_tokens(t_lexer *l);
+int			finalize_tokens(t_mshell *shell, t_lexer *l);
 
 #endif /*LEXER_H*/
