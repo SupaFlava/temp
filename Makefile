@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/07/02 13:42:30 by rmhazres         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
+#    Updated: 2025/07/02 14:54:25 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,23 +28,6 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes
 LIBFT_FLAGS = -L./libraries -lft
 
-# =============================== #
-#     Platform specific flags     #
-# =============================== #
-
-UNAME := $(shell uname)
-
-#ifeq ($(UNAME), Linux)
-#    CFLAGS += -fsanitize=address
-#endif
-#
-ifeq ($(UNAME), Darwin)  # macOS
-   # Homebrew path for GNU readline on macOS
-   CFLAGS  += -I/opt/homebrew/opt/readline/include
-   LDFLAGS += -L/opt/homebrew/opt/readline/lib
-endif
-
-
 # ===================== #
 #      Directories      #
 # ===================== #
@@ -62,7 +45,7 @@ LIBFT = ./libraries/libft.a
 #        Sources        #
 # ===================== #
 SRC_MAIN = 		$(SRC_DIR)/main.c \
-				$(SRC_DIR)/tester.c
+				#$(SRC_DIR)/tester.c
 
 SRC_SIGNALS =	$(SRC_DIR)/signals/signals.c \
 				$(SRC_DIR)/signals/heredoc_signals.c
@@ -87,12 +70,10 @@ SRC_BUILTINS = 	$(SRC_DIR)/builtins/pwd.c \
 				$(SRC_DIR)/builtins/run_builtin.c\
 
 SRC_UTILS = 	$(SRC_DIR)/utils/shell_init.c \
-				$(SRC_DIR)/utils/list_utils.c \
 				$(SRC_DIR)/utils/str_utils.c \
 				$(SRC_DIR)/utils/str_two_utils.c \
 				$(SRC_DIR)/utils/args_utils.c \
 				$(SRC_DIR)/utils/memory.c \
-				$(SRC_DIR)/utils/free.c \
 				$(SRC_DIR)/utils/fds.c\
 				$(SRC_DIR)/utils/shell_exit.c \
 				$(SRC_DIR)/utils/error.c
@@ -103,7 +84,8 @@ SRC_LEXER = 	$(SRC_DIR)/lexer/lexer_utils.c \
 				$(SRC_DIR)/lexer/redir_state_utils.c \
 				$(SRC_DIR)/lexer/token_utils.c \
 				$(SRC_DIR)/lexer/env_state_utils.c \
-				$(SRC_DIR)/lexer/assign.c 
+				$(SRC_DIR)/lexer/assign.c \
+				$(SRC_DIR)/lexer/validate.c
 
 SRC_PARSER = 	$(SRC_DIR)/parser/parser.c \
 				$(SRC_DIR)/parser/parser_utils.c \
@@ -122,7 +104,7 @@ OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT_FLAGS) $(LDFLAGS) -lreadline
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT_FLAGS) -lreadline
 	@echo $(GREEN)"Compiled $(NAME)"$(RESET)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

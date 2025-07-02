@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 15:47:17 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/30 15:47:48 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser_utils.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/07/02 14:43:36 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,12 @@ void	process_input(t_mshell *shell)
 {
 	shell->tokens = lexer(shell);
 	if (!shell->tokens)
-	{
-		ft_printf("no tokens found\n");
 		return ;
-	}
 	if (shell->tokens)
 	{
-		print_tokens(shell->tokens);
 		shell->commands = parser(shell);
 		if (!shell->commands)
-		{
-			ft_printf("no commands found\n");
 			return ;
-		}
-		else
-			print_commands(shell->commands);
 	}
 }
 
