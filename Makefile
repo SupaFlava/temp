@@ -1,22 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-<<<<<<< HEAD
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
 #    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/07/02 13:21:01 by jbaetsen      ########   odam.nl          #
-=======
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/07/02 13:42:30 by rmhazres         ###   ########.fr        #
->>>>>>> origin/main
+#    Updated: 2025/07/02 14:54:25 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +45,7 @@ LIBFT = ./libraries/libft.a
 #        Sources        #
 # ===================== #
 SRC_MAIN = 		$(SRC_DIR)/main.c \
-				$(SRC_DIR)/tester.c
+				#$(SRC_DIR)/tester.c
 
 SRC_SIGNALS =	$(SRC_DIR)/signals/signals.c \
 				$(SRC_DIR)/signals/heredoc_signals.c
@@ -80,12 +70,10 @@ SRC_BUILTINS = 	$(SRC_DIR)/builtins/pwd.c \
 				$(SRC_DIR)/builtins/run_builtin.c\
 
 SRC_UTILS = 	$(SRC_DIR)/utils/shell_init.c \
-				$(SRC_DIR)/utils/list_utils.c \
 				$(SRC_DIR)/utils/str_utils.c \
 				$(SRC_DIR)/utils/str_two_utils.c \
 				$(SRC_DIR)/utils/args_utils.c \
 				$(SRC_DIR)/utils/memory.c \
-				$(SRC_DIR)/utils/free.c \
 				$(SRC_DIR)/utils/fds.c\
 				$(SRC_DIR)/utils/shell_exit.c \
 				$(SRC_DIR)/utils/error.c
