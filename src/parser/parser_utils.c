@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/02 14:43:36 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/02 19:12:44 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	finalize_command(t_parser *p)
 		last->next = p->current_cmd;
 }
 
-void	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg)
+int	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg)
 {
 	int		i;
 	int		j;
@@ -58,7 +58,7 @@ void	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg)
 		i++;
 	new_args = ft_malloc_s(shell, sizeof(char *) * (i + 2), MEM_TEMP);
 	if (!new_args)
-		return ;
+		return (0);
 	j = 0;
 	while (j < i)
 	{
@@ -68,6 +68,7 @@ void	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg)
 	new_args[i] = ft_strdup_s(shell, arg, MEM_TEMP);
 	new_args[i + 1] = NULL;
 	command->args = new_args;
+	return (1);
 }
 
 void	process_input(t_mshell *shell)
@@ -77,9 +78,12 @@ void	process_input(t_mshell *shell)
 		return ;
 	if (shell->tokens)
 	{
+		print_tokens(shell->tokens); //remove before handin
 		shell->commands = parser(shell);
 		if (!shell->commands)
 			return ;
+		else
+			print_command(shell->commands); //remove before handin
 	}
 }
 

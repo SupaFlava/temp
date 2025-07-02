@@ -6,7 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/07/02 14:54:25 by jbaetsen      ########   odam.nl          #
+#    Updated: 2025/07/02 16:26:28 by jbaetsen      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ LIBFT = ./libraries/libft.a
 #        Sources        #
 # ===================== #
 SRC_MAIN = 		$(SRC_DIR)/main.c \
-				#$(SRC_DIR)/tester.c
+				$(SRC_DIR)/temp.c
 
 SRC_SIGNALS =	$(SRC_DIR)/signals/signals.c \
 				$(SRC_DIR)/signals/heredoc_signals.c
@@ -85,13 +85,15 @@ SRC_LEXER = 	$(SRC_DIR)/lexer/lexer_utils.c \
 				$(SRC_DIR)/lexer/token_utils.c \
 				$(SRC_DIR)/lexer/env_state_utils.c \
 				$(SRC_DIR)/lexer/assign.c \
-				$(SRC_DIR)/lexer/validate.c
+				$(SRC_DIR)/lexer/validate.c \
+				$(SRC_DIR)/lexer/quotes_logic.c
 
 SRC_PARSER = 	$(SRC_DIR)/parser/parser.c \
 				$(SRC_DIR)/parser/parser_utils.c \
 				$(SRC_DIR)/parser/parser_redirs.c \
 				$(SRC_DIR)/parser/parser_redir_utils.c \
-				$(SRC_DIR)/parser/parser_init.c
+				$(SRC_DIR)/parser/parser_init.c \
+				$(SRC_DIR)/parser/parse_quotes.c
 
 SRC = 	$(SRC_MAIN) $(SRC_SIGNALS) $(SRC_ENV) $(SRC_BUILTINS) \
 		$(SRC_UTILS) $(SRC_LEXER) $(SRC_PARSER) $(SRC_EXECUTOR) \

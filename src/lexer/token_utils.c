@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 16:36:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/30 14:23:47 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/02 15:36:41 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,6 @@ const char	*token_type_to_string(t_toktype type)
 	return ("UNKNOWN");
 }
 
-void	print_tokens(t_token *tokens)
-{
-	while (tokens)
-	{
-		ft_printf("Token: %s | type %s\n",
-			(char *)tokens->content, token_type_to_string(tokens->type));
-		tokens = tokens->next;
-	}
-}
-
 void	free_tokens(t_token *tokens)
 {
 	t_token	*temp;
@@ -99,6 +89,7 @@ t_lexstate	add_token(t_mshell *shell, t_lexer *l, t_toktype type)
 	if (!new->content)
 		return (LEXER_ERROR);
 	new->type = type;
+	new->quote_id = get_quote_id(l);
 	new->next = NULL;
 	if (!l->tokens)
 		l->tokens = new;

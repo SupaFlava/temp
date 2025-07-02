@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 16:38:28 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/02 14:26:23 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   exit.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/08 16:38:28 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/07/02 17:06:10 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	builtin_exit(t_mshell *shell, char **args)
 		if (!is_numeric(args[1]))
 		{
 			print_err("minishell: exit", args[1], "numeric argument required");
-			status = 255;
+			status = 2;
 			exit_shell(shell, status, true);
 		}
 		else

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   typedefs.h                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 16:23:26 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   typedefs.h                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/07/02 17:34:23 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_token
 {
 	void				*content;
 	t_toktype			type;
+	int					quote_id;
 	struct s_token		*next;
 }	t_token;
 
@@ -113,6 +114,9 @@ typedef struct s_parser
 	t_parser_state		state;
 	t_env				*env;
 	char				*exit_value;
+	t_toktype			last_token_type;
+	int					last_quote_id;
+	int					arg_index;
 }	t_parser;
 
 typedef struct s_lexer
@@ -123,6 +127,8 @@ typedef struct s_lexer
 	size_t				index;
 	char				*input;
 	char				c;
+	int					current_quote_id;
+	bool				in_dquote;
 }	t_lexer;
 
 typedef struct s_exec_ctx

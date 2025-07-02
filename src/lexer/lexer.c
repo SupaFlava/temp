@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/19 19:08:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/02 13:33:10 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/02 15:13:31 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	init_lexer(t_mshell *shell, t_lexer *l)
 	l->state = LEXER_DEFAULT;
 	l->buffer = NULL;
 	l->tokens = NULL;
+	l->current_quote_id = 0;
+	l->in_dquote = false;
 }
 
 int	process_line_loop(t_mshell *shell, t_lexer *l)
