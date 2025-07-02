@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   run_builtin.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/06/01 15:44:20 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/27 16:17:06 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   run_builtin.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/01 15:44:20 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/30 16:13:03 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	run_builtin(t_command *cmd, t_mshell *shell)
 	if (ft_strcmp(cmd->args[0], "cd") == 0)
 		return (builtin_cd(shell, cmd->args));
 	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
-		return (builtin_pwd(shell));
+		return (builtin_pwd());
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)
 		return (builtin_echo(shell, cmd->args));
 	else if (ft_strcmp(cmd->args[0], "env") == 0)

@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/06/30 12:12:17 by jbaetsen      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
+#    Updated: 2025/07/02 13:42:30 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,10 +89,12 @@ SRC_BUILTINS = 	$(SRC_DIR)/builtins/pwd.c \
 SRC_UTILS = 	$(SRC_DIR)/utils/shell_init.c \
 				$(SRC_DIR)/utils/list_utils.c \
 				$(SRC_DIR)/utils/str_utils.c \
+				$(SRC_DIR)/utils/str_two_utils.c \
 				$(SRC_DIR)/utils/args_utils.c \
 				$(SRC_DIR)/utils/memory.c \
 				$(SRC_DIR)/utils/free.c \
-				$(SRC_DIR)/utils/fds.c \
+				$(SRC_DIR)/utils/fds.c\
+				$(SRC_DIR)/utils/shell_exit.c \
 				$(SRC_DIR)/utils/error.c
 
 SRC_LEXER = 	$(SRC_DIR)/lexer/lexer_utils.c \

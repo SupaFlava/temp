@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   lexer.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 12:42:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/30 13:54:11 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   lexer.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 12:42:53 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/07/02 14:30:31 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ t_lexstate	handle_empty_buffer_env(t_mshell *shell, t_lexer *l, char c);
 
 // assign.c
 t_lexstate	assign_state(t_mshell *shell, t_lexer *l, char c);
-t_lexstate handle_assign_state(t_mshell *shell, t_lexer *l, char c);
+t_lexstate	handle_assign_state(t_mshell *shell, t_lexer *l, char c);
 
 #endif /*LEXER_H*/

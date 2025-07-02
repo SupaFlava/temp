@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   exec.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/06/04 12:23:04 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/30 15:10:14 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 12:23:04 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/07/02 14:09:32 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,51 @@ static void	check_access(char *path)
 {
 	if (access(path, F_OK) < 0)
 		print_err("minishell: ", path, "No such file or directory");
-	else if (errno == EACCES)
+	else if (access(path, X_OK) < 0)
 		print_err("minishell: ", path, "Permission denied");
 	else
-		print_err("minishell: ", path, "not found");
+		print_err("minishell: ", path, "Command failed to execute");
 }
 
 static int	run_direct_path_exec(t_command *cmd, char **envp)
 {
+	struct stat	st;
+
+	if (stat(cmd->args[0], &st) == 0 && S_ISDIR(st.st_mode))
+	{
+		print_err("minishell", cmd->args[0], "Is a directory");
+		return (1);
+	}
 	if (!is_executable(cmd->args[0]))
 	{
 		check_access(cmd->args[0]);
-		return (1);
+		exit (CMD_NOT_FOUND);
 	}
 	execve(cmd->args[0], cmd->args, envp);
 	print_err("minishell", cmd->args[0], strerror(errno));
-	return (1);
+	exit (EXIT_FAILURE);
 }
 
 static int	run_search_exec(t_command *cmd, t_env *envl, char **envp)
 {
-	char	*path;
+	char			*path;
+	struct stat		st;
 
 	path = find_in_path(cmd->args[0], envl);
 	if (!path)
 	{
 		print_err("minishell", cmd->args[0], "command not found");
-		return (CMD_NOT_FOUND);
+		exit (CMD_NOT_FOUND);
+	}
+	if (stat(cmd->args[0], &st) == 0 && S_ISDIR(st.st_mode))
+	{
+		print_err("minishell", cmd->args[0], "Is a directory");
+		return (1);
 	}
 	execve(path, cmd->args, envp);
-	print_err("minishell", path, strerror(errno));
 	free(path);
-	return (EXIT_FAILURE);
+	print_err("minishell", path, strerror(errno));
+	exit (EXIT_FAILURE);
 }
 
 int	check_exec(t_command *cmd, t_mshell *shell)

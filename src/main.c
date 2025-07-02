@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/29 20:22:58 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/07/02 14:29:34 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	run_shell(t_mshell *shell)
+{
+	add_history(shell->line);
+	process_input(shell);
+	if (prep_heredoc(shell) != 0)
+	{
+		free(shell->line);
+		shell->line = NULL;
+		ft_free(shell, MEM_TEMP);
+		return ;
+	}
+	if (shell->commands)
+		shell->exit_status = execute_cmd(shell);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -18,30 +33,19 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-
 	shell_init(&shell);
-	init_env(&shell ,envp);
+	if (init_env(&shell, envp) == ERROR)
+		return (ft_free(&shell, MEM_LONG), EXIT_FAILURE);
 	while (1)
 	{
-
 		setup_signals();
 		shell.line = read_input();
 		check_global(&shell);
 		if (shell.line && *shell.line)
-		{
-			add_history(shell.line);
-			process_input(&shell);
-			if(prep_heredoc(&shell) != 0)
-				continue; // should clean up later
-			if (shell.commands)
-				shell.exit_status = execute_cmd(&shell);
-		}
-		free(shell.line);
-		shell.line = NULL;
+			run_shell(&shell);
 		ft_free(&shell, MEM_TEMP);
 	}
 	rl_clear_history();
 	ft_free(&shell, MEM_LONG);
-	//clear_history(); // this for mac
 	return (0);
 }
