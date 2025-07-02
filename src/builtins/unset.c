@@ -6,11 +6,29 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:10:36 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 16:13:06 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/02 14:30:05 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_valid_identifier(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str || !str[0])
+		return (0);
+	if (!ft_isalpha(str[0]) && str[0] != '_')
+		return (0);
+	while (str[i])
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	builtin_unset(t_mshell *shell, char **args)
 {
@@ -24,7 +42,7 @@ int	builtin_unset(t_mshell *shell, char **args)
 		return (0);
 	while (args[i])
 	{
-		if (!is_valid_export(args[i]))
+		if (!is_valid_identifier(args[i]))
 		{
 			print_err("unset", args[i], "not a valid identifier");
 			status = 1;

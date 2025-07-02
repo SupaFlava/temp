@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   exec_utils.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/06/06 13:57:38 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/29 21:57:30 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/06 13:57:38 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/07/02 13:39:38 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,7 @@ char	*find_in_path(char *arg, t_env *env_lst)
 
 	temp = get_env(env_lst, "PATH");
 	if (!temp)
-	{
-		print_err("minishell", arg, "PATH not set\n");
-		return (NULL);
-	}
+		return (print_err("minishell", arg, "PATH not set\n"), NULL);
 	env_arr = ft_split(temp->value, ':');
 	if (!env_arr)
 		return (NULL);

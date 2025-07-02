@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/06/30 12:17:40 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/02 14:29:34 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	shell_init(&shell);
-	if (init_env(&shell ,envp) == ERROR)
+	if (init_env(&shell, envp) == ERROR)
 		return (ft_free(&shell, MEM_LONG), EXIT_FAILURE);
 	while (1)
 	{

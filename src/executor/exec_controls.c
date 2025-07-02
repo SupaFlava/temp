@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/29 18:22:07 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:06:03 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ static int	execute_single_builtin(t_command *cmd, t_mshell *shell)
 
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
+	if (saved_stdin == -1 || saved_stdout == -1)
+	{
+		perror("dup error\n");
+		return (EXIT_FAILURE);
+	}
 	if (handle_redir(cmd) < 0)
 	{
 		restore_stdio(saved_stdin, saved_stdout);

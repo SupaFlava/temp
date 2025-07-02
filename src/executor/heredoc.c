@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:09:41 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 12:19:36 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/02 13:12:25 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static int	check_line(char *line, t_command *cmd)
 		ft_putstr_fd("warning: heredoc delimited by EOF (wanted `", 2);
 		ft_putstr_fd(cmd->delimiter, 2);
 		ft_putstr_fd("`)\n", 2);
+		free(line);
 		return (0);
 	}
 	return (1);
@@ -104,7 +105,7 @@ int	handle_heredoc(t_command *cmd, const char *filename)
 		line = readline("Heredoc > ");
 		if (!check_line(line, cmd))
 			break ;
-		if (ft_strcmp(line, cmd->delimiter) == 0)
+		if (cmd->delimiter && ft_strcmp(line, cmd->delimiter) == 0)
 		{
 			free(line);
 			break ;

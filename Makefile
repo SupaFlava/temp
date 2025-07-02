@@ -6,7 +6,7 @@
 #    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
-#    Updated: 2025/06/30 15:32:05 by rmhazres         ###   ########.fr        #
+#    Updated: 2025/07/02 13:42:30 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,6 +89,7 @@ SRC_BUILTINS = 	$(SRC_DIR)/builtins/pwd.c \
 SRC_UTILS = 	$(SRC_DIR)/utils/shell_init.c \
 				$(SRC_DIR)/utils/list_utils.c \
 				$(SRC_DIR)/utils/str_utils.c \
+				$(SRC_DIR)/utils/str_two_utils.c \
 				$(SRC_DIR)/utils/args_utils.c \
 				$(SRC_DIR)/utils/memory.c \
 				$(SRC_DIR)/utils/free.c \

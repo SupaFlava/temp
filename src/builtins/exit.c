@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 16:38:28 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 15:37:24 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/02 14:26:23 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	builtin_exit(t_mshell *shell, char **args)
 	status = 0;
 	if (count_args(args) > 2)
 	{
-		print_err("minishell", args[0],"too many arguments");
+		print_err("minishell", args[0], "too many arguments");
 		return (EXIT_FAILURE);
 	}
 	else if (count_args(args) == 2)

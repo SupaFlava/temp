@@ -6,11 +6,34 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:19:39 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 15:37:28 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/02 14:25:17 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	print_export(char *str)
+{
+	char	*eq;
+
+	eq = ft_strchr(str, '=');
+	if (eq)
+	{
+		*eq = '\0';
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd(str, STDOUT_FILENO);
+		ft_putstr_fd("=\"", STDOUT_FILENO);
+		ft_putstr_fd(eq + 1, STDOUT_FILENO);
+		ft_putstr_fd("\"\n", STDOUT_FILENO);
+		*eq = '=';
+	}
+	else
+	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd(str, STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+	}
+}
 
 int	is_valid_export(char *str)
 {
@@ -27,7 +50,7 @@ int	is_valid_export(char *str)
 			return (0);
 		i++;
 	}
-	return (str[i] == '=');
+	return (str[i] == '=' || str[i] == '\0');
 }
 
 char	**sort_env(char **envp)
@@ -69,9 +92,7 @@ void	print_export_env(t_mshell *shell)
 	i = 0;
 	while (envp[i])
 	{
-		ft_putstr_fd("declare -x ", STDERR_FILENO);
-		ft_putstr_fd(envp[i], STDERR_FILENO);
-		ft_putstr_fd("\n", STDERR_FILENO);
+		print_export(envp[i]);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:39:02 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 16:21:55 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/02 14:24:51 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	set_env(t_mshell *shell, char *key, char *value)
 	{
 		if (ft_strcmp(temp->key, key) == 0)
 		{
-			temp->value = ft_strdup_s(shell ,value, MEM_LONG);
+			temp->value = ft_strdup_s(shell, value, MEM_LONG);
 			return (EXIT_SUCCESS);
 		}
 		temp = temp->next;
