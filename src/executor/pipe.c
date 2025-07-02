@@ -1,22 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-<<<<<<< HEAD
 /*                                                        ::::::::            */
 /*   pipe.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/10 11:21:26 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/07/02 12:52:16 by jbaetsen      ########   odam.nl         */
-=======
-/*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/10 11:21:26 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/02 14:27:41 by rmhazres         ###   ########.fr       */
->>>>>>> origin/main
+/*   Updated: 2025/07/02 14:49:41 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +91,7 @@ int	execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 		if (prep_pipe(cmd, ctx->fds) < 0)
 			return (1);
 		if (ctx->child_count >= MAX_CHILDREN)
-<<<<<<< HEAD
-			return (ft_putstr_fd("too many processes\n", STDERR_FILENO), 1);
-=======
 			return (print_err("minishell", NULL, "many child processes"), 1);
->>>>>>> origin/main
 		pid = run_child(cmd, ctx, shell);
 		if (pid < 0)
 			return (1);

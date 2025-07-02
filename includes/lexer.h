@@ -1,22 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-<<<<<<< HEAD
 /*                                                        ::::::::            */
 /*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:42:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/02 13:22:07 by jbaetsen      ########   odam.nl         */
-=======
-/*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 12:42:53 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/07/02 14:30:31 by rmhazres         ###   ########.fr       */
->>>>>>> origin/main
+/*   Updated: 2025/07/02 14:50:14 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +60,7 @@ t_lexstate	assign_state(t_mshell *shell, t_lexer *l, char c);
 t_lexstate	handle_assign_state(t_mshell *shell, t_lexer *l, char c);
 
 // validate.c
-int	validate_tokens(t_lexer *l);
+int			validate_tokens(t_lexer *l);
 int			finalize_tokens(t_mshell *shell, t_lexer *l);
 
 #endif /*LEXER_H*/
