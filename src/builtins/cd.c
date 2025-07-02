@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cd.c                                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 15:45:29 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/30 13:12:25 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 15:45:29 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/30 15:36:58 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,28 @@
 int	change_dir(t_mshell *shell, char *path)
 {
 	char	*old_path;
-	char	*buffer;
+	char	*new_path;
 
-	buffer = ft_malloc_s(shell, 512, MEM_TEMP);
-	old_path = getcwd(buffer, 512);
+	old_path = getcwd(NULL, 0);
+	if (!old_path)
+		old_path = ft_strdup("");
 	if (chdir(path) == 0)
 	{
-		set_env(shell->env_list, "OLDPWD", old_path);
+		set_env(shell, "OLDPWD", old_path);
+		free(old_path);
+		new_path = getcwd(NULL, 0);
+		if (new_path)
+		{
+			set_env(shell, "PWD", new_path);
+			free(new_path);
+		}
 		return (EXIT_SUCCESS);
 	}
 	else
 	{
 		ft_putstr_fd("cd: ", STDERR_FILENO);
-		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		perror(path);
+		free(old_path);
 		return (EXIT_FAILURE);
 	}
 }

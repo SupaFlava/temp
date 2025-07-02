@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   memory.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 14:10:03 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/29 22:07:46 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   memory.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 14:10:03 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/30 12:15:02 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void	free_arr(char **arr)
 
 void	ft_free(t_mshell *shell, t_mem_t type)
 {
+	if (shell->line)
+		free(shell->line);
+	if (shell->commands && shell->commands->heredoc_temp)
+		unlink(shell->commands->heredoc_temp);
+	shell->line = NULL;
 	if (type == MEM_TEMP)
 	{
 		ft_lstclear(&shell->temp_allocs, free);

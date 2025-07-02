@@ -1,5 +1,6 @@
 /* ************************************************************************** */
 /*                                                                            */
+<<<<<<< HEAD
 /*                                                        ::::::::            */
 /*   pipe.c                                             :+:    :+:            */
 /*                                                     +:+                    */
@@ -7,6 +8,15 @@
 /*                                                   +#+                      */
 /*   Created: 2025/06/10 11:21:26 by rmhazres      #+#    #+#                 */
 /*   Updated: 2025/07/02 12:52:16 by jbaetsen      ########   odam.nl         */
+=======
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/10 11:21:26 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/07/02 14:27:41 by rmhazres         ###   ########.fr       */
+>>>>>>> origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +68,7 @@ static pid_t	run_child(t_command *cmd, t_exec_ctx *ctx, t_mshell *shell)
 	pid_t	pid;
 
 	if (!cmd || !cmd->args || !cmd->args[0])
-		return (perror("no args\n"), -1);
+		return (ft_putstr_fd("minishell: empty command\n", STDERR_FILENO), -1);
 	pid = fork();
 	if (pid == -1)
 		return (perror("Fork"), -1);
@@ -71,7 +81,8 @@ static pid_t	run_child(t_command *cmd, t_exec_ctx *ctx, t_mshell *shell)
 		if (cmd->next)
 			dup2(ctx->fds[1], STDOUT_FILENO);
 		close_fds(ctx->prev_fd, ctx->fds[0], ctx->fds[1]);
-		handle_redir(cmd);
+		if (handle_redir(cmd) < 0)
+			exit(EXIT_FAILURE);
 		if (is_builtin(cmd))
 			exit(run_builtin(cmd, shell));
 		else
@@ -90,7 +101,11 @@ int	execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 		if (prep_pipe(cmd, ctx->fds) < 0)
 			return (1);
 		if (ctx->child_count >= MAX_CHILDREN)
+<<<<<<< HEAD
 			return (ft_putstr_fd("too many processes\n", STDERR_FILENO), 1);
+=======
+			return (print_err("minishell", NULL, "many child processes"), 1);
+>>>>>>> origin/main
 		pid = run_child(cmd, ctx, shell);
 		if (pid < 0)
 			return (1);

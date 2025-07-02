@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   str_utils.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/08 12:12:21 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/29 22:13:35 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   str_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/08 12:12:21 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/07/02 14:12:28 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,6 @@ char	*ft_strndup_s(t_mshell *shell, const char *str, size_t n, t_mem_t type)
 	return (dup);
 }
 
-char	*ft_strcpy(char *dst, const char *src)
-{
-	size_t	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-
 int	ft_strcmp(const char *str1, const char *str2)
 {
 	size_t	i;
@@ -93,52 +79,6 @@ char	*ft_substr_s(t_mshell *shell, char const *s, unsigned b, size_t len)
 		return (0);
 	ft_strlcpy(new, s + b, finish +1);
 	return (new);
-}
-
-static unsigned int	ft_numberlength(int num)
-{
-	unsigned int	len;
-
-	len = 0;
-	if (num == 0)
-		return (1);
-	if (num < 0)
-		len += 1;
-	while (num != 0)
-	{
-		num /= 10;
-		len++;
-	}
-	return (len);
-}
-
-char	*ft_itoa_s(t_mshell *shell, int n, t_mem_t type)
-{
-	char			*string;
-	unsigned int	num;
-	unsigned int	len;
-
-	len = ft_numberlength(n);
-	string = (char *)ft_malloc_s(shell, sizeof(char) * (len + 1), type);
-	if (string == NULL)
-		return (NULL);
-	if (n < 0)
-	{
-		string[0] = '-';
-		num = -n;
-	}
-	else
-		num = n;
-	if (num == 0)
-		string[0] = '0';
-	string[len] = '\0';
-	while (num != 0)
-	{
-		string[len - 1] = (num % 10) + '0';
-		num = num / 10;
-		len--;
-	}
-	return (string);
 }
 
 char	*ft_strjoin_s(char const *s1, char const *s2, t_mshell *sh, t_mem_t t)

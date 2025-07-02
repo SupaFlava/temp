@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   typedefs.h                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/30 14:57:05 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   typedefs.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/06/30 16:23:26 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include "libft.h"
 # include "stdbool.h"
-# define MAX_CHILDREN 2
+# define MAX_CHILDREN 200
+# define SUCCESS 0
+# define ERROR 1
 # define CMD_NOT_FOUND 127
 
 // enums
@@ -53,7 +55,7 @@ typedef enum e_token_type
 	TOK_APPEND,			// >>
 	TOK_ENV_VAR,		// $PATH
 	TOK_ASSIGN,			// tokens for export "VAR=content"
-	TOK_EXIT_STATUS,	// $?
+	TOK_EXIT_STATUS,		// $?
 }	t_toktype;
 
 typedef enum e_mem_t

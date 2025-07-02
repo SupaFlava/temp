@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   shell_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 14:39:22 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 16:21:31 by rmhazres         ###   ########.fr       */
+/*   Created: 2025/06/29 18:43:16 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/07/02 14:20:58 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include "minishell.h"
 
-int		init_env(t_mshell *shell, char **envp);
-void	env_add_back(t_env **shell, t_env *new_node);
-int		env_add(t_mshell *shell, char *key, char *value);
-
-void	env_print(t_mshell *shell);
-t_env	*get_env(t_env *env, char *key);
-int		set_env(t_mshell *shell, char *key, char *value);
-int		delete_env(t_env **list, t_env *node);
-int		count_env(t_env *env);
-
-#endif
+void	exit_shell(t_mshell *shell, int exit_code, bool long_clean)
+{
+	if (shell->line)
+		free(shell->line);
+	shell->line = NULL;
+	ft_free(shell, MEM_TEMP);
+	if (long_clean)
+		ft_free(shell, MEM_LONG);
+	rl_clear_history();
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
+	exit(exit_code);
+}
