@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 13:39:05 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/02 13:27:07 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/02 15:17:48 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_lexstate	flush_set_state(t_mshell *sh, t_lexer *l, t_lexstate new_state)
 		if (add_token(sh, l, TOK_WORD) == LEXER_ERROR)
 			return (LEXER_ERROR);
 	}
+	if (new_state == LEXER_DQUOTE)
+		start_new_quote_group(l);
 	l->state = new_state;
 	return (l->state);
 }

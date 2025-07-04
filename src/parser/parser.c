@@ -6,32 +6,34 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/30 14:19:41 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/02 17:49:11 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "minishell.h"
 
-t_parser_state	parse_env(t_mshell *shell, t_parser *p)
+t_parser_state	parse_env(t_mshell *sh, t_parser *p)
 {
 	t_token	*tok;
 	t_env	*expanded;
 
 	tok = p->current_token;
-	if (!ensure_current_cmd(shell, p))
+	if (!ensure_current_cmd(sh, p))
 		return (PARSE_ERROR);
 	if (tok->type == TOK_ENV_VAR)
 	{
-		expanded = expand_env(shell, tok->content);
-		add_arg_to_cmd(shell, p->current_cmd, expanded->value);
+		expanded = expand_env(sh, tok->content);
+		p->current_token->content = ft_strdup_s(sh, expanded->value, MEM_TEMP);
 	}
 	else if (tok->type == TOK_EXIT_STATUS)
 	{
-		p->exit_value = ft_itoa_s(shell, shell->exit_status, MEM_LONG);
-		add_arg_to_cmd(shell, p->current_cmd, p->exit_value);
+		p->exit_value = ft_itoa_s(sh, sh->exit_status, MEM_LONG);
+		p->current_token->content = p->exit_value;
 	}
 	else
+		return (PARSE_ERROR);
+	if (!add_or_concat_arg(sh, p))
 		return (PARSE_ERROR);
 	return (PARSE_DEFAULT);
 }
@@ -65,7 +67,8 @@ t_parser_state	parse_word(t_mshell *shell, t_parser *p)
 {
 	if (!ensure_current_cmd(shell, p))
 		return (PARSE_ERROR);
-	add_arg_to_cmd(shell, p->current_cmd, p->current_token->content);
+	if (!add_or_concat_arg(shell, p))
+		return (PARSE_ERROR);
 	return (PARSE_DEFAULT);
 }
 
@@ -118,6 +121,7 @@ t_command	*parser(t_mshell *shell)
 			p->state = parse_token(shell, p);
 		if (p->state == PARSE_ERROR)
 			return (NULL);
+		p->last_token_type = p->current_token->type;
 		p->current_token = p->current_token->next;
 	}
 	if (check_redir_state(p))

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:50:26 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/19 22:00:50 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/02 16:56:07 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 // includes
 # include "typedefs.h"
+# include "parsequotes.h"
 # include "utils.h"
 
 // function prototypes
@@ -40,7 +41,7 @@ t_env			*expand_env(t_mshell *shell, char *key);
 void			finalize_command(t_parser *p);
 char			*read_input(void);
 void			process_input(t_mshell *shell);
-void			add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg);
+int				add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg);
 
 // init_parser.c
 void			init_parser(t_mshell *shell, t_parser *p);

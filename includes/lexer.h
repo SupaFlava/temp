@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:42:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/02 14:50:14 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/02 16:58:09 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,13 @@ t_lexstate	handle_assign_state(t_mshell *shell, t_lexer *l, char c);
 // validate.c
 int			validate_tokens(t_lexer *l);
 int			finalize_tokens(t_mshell *shell, t_lexer *l);
+
+// quotes_logic.c
+void		start_new_quote_group(t_lexer *l);
+void		end_quote_group(t_lexer *l);
+int			get_quote_id(t_lexer *l);
+
+//TEMP!!!!!
+void		print_command(t_command *cmd);
 
 #endif /*LEXER_H*/
