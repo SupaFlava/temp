@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:50:26 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/05 20:29:07 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/06 00:28:59 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,5 @@ int				add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg);
 // init_parser.c
 void			init_parser(t_mshell *shell, t_parser *p);
 t_command		*init_command(t_mshell *shell, t_parser *p);
-
-
-int	edgecase(t_mshell *shell);
 
 #endif

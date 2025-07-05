@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/07/05 23:09:18 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/06 00:51:15 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_lexstate
 	LEXER_REDIR_IN,
 	LEXER_REDIR_OUT,
 	LEXER_ASSIGN,
+	LEXER_INVALID,
 	LEXER_ERROR
 }	t_lexstate;
 
@@ -115,7 +116,7 @@ typedef struct s_parser
 	char				*exit_value;
 	t_toktype			last_token_type;
 	int					last_quote_id;
-	int					arg_index;
+	int					last_arg;
 }	t_parser;
 
 typedef struct s_lexer
