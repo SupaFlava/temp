@@ -6,11 +6,25 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 17:00:07 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/16 23:01:02 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/05 21:03:04 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+int	is_valid_env(char *buffer)
+{
+	int	i;
+
+	i = 0;
+	while (buffer[i])
+	{
+		if (!ft_isalnum(buffer[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 t_lexstate	handle_exit_status(t_mshell *shell, t_lexer *l)
 {
@@ -55,7 +69,7 @@ t_lexstate	handle_invalid_env(t_mshell *shell, t_lexer *l, char c)
 {
 	if (!l->buffer)
 		return (handle_empty_buffer_env(shell, l, c));
-	if (c == '$')
+	if (c == '$' && !is_valid_env(l->buffer))
 		return (append_char_to_buffer(shell, l, c));
 	if (add_token(shell, l, TOK_ENV_VAR) == LEXER_ERROR)
 		return (LEXER_ERROR);

@@ -69,3 +69,33 @@ void	print_command(t_command *cmd)
 		cmd_index++;
 	}
 }
+
+int	build_edgecase(t_mshell *shell)
+{
+	t_command	*cmd;
+	char		*exit_str;
+	char		*joined;
+	char		*final_arg;
+
+	cmd = ft_malloc_s(shell, sizeof(t_command), MEM_TEMP);
+	if (!cmd)
+		return (0);
+	ft_bzero(cmd, sizeof(t_command));
+	exit_str = ft_itoa_s(shell, shell->exit_status, MEM_TEMP);
+	if (!exit_str)
+		return (0);
+	joined = ft_strjoin_s(exit_str, "+", shell, MEM_TEMP);
+	if (!joined)
+		return (0);
+	final_arg = ft_strjoin_s(joined, exit_str, shell, MEM_TEMP);
+	if (!final_arg)
+		return (0);
+	cmd->args = ft_malloc_s(shell, sizeof(char *) * 2, MEM_TEMP);
+	if (!cmd->args)
+		return (0);
+	cmd->args[0] = final_arg;
+	cmd->args[1] = NULL;
+	shell->commands = cmd;
+	return (1);
+}
+

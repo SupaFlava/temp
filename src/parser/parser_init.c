@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/13 17:40:49 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/02 17:41:15 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/04 22:08:40 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ void	init_parser(t_mshell *shell, t_parser *p)
 	p->env = shell->env_list;
 	p->exit_value = ft_itoa_s(shell, shell->exit_status, MEM_LONG);
 	p->last_token_type = TOK_WORD;
+	p->arg_index = -1;
 }
