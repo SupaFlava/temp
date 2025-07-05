@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:42:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/02 16:58:09 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/06 00:28:46 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_lexstate	handle_redir_out(t_mshell *shell, t_lexer *l);
 t_lexstate	handle_exit_status(t_mshell *shell, t_lexer *l);
 t_lexstate	handle_invalid_env(t_mshell *shell, t_lexer *l, char c);
 t_lexstate	handle_empty_buffer_env(t_mshell *shell, t_lexer *l, char c);
+int			is_valid_env(char *buffer);
 
 // assign.c
 t_lexstate	assign_state(t_mshell *shell, t_lexer *l, char c);

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/03 14:20:07 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/07/02 17:49:11 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/05 23:14:04 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ t_parser_state	parse_env(t_mshell *sh, t_parser *p)
 	{
 		expanded = expand_env(sh, tok->content);
 		p->current_token->content = ft_strdup_s(sh, expanded->value, MEM_TEMP);
-	}
-	else if (tok->type == TOK_EXIT_STATUS)
-	{
-		p->exit_value = ft_itoa_s(sh, sh->exit_status, MEM_LONG);
-		p->current_token->content = p->exit_value;
 	}
 	else
 		return (PARSE_ERROR);
@@ -79,7 +74,7 @@ t_parser_state	parse_token(t_mshell *shell, t_parser *p)
 	tok = p->current_token->type;
 	if (tok == TOK_WORD || tok == TOK_QUOTED || tok == TOK_ASSIGN)
 		return (parse_word(shell, p));
-	else if (tok == TOK_ENV_VAR || tok == TOK_EXIT_STATUS)
+	else if (tok == TOK_ENV_VAR)
 		return (parse_env(shell, p));
 	else if (tok == TOK_PIPE)
 		return (parse_pipe(shell, p));

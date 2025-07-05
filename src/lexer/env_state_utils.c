@@ -6,19 +6,47 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 17:00:07 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/06/16 23:01:02 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/06 01:24:22 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
+int	is_valid_env(char *buffer)
+{
+	int	i;
+
+	i = 0;
+	while (buffer[i])
+	{
+		if (!ft_isalnum(buffer[i]) && buffer[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 t_lexstate	handle_exit_status(t_mshell *shell, t_lexer *l)
 {
-	l->buffer = ft_strdup_s(shell, "$?", MEM_TEMP);
+	char	*new_str;
+	char	*num;
+
+	num = ft_itoa(shell->exit_status);
 	if (!l->buffer)
-		return (LEXER_ERROR);
-	if (add_token(shell, l, TOK_EXIT_STATUS) == LEXER_ERROR)
-		return (LEXER_ERROR);
+	{
+		l->buffer = ft_strdup_s(shell, num, MEM_TEMP);
+		if (!l->buffer)
+			return (LEXER_ERROR);
+	}
+	else
+	{
+		new_str = ft_strjoin_s(l->buffer, num, shell, MEM_TEMP);
+		if (!new_str)
+			return (LEXER_ERROR);
+		l->buffer = ft_strdup_s(shell, new_str, MEM_TEMP);
+		if (!l->buffer)
+			return (LEXER_ERROR);
+	}
 	if (l->state == LEXER_QUOTED_ENV)
 		l->state = LEXER_DQUOTE;
 	else
@@ -55,10 +83,13 @@ t_lexstate	handle_invalid_env(t_mshell *shell, t_lexer *l, char c)
 {
 	if (!l->buffer)
 		return (handle_empty_buffer_env(shell, l, c));
-	if (c == '$')
+	if (c == '$' && !is_valid_env(l->buffer))
 		return (append_char_to_buffer(shell, l, c));
-	if (add_token(shell, l, TOK_ENV_VAR) == LEXER_ERROR)
-		return (LEXER_ERROR);
+	if (is_valid_env(l->buffer))
+	{
+		if (add_token(shell, l, TOK_ENV_VAR) == LEXER_ERROR)
+			return (LEXER_ERROR);
+	}
 	if (l->state == LEXER_QUOTED_ENV)
 		l->state = LEXER_DQUOTE;
 	else
