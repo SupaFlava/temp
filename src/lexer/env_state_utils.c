@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 17:00:07 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/05 21:03:04 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/05 22:59:21 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,23 @@ int	is_valid_env(char *buffer)
 
 t_lexstate	handle_exit_status(t_mshell *shell, t_lexer *l)
 {
-	l->buffer = ft_strdup_s(shell, "$?", MEM_TEMP);
+	char	*new_str;
+
 	if (!l->buffer)
-		return (LEXER_ERROR);
-	if (add_token(shell, l, TOK_EXIT_STATUS) == LEXER_ERROR)
-		return (LEXER_ERROR);
+	{
+		l->buffer = ft_strdup_s(shell, ft_itoa(shell->exit_status), MEM_TEMP);
+		if (!l->buffer)
+			return (LEXER_ERROR);
+	}
+	else
+	{
+		new_str = ft_strjoin_s(l->buffer, ft_itoa(shell->exit_status), shell, MEM_TEMP);
+		if (!new_str)
+			return (LEXER_ERROR);
+		l->buffer = ft_strdup_s(shell, new_str, MEM_TEMP);
+		if (!l->buffer)
+			return (LEXER_ERROR);
+	}
 	if (l->state == LEXER_QUOTED_ENV)
 		l->state = LEXER_DQUOTE;
 	else

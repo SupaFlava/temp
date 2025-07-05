@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/02 13:18:49 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/02 13:28:01 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/05 23:13:22 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ int	finalize_tokens(t_mshell *shell, t_lexer *l)
 	type = TOK_WORD;
 	if (check_quote_state(l->state) == LEXER_ERROR)
 		return (0);
-	if ((l->state == LEXER_ENV || l->state == LEXER_QUOTED_ENV) && !l->buffer)
+	if ((l->state == LEXER_ENV))
 	{
-		if (append_char_to_buffer(shell, l, '$') == LEXER_ERROR)
-			return (0);
+		if (!l->buffer || !is_valid_env(l->buffer))
+		{
+			if (append_char_to_buffer(shell, l, '$') == LEXER_ERROR)
+				return (0);
+		}
 		if (l->state == LEXER_QUOTED_ENV)
 			l->state = LEXER_DQUOTE;
-		else
+		else if (!is_valid_env(l->buffer))
 			l->state = LEXER_DEFAULT;
 	}
 	if (l->buffer)

@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 16:36:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/02 15:36:41 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/05 23:08:39 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ t_toktype	find_token_type(const char *buffer, t_lexstate state)
 		return (TOK_REDIR_IN);
 	else if (ft_strcmp(buffer, ">") == 0)
 		return (TOK_REDIR_OUT);
-	else if (ft_strcmp(buffer, "$?") == 0)
-		return (TOK_EXIT_STATUS);
 	else if (state == LEXER_ENV)
 		return (TOK_ENV_VAR);
 	else if (state == LEXER_SQUOTE || state == LEXER_DQUOTE)
@@ -54,8 +52,6 @@ const char	*token_type_to_string(t_toktype type)
 		return ("APPEND");
 	if (type == TOK_ENV_VAR)
 		return ("ENV_VAR");
-	if (type == TOK_EXIT_STATUS)
-		return ("EXIT_STATUS");
 	if (type == TOK_ASSIGN)
 		return ("ASSIGN");
 	return ("UNKNOWN");

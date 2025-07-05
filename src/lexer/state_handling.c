@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/05 21:00:27 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/05 22:27:27 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ t_lexstate	default_state(t_mshell *shell, t_lexer *l, char c)
 		return (handle_redir_out(shell, l));
 	else if (c == '=' && l->buffer)
 		return (handle_assign_state(shell, l, c));
-	else if (c == '$')
+	else if (c == '$' )
 	{
-		if (l->buffer && *l->buffer)
+		if (l->buffer && is_valid_env(l->buffer))
 		{
 			if (add_token(shell, l, TOK_WORD) == LEXER_ERROR)
 				return (LEXER_ERROR);
@@ -70,10 +70,15 @@ t_lexstate	d_quote_state(t_mshell *shell, t_lexer *l, char c)
 
 t_lexstate	env_state(t_mshell *shell, t_lexer *l, char c)
 {
-	if (!l->buffer && c == '?')
+	if (/*!l->buffer && */c == '?')
 		return (handle_exit_status(shell, l));
 	if (!ft_isalnum(c) && c != '_')
 		return (handle_invalid_env(shell, l, c));
+	if (l->buffer && !is_valid_env(l->buffer))
+	{
+		if (add_token(shell, l, TOK_WORD) == LEXER_ERROR)
+			return (LEXER_ERROR);
+	}
 	return (append_char_to_buffer(shell, l, c));
 }
 
