@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/06 01:19:25 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/06 12:27:39 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ t_lexstate	s_quote_state(t_mshell *shell, t_lexer *l, char c)
 {
 	if (c == '\'')
 	{
+		if (l->input[l->index + 1] == '\'')
+		{
+			l->index++;
+			return (LEXER_SQUOTE);
+		}
 		l->state = LEXER_DEFAULT;
 		return (add_token (shell, l, TOK_QUOTED));
 	}
@@ -47,6 +52,11 @@ t_lexstate	d_quote_state(t_mshell *shell, t_lexer *l, char c)
 {
 	if (c == '"')
 	{
+		if (l->input[l->index + 1] == '"')
+		{
+			l->index++;
+			return (LEXER_DQUOTE);
+		}
 		if (l->buffer && add_token(shell, l, TOK_QUOTED) == LEXER_ERROR)
 			return (LEXER_ERROR);
 		end_quote_group(l);
