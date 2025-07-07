@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 15:47:17 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/07/07 12:34:46 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser_utils.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/07/07 14:43:26 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg)
 	char	**new_args;
 
 	i = 0;
+
 	while (command->args && command->args[i])
 		i++;
 	new_args = ft_malloc_s(shell, sizeof(char *) * (i + 2), MEM_TEMP);

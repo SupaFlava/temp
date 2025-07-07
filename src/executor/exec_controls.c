@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec_controls.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/02 12:06:03 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   exec_controls.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/24 12:20:51 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/07/07 14:53:50 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	execute_single_builtin(t_command *cmd, t_mshell *shell)
 	if (handle_redir(cmd) < 0)
 	{
 		restore_stdio(saved_stdin, saved_stdout);
+		shell->exit_status = 1;
 		return (1);
 	}
 	ret = run_builtin(cmd, shell);
@@ -45,6 +46,7 @@ static int	execute_single_builtin(t_command *cmd, t_mshell *shell)
 		close(cmd->heredoc_fd);
 		cmd->heredoc_fd = -1;
 	}
+	shell->exit_status = ret;
 	return (ret);
 }
 
