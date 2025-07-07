@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/10 11:21:26 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/07/02 14:49:41 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/07 13:49:30 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ static pid_t	run_child(t_command *cmd, t_exec_ctx *ctx, t_mshell *shell)
 		if (is_builtin(cmd))
 			exit(run_builtin(cmd, shell));
 		else
-			check_exec(cmd, shell);
-		exit(0);
+			shell->exit_status = check_exec(cmd, shell);
+		exit(shell->exit_status);
 	}
 	return (pid);
 }
@@ -108,5 +108,5 @@ int	execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 	signal(SIGQUIT, SIG_IGN);
 	wait_for_pid(ctx->child_count, ctx->child_pids, shell);
 	setup_signals();
-	return (shell->exit_status);
+	return (EXIT_SUCCESS);
 }
