@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   typedefs.h                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/03 14:25:12 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/07/06 00:51:15 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   typedefs.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/07/07 16:37:01 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_env
 
 typedef struct s_token
 {
-	void				*content;
+	char				*content;
 	t_toktype			type;
 	int					quote_id;
 	struct s_token		*next;

@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   fds.c                                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/29 16:40:06 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/29 22:15:01 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   fds.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/29 16:40:06 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/07/07 14:31:55 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	safe_close(int *fd)
+{
+	if (fd && *fd >= 0)
+	{
+		close(*fd);
+		*fd = -1;
+	}
+}
 
 void	close_fds(int fd1, int fd2, int fd3)
 {
@@ -32,3 +41,5 @@ void	close_parent_fds(t_command *cmd, int *prev_fd, int fds[2])
 		*prev_fd = fds[0];
 	}
 }
+
+

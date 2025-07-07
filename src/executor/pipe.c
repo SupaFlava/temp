@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   pipe.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/06/10 11:21:26 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/07/07 13:49:30 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/10 11:21:26 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/07/07 17:39:44 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 		ctx->child_pids[ctx->child_count++] = pid;
 		if (cmd->is_heredoc && cmd->heredoc_fd != -1)
 		{
-			close(cmd->heredoc_fd);
+			safe_close(&cmd->heredoc_fd);
 			cmd->heredoc_fd = -1;
 		}
 		close_parent_fds(cmd, &ctx->prev_fd, ctx->fds);

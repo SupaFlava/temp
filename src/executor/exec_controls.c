@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   exec_controls.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/24 12:20:51 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/07/07 17:22:58 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   exec_controls.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/07/07 17:39:23 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	restore_stdio(int in, int out)
 {
 	dup2(in, STDIN_FILENO);
 	dup2(out, STDOUT_FILENO);
-	close(in);
-	close(out);
+	safe_close(&in);
+	safe_close(&out);
 }
 
 static int	execute_single_builtin(t_command *cmd, t_mshell *shell)
@@ -42,7 +42,7 @@ static int	execute_single_builtin(t_command *cmd, t_mshell *shell)
 	restore_stdio(saved_stdin, saved_stdout);
 	if (cmd->is_heredoc && cmd->heredoc_fd != -1)
 	{
-		close(cmd->heredoc_fd);
+		safe_close(&cmd->heredoc_fd);
 		cmd->heredoc_fd = -1;
 	}
 	return (ret);
