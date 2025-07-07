@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 11:22:37 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/02 14:30:47 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   utils.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/06 11:22:37 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/07/07 17:26:43 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	close_parent_fds(t_command *cmd, int *prev_fd, int fds[2]);
 
 // args_utils.c
 int		count_args(char **args);
-int		is_numeric(char *arg);
+int		is_valid_numeric(char *str);
 
 // error.c
 void	print_err(char *prefix, char *arg, char *msg);

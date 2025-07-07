@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/07 14:43:26 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/07 17:04:44 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg)
 	char	**new_args;
 
 	i = 0;
-
+	if (!arg || arg[0] == '\0')
+		return (2);
 	while (command->args && command->args[i])
 		i++;
 	new_args = ft_malloc_s(shell, sizeof(char *) * (i + 2), MEM_TEMP);
@@ -79,7 +80,7 @@ void	process_input(t_mshell *shell)
 		return ;
 	if (shell->tokens)
 	{
-		// print_tokens(shell->tokens); //remove before handin
+		//print_tokens(shell->tokens); //remove before handin
 		shell->commands = parser(shell);
 		if (!shell->commands)
 			return ;

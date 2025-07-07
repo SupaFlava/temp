@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   memory.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 14:10:03 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/07 12:35:20 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   memory.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/05/06 14:10:03 by rmhazres      #+#    #+#                 */
+/*   Updated: 2025/07/07 17:26:34 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	debug_alloc_list(t_list *lst)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (lst)
 	{
 		ft_printf("ALLOC[%d] = %p\n", i++, lst->content);
@@ -85,7 +87,7 @@ void	*ft_malloc_s(t_mshell *shell, size_t size, t_mem_t type)
 
 void	free_env(t_env *env)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	while (env)
 	{
