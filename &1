@@ -1,0 +1,14 @@
+( ͡° ͜ʖ ͡°) -e \
+( ͡° ͜ʖ ͡°) echo hello\n\
+hello\n\
+( ͡° ͜ʖ ͡°) echo \/home/rmhazres\n\
+\/home/rmhazres\n\
+( ͡° ͜ʖ ͡°) export TEST=123\n\
+( ͡° ͜ʖ ͡°) echo \\n\
+\\n\
+( ͡° ͜ʖ ͡°) cd ..\n\
+( ͡° ͜ʖ ͡°) pwd\n\
+( ͡° ͜ʖ ͡°) ls | wc -l\n\
+( ͡° ͜ʖ ͡°) cat << EOF\nheredoc test\nEOF\n\
+Heredoc > exit
+Heredoc > ( ͡° ͜ʖ ͡°) exit

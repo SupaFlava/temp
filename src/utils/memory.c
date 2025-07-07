@@ -6,11 +6,21 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:10:03 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 12:15:02 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/07 12:35:20 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	debug_alloc_list(t_list *lst)
+{
+	int i = 0;
+	while (lst)
+	{
+		ft_printf("ALLOC[%d] = %p\n", i++, lst->content);
+		lst = lst->next;
+	}
+}
 
 void	free_arr(char **arr)
 {
@@ -46,6 +56,7 @@ void	ft_free(t_mshell *shell, t_mem_t type)
 	{
 		ft_lstclear(&shell->long_allocs, free);
 		shell->long_allocs = NULL;
+		shell->env_list = NULL;
 	}
 }
 
@@ -72,8 +83,18 @@ void	*ft_malloc_s(t_mshell *shell, size_t size, t_mem_t type)
 	return (ptr);
 }
 
-void	free_env(t_env *node)
+void	free_env(t_env *env)
 {
-	ft_printf("deleting %s \n", node->key);
-	(void)node;
+	t_env *tmp;
+
+	while (env)
+	{
+		tmp = env->next;
+		if (env->key)
+			free(env->key);
+		if (env->value)
+			free(env->value);
+		free(env);
+		env = tmp;
+	}
 }

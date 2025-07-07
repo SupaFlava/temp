@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser_utils.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/06 01:29:03 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 15:47:17 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/07/07 12:34:46 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,6 @@ char	*read_input(void)
 
 	line = readline("( ͡° ͜ʖ ͡°) ");
 	if (!line)
-	{
-		ft_printf("exiting minishell\n");
-		exit(0);
-	}
+		return (NULL);
 	return (line);
 }
