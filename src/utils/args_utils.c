@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/16 11:06:31 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/07/07 15:50:01 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/07 17:25:14 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	count_args(char **args)
 	return (i);
 }
 
-bool	is_valid_numeric(char *str)
+int	is_valid_numeric(char *str)
 {
 	int	i;
 

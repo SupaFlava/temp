@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/02 16:01:39 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/07 17:14:57 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/07 17:19:27 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	add_new_arg(t_mshell *shell, t_command *cmd, t_parser *p, char *content)
 		return (0);
 	if (result == 2)
 		return (1);
-
 	p->last_arg = count_args(cmd->args) - 1;
 	return (1);
 }

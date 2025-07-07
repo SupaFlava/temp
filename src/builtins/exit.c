@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 16:38:28 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/07/07 16:50:19 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/07 17:21:08 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	is_digits_only(const char *str)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (!str || !str[0])
 		return (0);
 	while (str[i])
@@ -35,10 +36,9 @@ int	parse_signed_exit_status(t_mshell *shell, char **args)
 		{
 			if (!is_digits_only(args[2]))
 			{
-				print_err("minishell: exit", args[2], "numeric argument required");
+				print_err("minishell: ", args[2], "numeric argument required");
 				exit_shell(shell, 2, true);
 			}
-
 			if (ft_strcmp(args[1], "-") == 0)
 				return (-ft_atoi(args[2]));
 			else
@@ -51,8 +51,6 @@ int	parse_signed_exit_status(t_mshell *shell, char **args)
 int	builtin_exit(t_mshell *shell, char **args)
 {
 	int	status;
-
-	status = 0;
 
 	status = parse_signed_exit_status(shell, args);
 	if (count_args(args) > 2 && is_valid_numeric(args[1]))
