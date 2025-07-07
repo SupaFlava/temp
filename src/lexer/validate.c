@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   validate.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/02 13:18:49 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/07/07 16:56:03 by rmhazres         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   validate.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/07/02 13:18:49 by jbaetsen      #+#    #+#                 */
+/*   Updated: 2025/07/07 22:04:30 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ int	finalize_tokens(t_mshell *shell, t_lexer *l)
 		{
 			if (append_char_to_buffer(shell, l, '$') == LEXER_ERROR)
 				return (0);
-		}
-		if (l->state == LEXER_QUOTED_ENV)
-			l->state = LEXER_DQUOTE;
-		else if (!is_valid_env(l->buffer))
 			l->state = LEXER_DEFAULT;
+		}
 	}
 	if (l->buffer)
 	{
