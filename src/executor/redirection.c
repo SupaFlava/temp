@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 18:15:06 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/02 13:25:02 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/07 14:09:17 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int	redir_input(t_command *cmd)
 			if (dup2(fd, STDIN_FILENO) == -1)
 			{
 				perror("dup2");
-				close(fd);
+				safe_close(&fd);
 				return (-1);
 			}
 		}
-		close(fd);
+		safe_close(&fd);
 		node = node->next;
 	}
 	return (0);
@@ -59,9 +59,9 @@ int	redir_out(t_command *cmd)
 		if (!node->next)
 		{
 			if (dup2(fd, STDOUT_FILENO) == -1)
-				return (perror("dup2"), close(fd), -1);
+				return (perror("dup2"), safe_close(&fd), -1);
 		}
-		close(fd);
+		safe_close(&fd);
 		node = node->next;
 	}
 	return (0);

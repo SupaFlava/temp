@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/07/07 12:34:46 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:29:23 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_env	*expand_env(t_mshell *shell, char *key)
 		expanded->key = ft_strdup_s(shell, key, MEM_LONG);
 		expanded->value = ft_strdup_s(shell, "", MEM_LONG);
 		expanded->next = NULL;
+		printf("exend  key is %s\n", expanded->key);
+		printf("exend  valiue is %s\n", expanded->value);
 	}
 	return (expanded);
 }

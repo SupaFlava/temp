@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:22:37 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/02 14:30:47 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/07 14:08:02 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int		ft_strcmp(const char *str1, const char *str2);
 char	*ft_substr_s(t_mshell *shell, char const *s, unsigned b, size_t len);
 char	*ft_itoa_s(t_mshell *shell, int n, t_mem_t type);
 char	*ft_strjoin_s(char const *s1, char const *s2, t_mshell *sh, t_mem_t t);
-
 void	exit_shell(t_mshell *shell, int exit_code, bool long_clean);
 
 // fds.c
+void	safe_close(int *fd);
 void	close_fds(int fd1, int fd2, int fd3);
 void	close_parent_fds(t_command *cmd, int *prev_fd, int fds[2]);
 

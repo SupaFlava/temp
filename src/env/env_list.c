@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:20:30 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 16:22:38 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:35:36 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ int	init_env(t_mshell *shell, char **envp)
 			return (EXIT_FAILURE);
 		key = ft_substr_s(shell, *envp, 0, equal - *envp);
 		value = ft_strdup_s(shell, equal + 1, MEM_LONG);
-		env_add(shell, key, value);
+		if (!key || !value)
+			return (EXIT_FAILURE);
+		if (env_add(shell, key, value) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 		envp++;
 	}
 	return (0);

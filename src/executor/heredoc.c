@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:09:41 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/02 13:12:25 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/07 14:09:08 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ int	handle_heredoc(t_command *cmd, const char *filename)
 		ft_putstr_fd("\n", fd);
 		free(line);
 	}
-	close(fd);
+	safe_close(&fd);
 	return (0);
 }
