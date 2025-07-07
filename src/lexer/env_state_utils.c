@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 17:00:07 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/06 01:24:22 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/07 22:43:26 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	is_valid_env(char *buffer)
 	int	i;
 
 	i = 0;
+	if (!ft_isalpha(buffer[0]) && buffer[0] != '_')
+		return (0);
 	while (buffer[i])
 	{
 		if (!ft_isalnum(buffer[i]) && buffer[i] != '_')
