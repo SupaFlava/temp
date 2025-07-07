@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:23:04 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/07 17:39:38 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:34:33 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ static int	run_search_exec(t_command *cmd, t_env *envl, char **envp)
 	if (stat(cmd->args[0], &st) == 0 && S_ISDIR(st.st_mode))
 	{
 		print_err("minishell", cmd->args[0], "Is a directory");
-		return (126);
+		exit (126);
 	}
 	execve(path, cmd->args, envp);
-	free(path);
 	print_err("minishell", path, strerror(errno));
+	free(path);
 	exit (EXIT_FAILURE);
 }
 
