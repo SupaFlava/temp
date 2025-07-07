@@ -15,6 +15,7 @@ Thumbs.db
 *~
 .vscode/
 .idea/
+/minishell_tester/
 # === Shell history or testing ===
 .history
 .env

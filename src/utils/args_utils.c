@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/16 11:06:31 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/06/29 22:08:23 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/07 17:25:14 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,21 @@ int	count_args(char **args)
 	return (i);
 }
 
-int	is_numeric(char *arg)
+int	is_valid_numeric(char *str)
 {
-	long long	i;
+	int	i;
 
 	i = 0;
-	while (arg[i])
+	if (!str || !str[0])
+		return (0);
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
 	{
-		if (!ft_isdigit(arg[i]))
-		{
+		if (str[i] < '0' || str[i] > '9')
 			return (0);
-		}
 		i++;
 	}
 	return (1);

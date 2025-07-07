@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:20:51 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/07 14:21:53 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:39:23 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ int	execute_cmd(t_mshell *shell)
 	if (!cmd || !cmd->args || !cmd->args[0])
 		return (0);
 	if (is_single_builtin(cmd, &ctx))
-		return (execute_single_builtin(cmd, shell));
+	{
+		shell->exit_status = execute_single_builtin(cmd, shell);
+		return (shell->exit_status);
+	}
 	return (execute_pipeline(cmd, shell, &ctx));
 }
