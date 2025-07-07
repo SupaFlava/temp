@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/19 19:08:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/06 01:10:44 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/07 16:55:10 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,6 @@ int	process_line_loop(t_mshell *shell, t_lexer *l)
 			return (0);
 		l->index++;
 	}
-	if (!validate_tokens(l))
-	{
-		print_err("minishell", "syntax error: unexpected end after", "'|'");
-		return (0);
-	}
 	return (1);
 }
 
@@ -76,5 +71,10 @@ t_token	*lexer(t_mshell *shell)
 		return (NULL);
 	if (!finalize_tokens(shell, l))
 		return (NULL);
+	if (!validate_tokens(l))
+	{
+		print_err("minishell", "syntax error: unexpected end after", "'|'");
+		return (NULL);
+	}
 	return (l->tokens);
 }

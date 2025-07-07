@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/02 16:01:39 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/06 00:42:37 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/07 17:14:57 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,14 @@ int	concat_last_arg(t_mshell *shell, t_command *cmd, t_parser *p, char *content)
 
 int	add_new_arg(t_mshell *shell, t_command *cmd, t_parser *p, char *content)
 {
-	if (!add_arg_to_cmd(shell, cmd, content))
+	int	result;
+
+	result = add_arg_to_cmd(shell, cmd, content);
+	if (result == 0)
 		return (0);
+	if (result == 2)
+		return (1);
+
 	p->last_arg = count_args(cmd->args) - 1;
 	return (1);
 }
@@ -38,6 +44,7 @@ int	add_or_concat_arg(t_mshell *shell, t_parser *p)
 	t_token		*tok;
 	char		*content;
 	int			current_quote_id;
+	int			res;
 
 	cmd = p->current_cmd;
 	tok = p->current_token;
@@ -47,9 +54,8 @@ int	add_or_concat_arg(t_mshell *shell, t_parser *p)
 	current_quote_id = tok->quote_id;
 	if (current_quote_id != -1 && current_quote_id == p->last_quote_id)
 		return (concat_last_arg(shell, cmd, p, content));
-	else
-	{
+	res = add_new_arg(shell, cmd, p, content);
+	if (res == 1 && content && content[0] != '\0')
 		p->last_quote_id = current_quote_id;
-		return (add_new_arg(shell, cmd, p, content));
-	}
+	return (res);
 }
