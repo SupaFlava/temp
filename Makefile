@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: rmhazres <rmhazres@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2025/05/01 14:17:31 by jbaetsen      #+#    #+#                  #
-#    Updated: 2025/07/02 16:26:28 by jbaetsen      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/01 14:17:31 by jbaetsen          #+#    #+#              #
+#    Updated: 2025/07/08 12:44:25 by rmhazres         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ LIBFT = ./libraries/libft.a
 #        Sources        #
 # ===================== #
 SRC_MAIN = 		$(SRC_DIR)/main.c \
-				$(SRC_DIR)/temp.c
 
 SRC_SIGNALS =	$(SRC_DIR)/signals/signals.c \
 				$(SRC_DIR)/signals/heredoc_signals.c

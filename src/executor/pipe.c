@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 11:21:26 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/07 17:39:44 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:26:29 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	execute_pipeline(t_command *cmd, t_mshell *shell, t_exec_ctx *ctx)
 			return (print_err("minishell", NULL, "many child processes"), 1);
 		pid = run_child(cmd, ctx, shell);
 		if (pid < 0)
-			return (1);
+			return (EXIT_FAILURE);
 		ctx->child_pids[ctx->child_count++] = pid;
 		if (cmd->is_heredoc && cmd->heredoc_fd != -1)
 		{

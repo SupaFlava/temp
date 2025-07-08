@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser_utils.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/02 15:47:17 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/08 11:32:42 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 15:47:17 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/07/08 12:51:12 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_env	*expand_env(t_mshell *shell, char *key)
 		if (!expanded->key)
 			return (NULL);
 		expanded->value = ft_strdup_s(shell, "", MEM_LONG);
-		if (!expanded->value)
+		if (!expanded->key || !expanded->value)
 			return (NULL);
 		expanded->next = NULL;
 	}
@@ -84,12 +84,9 @@ void	process_input(t_mshell *shell)
 		return ;
 	if (shell->tokens)
 	{
-		// print_tokens(shell->tokens); //remove before handin
 		shell->commands = parser(shell);
 		if (!shell->commands)
 			return ;
-		// else
-		// 	print_command(shell->commands); //remove before handin
 	}
 }
 
@@ -97,7 +94,7 @@ char	*read_input(void)
 {
 	char	*line;
 
-	line = readline("( ͡° ͜ʖ ͡°) ");
+	line = readline(" 🡆 ");
 	if (!line)
 		return (NULL);
 	return (line);

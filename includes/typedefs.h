@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:25:12 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/07 16:37:01 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/08 10:28:02 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct s_mshell
 	t_token				*tokens;
 	t_command			*commands;
 	char				*line;
+	bool				should_exit;
 	int					exit_status;
 }	t_mshell;
 

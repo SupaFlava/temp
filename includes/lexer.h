@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   lexer.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 12:42:53 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/06 00:28:46 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   lexer.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 12:42:53 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/07/08 12:49:37 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,5 @@ int			finalize_tokens(t_mshell *shell, t_lexer *l);
 void		start_new_quote_group(t_lexer *l);
 void		end_quote_group(t_lexer *l);
 int			get_quote_id(t_lexer *l);
-
-//TEMP!!!!!
-void		print_command(t_command *cmd);
 
 #endif /*LEXER_H*/

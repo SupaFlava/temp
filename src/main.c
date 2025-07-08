@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/01 14:23:28 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/07 17:25:20 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/01 14:23:28 by jbaetsen          #+#    #+#             */
+/*   Updated: 2025/07/08 12:44:55 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ int	main(int argc, char **argv, char **envp)
 			exit_shell(&shell, shell.exit_status, true);
 		check_global(&shell);
 		if (shell.line && *shell.line)
+		{
 			run_shell(&shell);
+			if (shell.should_exit)
+				exit_shell(&shell, shell.exit_status, true);
+		}
 		ft_free(&shell, MEM_TEMP);
 	}
 	rl_clear_history();
