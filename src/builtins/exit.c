@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   exit.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/08 16:38:28 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/07/07 17:21:08 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/08 16:38:28 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/07/08 12:41:20 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,13 @@ int	builtin_exit(t_mshell *shell, char **args)
 		{
 			print_err("minishell: exit", args[1], "numeric argument required");
 			status = 2;
-			exit_shell(shell, status, true);
+			shell->should_exit = true;
+			return (status);
 		}
 		else
 			status = ft_atoi(args[1]) & 0xFF;
 	}
-	exit_shell(shell, (int)(unsigned)(status), true);
+	shell->exit_status = status;
+	shell->should_exit = true;
 	return (status);
 }

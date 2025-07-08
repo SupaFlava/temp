@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:06:16 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/06/30 12:12:12 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/08 10:29:13 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	shell_init(t_mshell *shell)
 	shell->tokens = NULL;
 	shell->commands = NULL;
 	shell->exit_status = 0;
+	shell->should_exit = false;
 }
 
 void	init_context(t_exec_ctx *ctx)
