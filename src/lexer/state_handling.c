@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/06 12:27:39 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/07 23:01:31 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ t_lexstate	default_state(t_mshell *shell, t_lexer *l, char c)
 	if (c == ' ' || c == '\t')
 		return (add_token(shell, l, TOK_WORD));
 	else if (c == '\'')
-		return (flush_set_state(shell, l, LEXER_SQUOTE));
+		return (LEXER_SQUOTE);
 	else if (c == '\"')
-		return (flush_set_state(shell, l, LEXER_DQUOTE));
+	{
+		start_new_quote_group(l);
+		return (LEXER_DQUOTE);
+	}
 	else if (c == '|')
 		return (flush_set_buf(shell, l, "|", TOK_PIPE));
 	else if (c == '<')
@@ -38,10 +41,7 @@ t_lexstate	s_quote_state(t_mshell *shell, t_lexer *l, char c)
 	if (c == '\'')
 	{
 		if (l->input[l->index + 1] == '\'')
-		{
-			l->index++;
-			return (LEXER_SQUOTE);
-		}
+			return (LEXER_DEFAULT);
 		l->state = LEXER_DEFAULT;
 		return (add_token (shell, l, TOK_QUOTED));
 	}
@@ -57,12 +57,14 @@ t_lexstate	d_quote_state(t_mshell *shell, t_lexer *l, char c)
 			l->index++;
 			return (LEXER_DQUOTE);
 		}
+		else if (l->input[l->index + 1] != ' ')
+			return (LEXER_DEFAULT);
 		if (l->buffer && add_token(shell, l, TOK_QUOTED) == LEXER_ERROR)
 			return (LEXER_ERROR);
 		end_quote_group(l);
 		return (LEXER_DEFAULT);
 	}
-	else if (c == '$')
+	else if (c == '$' && l->input[l->index + 1] != ' ')
 	{
 		if (l->buffer && add_token(shell, l, TOK_QUOTED) == LEXER_ERROR)
 			return (LEXER_ERROR);

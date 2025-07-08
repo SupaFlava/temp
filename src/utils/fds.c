@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:40:06 by rmhazres          #+#    #+#             */
-/*   Updated: 2025/07/07 18:49:35 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/08 10:05:12 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,3 @@ void	close_parent_fds(t_command *cmd, int *prev_fd, int fds[2])
 		*prev_fd = fds[0];
 	}
 }
-
-
