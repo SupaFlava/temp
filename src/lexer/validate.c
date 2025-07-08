@@ -6,11 +6,28 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/02 13:18:49 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/07 22:04:30 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/08 12:33:37 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+int	handle_env_state(t_mshell *shell, t_lexer *l)
+{
+	if (!l->buffer || !is_valid_env(l->buffer))
+	{
+		if (append_char_to_buffer(shell, l, '$') == LEXER_ERROR)
+			return (0);
+	}
+	else if (l->input[l->index] == '\0' && l->input[l->index - 1] == '$')
+	{
+		if (append_char_to_buffer(shell, l, '$') == LEXER_ERROR)
+			return (0);
+	}
+	if (!is_valid_env(l->buffer))
+		l->state = LEXER_DEFAULT;
+	return (1);
+}
 
 int	finalize_tokens(t_mshell *shell, t_lexer *l)
 {
@@ -21,12 +38,8 @@ int	finalize_tokens(t_mshell *shell, t_lexer *l)
 		return (0);
 	if (l->state == LEXER_ENV)
 	{
-		if (!l->buffer || !is_valid_env(l->buffer))
-		{
-			if (append_char_to_buffer(shell, l, '$') == LEXER_ERROR)
-				return (0);
-			l->state = LEXER_DEFAULT;
-		}
+		if (!handle_env_state(shell, l))
+			return (0);
 	}
 	if (l->buffer)
 	{

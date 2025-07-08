@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 12:59:46 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/07 23:01:31 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/08 12:24:56 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_lexstate	default_state(t_mshell *shell, t_lexer *l, char c)
 		return (handle_redir_out(shell, l));
 	else if (c == '=' && l->buffer)
 		return (handle_assign_state(shell, l, c));
-	else if (c == '$' )
+	else if (c == '$')
 		return (LEXER_ENV);
 	return (append_char_to_buffer(shell, l, c));
 }
@@ -79,6 +79,14 @@ t_lexstate	env_state(t_mshell *shell, t_lexer *l, char c)
 		return (handle_exit_status(shell, l));
 	if (!ft_isalnum(c) && c != '_')
 		return (handle_invalid_env(shell, l, c));
+	if (!l->buffer && !ft_isalpha(c) && c != '_')
+	{
+		if (append_char_to_buffer(shell, l, '$') == LEXER_ERROR)
+			return (LEXER_ERROR);
+		if (append_char_to_buffer(shell, l, c) == LEXER_ERROR)
+			return (LEXER_ERROR);
+		return (LEXER_DEFAULT);
+	}
 	if (l->buffer && !is_valid_env(l->buffer))
 	{
 		if (add_token(shell, l, TOK_WORD) == LEXER_ERROR)
