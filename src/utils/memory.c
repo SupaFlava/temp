@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   memory.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rmhazres <rmhazres@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/06 14:10:03 by rmhazres      #+#    #+#                 */
-/*   Updated: 2025/07/07 17:26:34 by jbaetsen      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   memory.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/06 14:10:03 by rmhazres          #+#    #+#             */
+/*   Updated: 2025/07/08 12:59:16 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	debug_alloc_list(t_list *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst)
-	{
-		ft_printf("ALLOC[%d] = %p\n", i++, lst->content);
-		lst = lst->next;
-	}
-}
 
 void	free_arr(char **arr)
 {
