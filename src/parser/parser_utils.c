@@ -6,7 +6,7 @@
 /*   By: rmhazres <rmhazres@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:47:17 by jbaetsen          #+#    #+#             */
-/*   Updated: 2025/07/08 12:33:16 by rmhazres         ###   ########.fr       */
+/*   Updated: 2025/07/08 12:51:12 by rmhazres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_env	*expand_env(t_mshell *shell, char *key)
 		if (!expanded)
 			return (NULL);
 		expanded->key = ft_strdup_s(shell, key, MEM_LONG);
+		if (!expanded->key)
+			return (NULL);
 		expanded->value = ft_strdup_s(shell, "", MEM_LONG);
 		if (!expanded->key || !expanded->value)
 			return (NULL);
@@ -56,7 +58,7 @@ int	add_arg_to_cmd(t_mshell *shell, t_command *command, char *arg)
 	char	**new_args;
 
 	i = 0;
-	if (!arg || arg[0] == '\0')
+	if ((!arg || arg[0] == '\0'))
 		return (2);
 	while (command->args && command->args[i])
 		i++;
