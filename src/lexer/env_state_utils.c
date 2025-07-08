@@ -6,7 +6,7 @@
 /*   By: jbaetsen <jbaetsen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 17:00:07 by jbaetsen      #+#    #+#                 */
-/*   Updated: 2025/07/07 22:43:26 by jbaetsen      ########   odam.nl         */
+/*   Updated: 2025/07/08 12:42:42 by jbaetsen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_lexstate	handle_invalid_env(t_mshell *shell, t_lexer *l, char c)
 {
 	if (!l->buffer)
 		return (handle_empty_buffer_env(shell, l, c));
-	if (c == '$' && !is_valid_env(l->buffer))
+	if (c == '$' || l->input[l->index - 1] == '$')
 		return (append_char_to_buffer(shell, l, c));
 	if (is_valid_env(l->buffer))
 	{
